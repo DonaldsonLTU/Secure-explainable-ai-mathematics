@@ -1,0 +1,24 @@
+<!-- I’m creating a clean dashboard page using a template (MVC separation) -->
+<!doctype html>
+<html>
+<head>
+  <title>Dashboard</title>
+</head>
+<body>
+  <!-- I’m showing who is logged in -->
+  <h1>Dashboard</h1>
+  <p>Welcome, {{ user }} ({{ role }})</p>
+
+  <!-- I’m showing different headings based on role using safe templating -->
+  {% if role == "teacher" %}
+    <h2>Teacher Dashboard</h2>
+    <p>You can manage questions and users.</p>
+  {% else %}
+    <h2>Student Dashboard</h2>
+    <p>You can practise questions and check answers.</p>
+  {% endif %}
+
+  <!-- I’m adding a logout link -->
+  <p><a href="{{ url_for('logout') }}">Logout</a></p>
+</body>
+</html>

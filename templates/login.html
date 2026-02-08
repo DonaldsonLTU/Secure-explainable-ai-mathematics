@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+
+    <!-- I’m displaying the login page title -->
+    <h2>Secure Explainable AI Mathematics Login</h2>
+
+    <!-- I’m creating a secure login form using Flask-WTF -->
+    <form method="post">
+        <!-- I’m injecting the CSRF token to protect against CSRF attacks -->
+        {{ form.hidden_tag() }}
+
+        <!-- I’m rendering the username input field safely from the Flask form -->
+        <label>Username:</label><br>
+        {{ form.username }}<br><br>
+
+        <!-- I’m rendering the password input field safely from the Flask form -->
+        <label>Password:</label><br>
+        {{ form.password }}<br><br>
+
+        <!-- I’m rendering the submit button from the Flask form -->
+        {{ form.submit }}
+    </form>
+
+</body>
+</html>
