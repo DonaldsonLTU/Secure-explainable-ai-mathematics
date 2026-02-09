@@ -66,6 +66,40 @@ users = {
 }
 
 # -------------------------------------------------
+# ROUTE PROTECTION DECORATORS (SECURITY + RBAC)
+# -------------------------------------------------
+# I’m importing wraps so my decorators don’t break Flask routing
+from functools import wraps
+
+# I’m creating a decorator to ensure the user is logged in
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if "user" not in session:
+            abort(403)
+        return f(*args, **kwargs)
+    return decorated_function
+
+# I’m creating a decorator to restrict access to teachers only
+def teacher_only(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("role") != "teacher":
+            abort(403)
+        return f(*args, **kwargs)
+    return decorated_function
+
+# -------------------------------------------------
+# TEACHER-ONLY ROUTE (RBAC ENFORCEMENT)
+# -------------------------------------------------
+# I’m creating a route that only teachers are allowed to access
+@app.route("/teacher")
+@login_required
+@teacher_only
+def teacher_dashboard():
+    return "<h1>Teacher Area</h1><p>Only teachers can access this page.</p>"
+
+# -------------------------------------------------
 # LOGIN PAGE
 # -------------------------------------------------
 @app.route("/", methods=["GET", "POST"])
@@ -93,12 +127,10 @@ def login():
 # DASHBOARD (ROLE-BASED ACCESS)
 # -------------------------------------------------
 # I’m displaying the dashboard using a proper HTML template (MVC separation)
+# I’m protecting this route so only logged-in users can access it
 @app.route("/dashboard")
+@login_required
 def dashboard():
-    # I’m blocking access if the user is not logged in
-    if "user" not in session:
-        abort(403)
-
     # I’m passing session data safely into the template
     return render_template(
         "dashboard.html",
