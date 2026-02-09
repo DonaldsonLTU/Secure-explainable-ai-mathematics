@@ -147,6 +147,19 @@ def logout():
     return redirect(url_for("login"))
 
 # -------------------------------------------------
+# CUSTOM ERROR HANDLERS (SECURITY + UX)
+# -------------------------------------------------
+# I’m handling 403 errors to avoid leaking sensitive information
+@app.errorhandler(403)
+def forbidden(error):
+    return render_template("403.html"), 403
+
+# I’m handling 404 errors to provide a safe, user-friendly message
+@app.errorhandler(404)
+def not_found(error):
+    return render_template("404.html"), 404
+
+# -------------------------------------------------
 # RUN APPLICATION
 # -------------------------------------------------
 # I’m running the Flask development server
