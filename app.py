@@ -1,6 +1,9 @@
 # I’m importing Flask tools for routing, sessions, and redirects
 from flask import Flask, request, redirect, url_for, session, render_template, abort, render_template_string
 
+# I’m importing SQLAlchemy to manage the relational database
+from flask_sqlalchemy import SQLAlchemy
+
 # I’m importing Werkzeug tools for secure password hashing and checking
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -25,6 +28,29 @@ csrf = CSRFProtect(app)
 # I’m setting a secret key for secure session management
 # In production this would come from environment variables
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key")
+
+# -------------------------------------------------
+# SQLITE DATABASE CONFIGURATION (RELATIONAL DB)
+# -------------------------------------------------
+# I’m configuring a local SQLite database file for structured question storage
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///maths.db"
+
+# I’m disabling modification tracking to improve performance
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+# I’m creating the database object that connects Flask to SQLite
+db = SQLAlchemy(app)
+
+# -------------------------------------------------
+# QUESTION MODEL (DATABASE TABLE STRUCTURE)
+# -------------------------------------------------
+# I’m defining the Question table structure for storing maths questions
+class Question(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    question_text = db.Column(db.Text, nullable=False)
+    topic = db.Column(db.String(100), nullable=False)
+    method = db.Column(db.String(200), nullable=False)
+    method_reason = db.Column(db.Text, nullable=False)
 
 # -------------------------------------------------
 # LOGIN FORM (FLASK-WTF + CSRF PROTECTION)
