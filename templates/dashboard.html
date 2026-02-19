@@ -1,24 +1,92 @@
-<!-- I’m creating a clean dashboard page using a template (MVC separation) -->
-<!doctype html>
+<!-- ===================================================== -->
+<!-- DASHBOARD TEMPLATE (ROLE-BASED VIEW CONTROL) -->
+<!-- This template dynamically adapts based on user role -->
+<!-- Designed for secure separation of student & teacher -->
+<!-- ===================================================== -->
+
+<!DOCTYPE html>
 <html>
 <head>
-  <title>Dashboard</title>
+    <title>Dashboard</title>
 </head>
 <body>
-  <!-- I’m showing who is logged in -->
-  <h1>Dashboard</h1>
-  <p>Welcome, {{ user }} ({{ role }})</p>
 
-  <!-- I’m showing different headings based on role using safe templating -->
-  {% if role == "teacher" %}
-    <h2>Teacher Dashboard</h2>
-    <p>You can manage questions and users.</p>
-  {% else %}
-    <h2>Student Dashboard</h2>
-    <p>You can practise questions and check answers.</p>
-  {% endif %}
+    <!-- I’m displaying a simple page heading -->
+    <h1>Dashboard</h1>
 
-  <!-- I’m adding a logout link -->
-  <p><a href="{{ url_for('logout') }}">Logout</a></p>
+    <!-- I’m showing who is logged in and their role -->
+    <!-- This confirms session data is working correctly -->
+    <p>Welcome {{ session.user }} ({{ role }})</p>
+
+    <hr>
+
+    <!-- ===================================================== -->
+    <!-- PRACTICE TOPICS SECTION (VISIBLE TO BOTH ROLES) -->
+    <!-- Students and teachers can both browse questions here -->
+    <!-- Questions are grouped dynamically by topic -->
+    <!-- ===================================================== -->
+
+    <h2>Practice Topics</h2>
+
+    {% for topic, topic_questions in topics.items() %}
+        <!-- I’m creating a visual box for each topic -->
+        <div style="border:1px solid black; padding:10px; margin:10px 0;">
+            
+            <!-- Topic name -->
+            <h3>{{ topic }}</h3>
+
+            <!-- Dropdown list of questions under this topic -->
+            <!-- This keeps the interface clean and organised -->
+            <select>
+                <option>Select a question</option>
+
+                {% for q in topic_questions %}
+                    <option>{{ q.question_text }}</option>
+                {% endfor %}
+
+            </select>
+        </div>
+    {% endfor %}
+
+
+    <!-- ===================================================== -->
+    <!-- TEACHER MANAGEMENT SECTION (ROLE-RESTRICTED VIEW) -->
+    <!-- Only teachers can see the full dataset table -->
+    <!-- This supports editing, reviewing, and dataset control -->
+    <!-- Students are intentionally restricted from this view -->
+    <!-- ===================================================== -->
+
+    {% if role == "teacher" %}
+
+        <hr>
+        <h2>Teacher Question Management</h2>
+
+        <!-- Full dataset table for administrative visibility -->
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>ID</th>
+                <th>Question</th>
+                <th>Topic</th>
+                <th>Method</th>
+            </tr>
+
+            {% for q in questions %}
+            <tr>
+                <td>{{ q.id }}</td>
+                <td>{{ q.question_text }}</td>
+                <td>{{ q.topic }}</td>
+                <td>{{ q.method }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    {% endif %}
+
+
+    <!-- I’m providing a secure logout option -->
+    <br>
+    <a href="/logout">Logout</a>
+
 </body>
 </html>

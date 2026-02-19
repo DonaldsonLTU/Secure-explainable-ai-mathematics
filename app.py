@@ -52,6 +52,12 @@ class Question(db.Model):
     method = db.Column(db.String(200), nullable=False)
     method_reason = db.Column(db.Text, nullable=False)
 
+    # Simple test route to confirm database connection works
+@app.route("/test-db")
+def test_db():
+    questions = Question.query.all()
+    return f"Database connected. {len(questions)} questions found."
+
 # -------------------------------------------------
 # LOGIN FORM (FLASK-WTF + CSRF PROTECTION)
 # -------------------------------------------------
@@ -150,18 +156,32 @@ def login():
     return render_template("login.html", form=form)
 
 # -------------------------------------------------
-# DASHBOARD (ROLE-BASED ACCESS)
+# DASHBOARD ROUTE (ROLE-BASED QUESTION DISPLAY)
 # -------------------------------------------------
-# I’m displaying the dashboard using a proper HTML template (MVC separation)
-# I’m protecting this route so only logged-in users can access it
+
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    # I’m passing session data safely into the template
+    # I'm getting the logged-in user's role from the session
+    user_role = session.get("role")
+
+    # I'm loading all questions from the database
+    questions = Question.query.all()
+
+    # I'm grouping questions by topic so they can appear inside topic boxes
+    topics = {}
+
+    for q in questions:
+        if q.topic not in topics:
+            topics[q.topic] = []
+        topics[q.topic].append(q)
+
+    # I'm sending grouped topics + role to the template
     return render_template(
         "dashboard.html",
-        user=session["user"],
-        role=session["role"]
+        role=user_role,
+        topics=topics,
+        questions=questions  # full dataset (teacher only)
     )
 # -------------------------------------------------
 # LOGOUT
