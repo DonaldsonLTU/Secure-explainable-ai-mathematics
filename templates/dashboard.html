@@ -8,6 +8,16 @@
 <html>
 <head>
     <title>Dashboard</title>
+    <!-- I'm loading MathJax so mathematical expressions render properly -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    }
+  };
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
@@ -37,14 +47,49 @@
 
             <!-- Dropdown list of questions under this topic -->
             <!-- This keeps the interface clean and organised -->
-            <select>
-                <option>Select a question</option>
+            <!-- I'm giving each dropdown an onchange handler -->
+<select onchange="showQuestion(this)">
+    <option value="">Select a question</option>
 
-                {% for q in topic_questions %}
-                    <option>{{ q.question_text }}</option>
-                {% endfor %}
+    {% for q in topic_questions %}
+        <!-- I'm attaching method + reason as safe data attributes so JS can display explainability -->
+<option
+  value="{{ q.question_text|e }}"
+  data-method="{{ q.method|e }}"
+  data-reason="{{ q.method_reason|e }}"
+>
+  {{ q.question_text }}
+</option>
+    {% endfor %}
+</select>
 
-            </select>
+<!-- This is where the selected question will display properly -->
+<p class="selected-question" style="margin-top:10px; font-size:18px;"></p>
+<!-- I'm keeping the explainability output inside the same topic card so nothing collides -->
+<div class="explain-panel" style="margin-top:10px; padding:10px; border:1px solid #ddd;">
+  
+  <!-- I'm showing the recommended method clearly for GCSE-level learners -->
+  <p style="margin:0;"><strong>Recommended method:</strong> <span class="method-text">—</span></p>
+
+  <!-- I'm showing the reason (explainability) in simple terms -->
+  <p style="margin:8px 0 0 0;"><strong>Why this method?</strong> <span class="reason-text">—</span></p>
+
+  <!-- Toggle explanation button -->
+<button 
+  style="margin-top:10px;" 
+  onclick="toggleExplanation(this)"
+>
+  View Explanation
+</button>
+
+<!-- Explanation container (hidden initially) -->
+<div class="explanation-content" style="display:none; margin-top:10px; border-top:1px solid #ccc; padding-top:10px;">
+  
+  <div class="explanation-body">
+    <!-- inject structured explanation here -->
+  </div>
+
+</div>
         </div>
     {% endfor %}
 
@@ -87,6 +132,311 @@
     <!-- I’m providing a secure logout option -->
     <br>
     <a href="/logout">Logout</a>
+<script>
+  // I'm updating the question display so it also shows the recommended method + reason
+  // This keeps explainability clean, inside the same topic card the student is using
+  function showQuestion(selectEl) {
+    const card = selectEl.parentElement;
+
+    // I'm finding the display areas inside THIS topic card only (prevents collisions)
+    const questionDisplay = card.querySelector(".selected-question");
+    const methodDisplay = card.querySelector(".method-text");
+    const reasonDisplay = card.querySelector(".reason-text");
+
+    // I'm reading the selected option safely
+    const option = selectEl.options[selectEl.selectedIndex];
+    const chosenQuestion = option.value;
+
+    // If nothing selected, I reset the UI
+    if (!chosenQuestion) {
+      questionDisplay.textContent = "";
+      methodDisplay.textContent = "—";
+      reasonDisplay.textContent = "—";
+      const explanationBody = card.querySelector(".explanation-body");
+if (explanationBody) explanationBody.innerHTML = "";
+      return;
+    }
+
+    // I'm rendering the selected question using MathJax-friendly wrappers
+   // If it looks like a pure algebra expression (contains = or variable with power)
+if (chosenQuestion.includes("=") || chosenQuestion.match(/[a-zA-Z]\^/)) {
+  questionDisplay.innerHTML = `$${chosenQuestion}$`;
+  if (window.MathJax) {
+    MathJax.typesetPromise([questionDisplay]);
+  }
+} else {
+  questionDisplay.textContent = chosenQuestion;
+}
+
+    // I'm displaying the explainability fields from the database (method + method_reason)
+    methodDisplay.textContent = option.dataset.method || "—";
+    reasonDisplay.textContent = option.dataset.reason || "—";
+
+    const explanationBody = card.querySelector(".explanation-body");
+    const topicTitle = card.querySelector("h2, h3")?.textContent || "";
+
+if (topicTitle.includes("Quadratic")) {
+
+  // I'm now building a structured explanation specifically for quadratic equations
+  // This supports Style 1 (clear structure) and prepares for deeper breakdown later
+
+  explanationBody.innerHTML = `
+    <h4>Understanding the structure of a quadratic equation</h4>
+
+    <p>
+      A quadratic equation is written in the general form:
+    </p>
+
+    <p><strong>ax² + bx + c = 0</strong></p>
+
+    <p>
+      • <strong>ax²</strong> represents the quadratic term (the term containing x²) <br>
+      • <strong>bx</strong> represents the linear term (the term containing x) <br>
+      • <strong>c</strong> represents the constant term (a number without x)
+    </p>
+
+    <hr>
+
+    <h4>Applying this structure to the selected question</h4>
+
+    <p>
+      Identify each component inside the given equation.
+    </p>
+
+    <p>
+      Step 1: Identify the quadratic term (the term containing x²). <br>
+      Step 2: Identify the linear term (the term containing x). <br>
+      Step 3: Identify the constant term (the standalone number).
+    </p>
+
+    <hr>
+
+    <h4>Method Selection Logic</h4>
+
+    <p>
+      Based on how the equation is structured, we determine which solving method 
+      (factorisation, completing the square, or quadratic formula) is most appropriate.
+    </p>
+  `;
+
+}
+
+else if (topicTitle.includes("Simultaneous")) {
+
+  // I'm now building structured explanation for simultaneous equations
+  // This teaches elimination vs substitution logic clearly
+
+  explanationBody.innerHTML = `
+    <h4>Understanding Simultaneous Equations</h4>
+
+    <p>
+      Simultaneous equations involve two (or more) equations
+      that share the same unknown variables.
+    </p>
+
+    <p>
+      The goal is to find values that satisfy BOTH equations at the same time.
+    </p>
+
+    <hr>
+
+    <h4>Common Solving Methods</h4>
+
+    <p>
+      • <strong>Substitution Method</strong> – Make one variable the subject and substitute into the other equation. <br>
+      • <strong>Elimination Method</strong> – Add or subtract equations to remove one variable.
+    </p>
+
+    <hr>
+
+    <h4>Applying This to the Selected Question</h4>
+
+    <p>
+      Step 1: Identify both equations clearly. <br>
+      Step 2: Decide whether substitution or elimination is simpler. <br>
+      Step 3: Solve for one variable first. <br>
+      Step 4: Substitute back to find the second variable.
+    </p>
+
+    <hr>
+
+    <h4>Method Logic</h4>
+
+    <p>
+      The structure of the equations determines whether substitution
+      or elimination will be more efficient.
+    </p>
+  `;
+
+}
+
+else if (topicTitle.includes("Ratio")) {
+
+  // I'm now building structured explanation for ratio problems
+  // This teaches proportional reasoning clearly
+
+  explanationBody.innerHTML = `
+    <h4>Understanding Ratios</h4>
+
+    <p>
+      A ratio compares two or more quantities.
+    </p>
+
+    <p>
+      For example, a ratio of 2 : 3 means that for every 2 parts of the first quantity,
+      there are 3 parts of the second quantity.
+    </p>
+
+    <hr>
+
+    <h4>Solving Ratio Problems</h4>
+
+    <p>
+      Step 1: Add all parts of the ratio together. <br>
+      Step 2: Divide the total amount by the total number of parts. <br>
+      Step 3: Multiply by each ratio part to find each share.
+    </p>
+
+    <hr>
+
+    <h4>Method Logic</h4>
+
+    <p>
+      Ratio problems are solved by proportional distribution,
+      often using the unitary method or fraction method.
+    </p>
+  `;
+}
+
+else if (topicTitle.includes("Geometric")) {
+
+  // I'm now building structured explanation for Geometric Progression
+  // This teaches constant ratio growth clearly
+
+  explanationBody.innerHTML = `
+    <h4>Understanding Geometric Progression (GP)</h4>
+
+    <p>
+      A geometric progression is a sequence where each term is found
+      by multiplying the previous term by a constant value.
+    </p>
+
+    <p>
+      This constant value is called the <strong>common ratio (r)</strong>.
+    </p>
+
+    <hr>
+
+    <h4>General Formula</h4>
+
+    <p>
+      The nth term of a geometric sequence is given by:
+    </p>
+
+    <p><strong>a × r<sup>(n−1)</sup></strong></p>
+
+    <p>
+      • <strong>a</strong> = first term <br>
+      • <strong>r</strong> = common ratio <br>
+      • <strong>n</strong> = position of the term
+    </p>
+
+    <hr>
+
+    <h4>Applying This to the Selected Question</h4>
+
+    <p>
+      Step 1: Identify the first term. <br>
+      Step 2: Identify the common ratio (what each term is multiplied by). <br>
+      Step 3: Use repeated multiplication or the formula to find the required term.
+    </p>
+
+    <hr>
+
+    <h4>Method Logic</h4>
+
+    <p>
+      Geometric sequences increase or decrease by multiplication,
+      so we use either repeated multiplication or the nth term formula.
+    </p>
+  `;
+}
+
+else if (topicTitle.includes("Arithmetic")) {
+
+  // I'm now building structured explanation for Arithmetic Progression
+  // This teaches constant difference logic clearly
+
+  explanationBody.innerHTML = `
+    <h4>Understanding Arithmetic Progression (AP)</h4>
+
+    <p>
+      An arithmetic progression is a sequence where each term
+      increases or decreases by adding or subtracting the same fixed number.
+    </p>
+
+    <p>
+      This fixed amount is called the <strong>common difference (d)</strong>.
+    </p>
+
+    <hr>
+
+    <h4>General Formula</h4>
+
+    <p>
+      The nth term of an arithmetic sequence is given by:
+    </p>
+
+    <p><strong>a + (n − 1)d</strong></p>
+
+    <p>
+      • <strong>a</strong> = first term <br>
+      • <strong>d</strong> = common difference <br>
+      • <strong>n</strong> = position of the term
+    </p>
+
+    <hr>
+
+    <h4>Applying This to the Selected Question</h4>
+
+    <p>
+      Step 1: Identify the first term. <br>
+      Step 2: Identify the common difference (what is added or subtracted each time). <br>
+      Step 3: Use repeated addition or the nth term formula to find the required term.
+    </p>
+
+    <hr>
+
+    <h4>Method Logic</h4>
+
+    <p>
+      Arithmetic sequences change by addition or subtraction,
+      so we use repeated addition or the nth term formula.
+    </p>
+  `;
+}
+
+    // I'm telling MathJax to re-render only this card's question display
+    if (window.MathJax) {
+      MathJax.typesetPromise([questionDisplay]);
+    }
+  }
+
+  function toggleExplanation(button) {
+
+  const panel = button.parentElement;
+  const explanationBox = panel.querySelector(".explanation-content");
+
+  if (explanationBox.style.display === "none") {
+    explanationBox.style.display = "block";
+    button.textContent = "Hide Explanation";
+  } else {
+    explanationBox.style.display = "none";
+    button.textContent = "View Explanation";
+  }
+}
+
+</script>
 
 </body>
 </html>
