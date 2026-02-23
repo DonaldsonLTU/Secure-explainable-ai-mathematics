@@ -133,6 +133,121 @@
     <br>
     <a href="/logout">Logout</a>
 <script>
+
+  // # I'm extracting a, b, c from ANY quadratic like x^2-56=0, y^2+7y+10=0, 2x^2+9x=0 etc.
+function extractQuadraticCoeffs(equationRaw) {
+  const eq = (equationRaw || "")
+    .replace(/\s/g, "")
+    .replace(/²/g, "^2");
+
+  const [lhs] = eq.split("="); // I assume "=0" style for now (your questions are like that)
+
+  const varMatch = lhs.match(/[a-zA-Z]/);
+  const v = varMatch ? varMatch[0] : "x";
+
+  const terms = lhs.match(/[+-]?[^+-]+/g) || [];
+
+  let a = 0, b = 0, c = 0;
+
+  for (const t of terms) {
+    if (t.includes(`${v}^2`)) {
+      let coeff = t.replace(`${v}^2`, "");
+      if (coeff === "" || coeff === "+") coeff = "1";
+      if (coeff === "-") coeff = "-1";
+      a += Number(coeff);
+    } else if (t.includes(v)) {
+      let coeff = t.replace(v, "");
+      if (coeff === "" || coeff === "+") coeff = "1";
+      if (coeff === "-") coeff = "-1";
+      b += Number(coeff);
+    } else {
+      c += Number(t);
+    }
+  }
+
+  return { a, b, c, v };
+}
+
+  // -------------------------------------------------
+  // SIMULTANEOUS EQUATIONS HELPERS (MATHS LOGIC LAYER)
+  // -------------------------------------------------
+
+  // # I'm splitting a simultaneous-equations question into two equations safely (handles new lines and double spaces)
+  function splitSimultaneousEquations(raw) {
+    const text = (raw || "").trim();
+
+    // First try: split on new lines
+    const byLines = text.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+    if (byLines.length >= 2) return [byLines[0], byLines[1]];
+
+    // Second try: split on two+ spaces (common when copied)
+    const bySpaces = text.split(/\s{2,}/).map(s => s.trim()).filter(Boolean);
+    if (bySpaces.length >= 2) return [bySpaces[0], bySpaces[1]];
+
+    // Third try: split on comma/semicolon
+    const byPunc = text.split(/[;,]+/).map(s => s.trim()).filter(Boolean);
+    if (byPunc.length >= 2) return [byPunc[0], byPunc[1]];
+
+    return [text, ""]; // fallback
+  }
+
+  // # I'm extracting coefficients from a linear equation like 2x+3y=7 or x-y=1
+  function extractLinearCoeffs(equationRaw) {
+    const eq = (equationRaw || "").replace(/\s/g, "");
+
+    const [lhsRaw, rhsRaw] = eq.split("=");
+    const lhs = lhsRaw || "";
+    const rhs = rhsRaw || "";
+
+    // I assume x and y for GCSE simultaneous equations
+    const xMatch = lhs.match(/([+-]?\d*)x/);
+    const yMatch = lhs.match(/([+-]?\d*)y/);
+
+    let ax = 0;
+    let by = 0;
+
+    if (xMatch) {
+      let coeff = xMatch[1];
+      if (coeff === "" || coeff === "+") coeff = "1";
+      if (coeff === "-") coeff = "-1";
+      ax = Number(coeff);
+    }
+
+    if (yMatch) {
+      let coeff = yMatch[1];
+      if (coeff === "" || coeff === "+") coeff = "1";
+      if (coeff === "-") coeff = "-1";
+      by = Number(coeff);
+    }
+
+    // I treat RHS as the constant (c)
+    const c = Number(rhs);
+
+    return { ax, by, c };
+  }
+
+  // # I'm deciding whether substitution or elimination is simpler (computer logic, not student wording)
+  function chooseSimultaneousMethod(equation1, equation2) {
+    const e1 = extractLinearCoeffs(equation1);
+    const e2 = extractLinearCoeffs(equation2);
+
+    // If any coefficient is 1 or -1, substitution is often simpler (make that variable the subject)
+    const substitutionLikely =
+      Math.abs(e1.ax) === 1 || Math.abs(e1.by) === 1 ||
+      Math.abs(e2.ax) === 1 || Math.abs(e2.by) === 1;
+
+    // If coefficients already match (or are opposites), elimination is very direct
+    const eliminationVeryEasy =
+      (e1.ax !== 0 && e2.ax !== 0 && (Math.abs(e1.ax) === Math.abs(e2.ax))) ||
+      (e1.by !== 0 && e2.by !== 0 && (Math.abs(e1.by) === Math.abs(e2.by)));
+
+    if (eliminationVeryEasy) return "Elimination";
+    if (substitutionLikely) return "Substitution";
+
+    // Default to elimination (GCSE-friendly and consistent)
+    return "Elimination";
+  }
+
   // I'm updating the question display so it also shows the recommended method + reason
   // This keeps explainability clean, inside the same topic card the student is using
   function showQuestion(selectEl) {
@@ -168,7 +283,11 @@ if (chosenQuestion.includes("=") || chosenQuestion.match(/[a-zA-Z]\^/)) {
   questionDisplay.textContent = chosenQuestion;
 }
 
-    // I'm displaying the explainability fields from the database (method + method_reason)
+    // -------------------------------------------------
+    // DEFAULT EXPLAINABILITY (WORKS FOR ALL TOPICS)
+    // -------------------------------------------------
+    // # I'm setting a safe default method + reason from the database for every topic
+    // # (Quadratic will override this with maths logic)
     methodDisplay.textContent = option.dataset.method || "—";
     reasonDisplay.textContent = option.dataset.reason || "—";
 
@@ -176,6 +295,61 @@ if (chosenQuestion.includes("=") || chosenQuestion.match(/[a-zA-Z]\^/)) {
     const topicTitle = card.querySelector("h2, h3")?.textContent || "";
 
 if (topicTitle.includes("Quadratic")) {
+
+// # I'm pulling out a, b, c so the explanation matches THIS specific equation
+const { a, b, c, v } = extractQuadraticCoeffs(chosenQuestion);
+
+// # I'm calculating the discriminant to decide the best solving method
+const D = (b * b) - (4 * a * c);
+
+// # I'm checking if a number is a perfect square (e.g., 0, 1, 4, 9, 16, 25...)
+function isPerfectSquare(n) {
+  if (!Number.isInteger(n) || n < 0) return false;
+  const root = Math.sqrt(n);
+  return Number.isInteger(root);
+}
+
+// # I'm deciding if factorisation is likely (this is "computer logic", not student wording)
+const factorisationLikely = (D >= 0) && isPerfectSquare(D);
+
+// # I'm preparing GCSE-friendly wording for students (simple + clear)
+let factorisationStudentText = "";
+if (factorisationLikely) {
+  factorisationStudentText =
+    "Factorisation works when you can find two numbers that multiply to produce the last number (constant term) and also add to produce the middle number (linear term).";
+} else {
+  factorisationStudentText =
+    "If there are no two whole numbers that multiply to give the last number(constant term) and add to give the middle number(linear term), then factorisation is not ideal for this problem, so we use completing the square or the quadratic formula instead.";
+}
+
+// # I'm keeping the other methods as reliable backups (simple wording)
+const generalMethodsStudentText =
+  "Completing the square and the quadratic formula are general methods that usually work cleanly even when numbers are a bit complex (decimals/fractions), so they’re always reliable.";
+
+// # I'm choosing the recommended method dynamically using maths logic
+let recommendedMethod = "";
+
+if (factorisationLikely) {
+  recommendedMethod = "Factorisation";
+} else {
+  recommendedMethod = "Completing the Square or Quadratic Formula";
+}
+
+// # I'm displaying the recommended method clearly at the top
+methodDisplay.textContent = recommendedMethod;
+
+// # I'm giving a specific reason for THIS equation
+let specificReason = "";
+
+if (factorisationLikely) {
+  specificReason =
+    "Factorisation works when you can find two numbers that multiply to produce the last number (constant term) and also add to produce the middle number (linear term), and in this case you can get those numbers and factorise the equation.";
+} else {
+  specificReason =
+    "In this case, we cannot easily find two whole numbers that multiply to give the last number and add to give the middle number, so factorisation is not ideal here. We apply completing the square or the quadratic formula instead.";
+}
+
+reasonDisplay.textContent = specificReason;
 
   // I'm now building a structured explanation specifically for quadratic equations
   // This supports Style 1 (clear structure) and prepares for deeper breakdown later
@@ -187,13 +361,27 @@ if (topicTitle.includes("Quadratic")) {
       A quadratic equation is written in the general form:
     </p>
 
-    <p><strong>ax² + bx + c = 0</strong></p>
+    <p><strong>\\(a${v}^2 + b${v} + c = 0\\)</strong></p>
 
     <p>
       • <strong>ax²</strong> represents the quadratic term (the term containing x²) <br>
       • <strong>bx</strong> represents the linear term (the term containing x) <br>
       • <strong>c</strong> represents the constant term (a number without x)
     </p>
+
+<hr>
+
+<h4>Identifying Components in This Equation</h4>
+
+<p>
+<strong>\\(${chosenQuestion.replace(/²/g,"^2")}\\)</strong>
+</p>
+
+<p>
+• a = ${a} <br>
+• b = ${b} <br>
+• c = ${c}
+</p>
 
     <hr>
 
@@ -213,15 +401,42 @@ if (topicTitle.includes("Quadratic")) {
 
     <h4>Method Selection Logic</h4>
 
-    <p>
-      Based on how the equation is structured, we determine which solving method 
-      (factorisation, completing the square, or quadratic formula) is most appropriate.
-    </p>
+<p>
+  • ${factorisationStudentText}<br>
+  • ${generalMethodsStudentText}
+</p>
   `;
+
+  // # I'm rendering maths properly
+if (window.MathJax) {
+  MathJax.typesetPromise([explanationBody]);
+}
 
 }
 
 else if (topicTitle.includes("Simultaneous")) {
+
+  // -------------------------------------------------
+  // SIMULTANEOUS EQUATIONS (MATHS LOGIC + GCSE WORDING)
+  // -------------------------------------------------
+
+  // # I'm splitting the question into two equations so my explanation matches THIS exact question
+  const [eq1, eq2] = splitSimultaneousEquations(chosenQuestion);
+
+  // # I'm choosing a method using simple computer logic
+  const recommended = chooseSimultaneousMethod(eq1, eq2);
+
+  // # I'm displaying the recommended method at the top
+  methodDisplay.textContent = recommended;
+
+  // # I'm giving a GCSE-friendly specific reason (simple + clear)
+  if (recommended === "Substitution") {
+    reasonDisplay.textContent =
+      "Substitution is a good choice here because one of the equations is easier to rearrange (make one variable the subject), then you can substitute it into the other equation.";
+  } else {
+    reasonDisplay.textContent =
+      "Elimination is a good choice here because we can add or subtract the two equations to remove one variable, which makes the solving steps more direct.";
+  }
 
   // I'm now building structured explanation for simultaneous equations
   // This teaches elimination vs substitution logic clearly
@@ -230,8 +445,7 @@ else if (topicTitle.includes("Simultaneous")) {
     <h4>Understanding Simultaneous Equations</h4>
 
     <p>
-      Simultaneous equations involve two (or more) equations
-      that share the same unknown variables.
+      Simultaneous equations are two equations that share the same variables (usually x and y).
     </p>
 
     <p>
@@ -240,37 +454,60 @@ else if (topicTitle.includes("Simultaneous")) {
 
     <hr>
 
-    <h4>Common Solving Methods</h4>
-
-    <p>
-      • <strong>Substitution Method</strong> – Make one variable the subject and substitute into the other equation. <br>
-      • <strong>Elimination Method</strong> – Add or subtract equations to remove one variable.
-    </p>
-
-    <hr>
-
     <h4>Applying This to the Selected Question</h4>
 
+    <p><strong>Equation 1:</strong> \\(${(eq1 || "").replace(/²/g,"^2")}\\)</p>
+<p><strong>Equation 2:</strong> \\(${(eq2 || "").replace(/²/g,"^2")}\\)</p>
+
+    <hr>
+
+    <h4>Recommended Method</h4>
+
     <p>
-      Step 1: Identify both equations clearly. <br>
-      Step 2: Decide whether substitution or elimination is simpler. <br>
-      Step 3: Solve for one variable first. <br>
-      Step 4: Substitute back to find the second variable.
+      <strong>${recommended}</strong>
     </p>
 
     <hr>
 
-    <h4>Method Logic</h4>
+    <h4>Step-by-step Approach (Guidance)</h4>
 
     <p>
-      The structure of the equations determines whether substitution
-      or elimination will be more efficient.
+      Step 1: Write both equations clearly. <br>
+      Step 2: Choose substitution or elimination based on which looks simpler. <br>
+      Step 3: Solve for one variable first. <br>
+      Step 4: Substitute back to find the second variable. <br>
+      Step 5: Check your answers in BOTH equations.
+    </p>
+
+    <hr>
+
+    <h4>Method Selection Logic</h4>
+
+    <p>
+      • <strong>Substitution</strong> is usually best when one variable is easy to isolate (make the subject). <br>
+      • <strong>Elimination</strong> is usually best when you can cancel a variable by adding or subtracting the equations.
     </p>
   `;
+
+  // # I'm rendering maths in the explanation so equations display neatly
+  if (window.MathJax) {
+    MathJax.typesetPromise([explanationBody]);
+  }
 
 }
 
 else if (topicTitle.includes("Ratio")) {
+
+  // -------------------------------------------------
+  // RATIO (GCSE WORDING + CLEAR STRUCTURE)
+  // -------------------------------------------------
+
+  // # I'm setting a simple default recommendation for ratio problems (unitary method is very clear for GCSE)
+  methodDisplay.textContent = "Unitary Method (1 part method)";
+
+  // # I'm giving a specific reason in simple English
+  reasonDisplay.textContent =
+    "Ratio questions work by sharing amounts in parts. We add the ratio parts, find the value of 1 part, then multiply to get each share.";
 
   // I'm now building structured explanation for ratio problems
   // This teaches proportional reasoning clearly
@@ -279,36 +516,66 @@ else if (topicTitle.includes("Ratio")) {
     <h4>Understanding Ratios</h4>
 
     <p>
-      A ratio compares two or more quantities.
+      A ratio compares two or more quantities using parts.
     </p>
 
     <p>
-      For example, a ratio of 2 : 3 means that for every 2 parts of the first quantity,
+      For example, a ratio of 2 : 3 means for every 2 parts of the first quantity,
       there are 3 parts of the second quantity.
     </p>
 
     <hr>
 
-    <h4>Solving Ratio Problems</h4>
+    <h4>Solving Ratio Problems (Guidance)</h4>
 
     <p>
       Step 1: Add all parts of the ratio together. <br>
-      Step 2: Divide the total amount by the total number of parts. <br>
+      Step 2: Divide the total amount by the total number of parts (this gives the value of 1 part). <br>
       Step 3: Multiply by each ratio part to find each share.
     </p>
 
     <hr>
 
-    <h4>Method Logic</h4>
+    <h4>Method Selection Logic</h4>
 
     <p>
-      Ratio problems are solved by proportional distribution,
-      often using the unitary method or fraction method.
+      • The <strong>unitary method</strong> works by finding the value of 1 part first. <br>
+      • The <strong>fraction method</strong> works by turning each share into a fraction of the whole.
     </p>
   `;
+
+  // # There's usually no heavy algebra here, but MathJax is safe to run anyway
+  if (window.MathJax) {
+    MathJax.typesetPromise([explanationBody]);
+  }
+
 }
 
 else if (topicTitle.includes("Geometric")) {
+
+  // -------------------------------------------------
+  // GEOMETRIC PROGRESSION (AP/GP METHODS)
+  // -------------------------------------------------
+
+  // # I'm choosing between iteration vs formula using simple wording students understand
+  const lower = chosenQuestion.toLowerCase();
+  const isNextTerms = lower.includes("next") || lower.includes("terms");
+  const isNth = lower.includes("nth") || lower.includes("n");
+
+  if (isNextTerms) {
+    methodDisplay.textContent = "Iteration Method (Building Term by Term)";
+    reasonDisplay.textContent =
+      "This question asks for the next terms, so building the sequence step-by-step by multiplying each time is the clearest approach.";
+  } else if (isNth) {
+    methodDisplay.textContent = "Formula Method (Standard nth term formula)";
+    reasonDisplay.textContent =
+      "This question is about a specific term position, so the nth term formula is the quickest method.";
+  } else {
+    // # If the text is unclear, I default to showing both methods as valid
+    methodDisplay.textContent = "Iteration or Formula Method";
+    reasonDisplay.textContent =
+      "You can either build the terms step-by-step or use the nth term formula, depending on what the question is asking for.";
+  }
 
   // I'm now building structured explanation for Geometric Progression
   // This teaches constant ratio growth clearly
@@ -333,7 +600,7 @@ else if (topicTitle.includes("Geometric")) {
       The nth term of a geometric sequence is given by:
     </p>
 
-    <p><strong>a × r<sup>(n−1)</sup></strong></p>
+    <p><strong>\\(a \\times r^{(n-1)}\\)</strong></p>
 
     <p>
       • <strong>a</strong> = first term <br>
@@ -353,16 +620,45 @@ else if (topicTitle.includes("Geometric")) {
 
     <hr>
 
-    <h4>Method Logic</h4>
+    <h4>Method Selection Logic</h4>
 
     <p>
-      Geometric sequences increase or decrease by multiplication,
+      Geometric sequences increase or reduce by multiplication,
       so we use either repeated multiplication or the nth term formula.
     </p>
   `;
+
+  // # I'm rendering the GP formula nicely (powers should look normal)
+  if (window.MathJax) {
+    MathJax.typesetPromise([explanationBody]);
+  }
+
 }
 
 else if (topicTitle.includes("Arithmetic")) {
+
+  // -------------------------------------------------
+  // ARITHMETIC PROGRESSION (AP METHODS)
+  // -------------------------------------------------
+
+  // # I'm choosing between iteration vs formula using simple GCSE language
+  const lower = chosenQuestion.toLowerCase();
+  const isNextTerms = lower.includes("next") || lower.includes("terms");
+  const isNth = lower.includes("nth") || lower.includes("n");
+
+  if (isNextTerms) {
+    methodDisplay.textContent = "Iteration Method (Building Term by Term)";
+    reasonDisplay.textContent =
+      "This question asks for the next terms, so adding or subtracting the same number each time is the clearest approach.";
+  } else if (isNth) {
+    methodDisplay.textContent = "Formula Method (Standard nth term formula)";
+    reasonDisplay.textContent =
+      "This question is about a specific term position, so the nth term formula is the quickest method.";
+  } else {
+    methodDisplay.textContent = "Iteration or Formula Method";
+    reasonDisplay.textContent =
+      "You can either build the terms step-by-step or use the nth term formula, depending on what the question is asking for.";
+  }
 
   // I'm now building structured explanation for Arithmetic Progression
   // This teaches constant difference logic clearly
@@ -387,7 +683,7 @@ else if (topicTitle.includes("Arithmetic")) {
       The nth term of an arithmetic sequence is given by:
     </p>
 
-    <p><strong>a + (n − 1)d</strong></p>
+    <p><strong>\\(a + (n - 1)d\\)</strong></p>
 
     <p>
       • <strong>a</strong> = first term <br>
@@ -402,18 +698,24 @@ else if (topicTitle.includes("Arithmetic")) {
     <p>
       Step 1: Identify the first term. <br>
       Step 2: Identify the common difference (what is added or subtracted each time). <br>
-      Step 3: Use repeated addition or the nth term formula to find the required term.
+      Step 3: Use repeated addition/subtraction or the nth term formula to find the required term.
     </p>
 
     <hr>
 
-    <h4>Method Logic</h4>
+    <h4>Method Selection Logic</h4>
 
     <p>
       Arithmetic sequences change by addition or subtraction,
-      so we use repeated addition or the nth term formula.
+      so we use repeated steps or the nth term formula.
     </p>
   `;
+
+  // # I'm rendering AP maths properly (brackets and n-1 show neatly)
+  if (window.MathJax) {
+    MathJax.typesetPromise([explanationBody]);
+  }
+
 }
 
     // I'm telling MathJax to re-render only this card's question display
