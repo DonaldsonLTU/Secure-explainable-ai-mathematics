@@ -1,0 +1,466 @@
+﻿question_text,topic,method,method_reason
+x^2 + 6x + 8 = 0,Quadratic Equations,Factorisation,"This quadratic can be factorised into two linear brackets, so factorisation is efficient. Completing the square and the quadratic formula are also valid general methods."
+x^2 + 7x + 12 = 0,Quadratic Equations,Factorisation,This quadratic factorises cleanly into integer brackets. All standard solving methods apply.
+y^2 + 7y + 10 = 0,Quadratic Equations,Factorisation,The expression can be factorised using integer factors. Other general methods can also be used.
+y^2 + 3y - 4 = 0,Quadratic Equations,Factorisation,"This quadratic has integer factors, making factorisation straightforward. All solving methods are valid."
+x^2 - 2x - 8 = 0,Quadratic Equations,Factorisation,The quadratic splits into two integer brackets. Completing the square and the quadratic formula also work.
+m^2 - 7m + 12 = 0,Quadratic Equations,Factorisation,"This equation factorises neatly, but all standard quadratic methods apply."
+y^2 - 10y + 25 = 0,Quadratic Equations,Factorisation,"This is a perfect square trinomial, so factorisation is direct. Other methods are also applicable."
+y^2 - 4y - 45 = 0,Quadratic Equations,Factorisation,The constant term and linear term allow clean factorisation. All solving methods can be used.
+x^2 - x - 56 = 0,Quadratic Equations,Factorisation,"The quadratic factorises into integer brackets, making factorisation efficient."
+y^2 + 10y + 24 = 0,Quadratic Equations,Factorisation,"This quadratic factorises cleanly, though all standard methods apply."
+x^2 + 9x + 18 = 0,Quadratic Equations,Factorisation,The equation factorises easily using integer factors. Completing the square and the quadratic formula are also valid.
+x^2 + 23x + 22 = 0,Quadratic Equations,Factorisation,"This quadratic splits into two integer brackets, so all solving methods are applicable."
+y^2 - 13y + 22 = 0,Quadratic Equations,Factorisation,The quadratic can be factorised into integer factors. Other methods also apply.
+x^2 + x - 12 = 0,Quadratic Equations,Factorisation,"This equation factorises cleanly, but completing the square and the quadratic formula also work."
+m^2 - 6m - 27 = 0,Quadratic Equations,Factorisation,"The quadratic factorises into integer brackets, so all standard methods can be used."
+x^2 - 11x + 18 = 0,Quadratic Equations,Factorisation,"This quadratic splits into two integers, allowing factorisation and other general methods."
+y^2 - 14y + 48 = 0,Quadratic Equations,Factorisation,The expression factorises cleanly into integer brackets. All methods apply.
+x^2 - 15x + 56 = 0,Quadratic Equations,Factorisation,"This quadratic can be factorised using integer factors, though all standard methods are valid."
+x^2 + 4x - 3 = 0,Quadratic Equations,Completing the square,"For factorisation to work cleanly, the quadratic must split into two integer brackets. There are no two whole numbers that multiply to give the constant term and add to give the linear term."
+x^2 + 6x - 10 = 0,Quadratic Equations,Completing the square,"For factorisation to work cleanly, the quadratic must split into two integer brackets. There are no two whole numbers that multiply to give the constant term and add to give the linear term."
+x^2 - 2x - 5 = 0,Quadratic Equations,Completing the square,"For factorisation to work cleanly, the quadratic must split into two integer brackets. There are no two whole numbers that multiply to give the constant term and add to give the linear term."
+x^2 - 10x + 1 = 0,Quadratic Equations,Completing the square,"For factorisation to work cleanly, the quadratic must split into two integer brackets. There are no two whole numbers that multiply to give the constant term and add to give the linear term."
+x^2 + 8x + 3 = 0,Quadratic Equations,Completing the square,"For factorisation to work cleanly, the quadratic must split into two integer brackets. There are no two whole numbers that multiply to give the constant term and add to give the linear term."
+x^2 - 8x - 22 = 0,Quadratic Equations,Completing the square,"For factorisation to work cleanly, the quadratic must split into two integer brackets. There are no two whole numbers that multiply to give the constant term and add to give the linear term."
+x^2 + 20x + 7 = 0,Quadratic Equations,Completing the square,"For factorisation to work cleanly, the quadratic must split into two integer brackets. There are no two whole numbers that multiply to give the constant term and add to give the linear term."
+x^2 - 12x + 1 = 0,Quadratic Equations,Completing the square,"For factorisation to work cleanly, the quadratic must split into two integer brackets. There are no two whole numbers that multiply to give the constant term and add to give the linear term."
+x^2 - 30x - 100 = 0,Quadratic Equations,Completing the square,"For factorisation to work cleanly, the quadratic must split into two integer brackets. There are no two whole numbers that multiply to give the constant term and add to give the linear term."
+6x + y = 18; 4x + y = 14,Simultaneous Equations,Elimination,"Both equations are linear with two unknowns, so either elimination or substitution can be used to reduce the system to one variable."
+4x + 2y = 10; x + 2y = 7,Simultaneous Equations,Elimination,"Both equations are linear with two unknowns, allowing one variable to be eliminated or substituted easily."
+9x - 4y = 19; 4x + 4y = 20,Simultaneous Equations,Elimination,The equations are linear and can be combined to eliminate one variable or rearranged for substitution.
+2x + y = 36; x - y = 9,Simultaneous Equations,Elimination,"Each equation is linear, making elimination or substitution suitable methods."
+6x - 3y = 12; 4x - 3y = 2,Simultaneous Equations,Elimination,"The matching coefficients make elimination straightforward, while substitution is also possible."
+3x - 6y = 6; 2x - 6y = 3,Simultaneous Equations,Elimination,"Both equations share a common coefficient, making elimination efficient."
+8x + 7y = 39; 8x + 2y = 34,Simultaneous Equations,Elimination,"Equal coefficients allow direct elimination, and substitution remains valid."
+x + 3y = 38; x + 6y = 53,Simultaneous Equations,Elimination,Subtracting the equations eliminates a variable; substitution also applies.
+6x + 3y = 48; 6x + y = 26,Simultaneous Equations,Elimination,The equations are linear and can be simplified to remove one variable.
+2x - 4y = 10; 2x + 3y = 24,Simultaneous Equations,Elimination,Linear equations allow either elimination or substitution to isolate a variable.
+5x - 2y = 120; 5x + y = 165,Simultaneous Equations,Elimination,"Matching coefficients make elimination natural, with substitution also possible."
+x - 2y = 8; x - 3y = 3,Simultaneous Equations,Elimination,"The equations are linear and closely related, making both methods effective."
+3x + 2y = 54; 2x - 2y = 16,Simultaneous Equations,Elimination,Linear structure allows one variable to be removed or substituted easily.
+7x - 4y = 80; 3x - 4y = -80,Simultaneous Equations,Elimination,Equal coefficients make elimination efficient; substitution also works.
+5x - 2y = -23; 5x - 6y = -39,Simultaneous Equations,Elimination,The equations are linear and can be manipulated to eliminate a variable.
+6x + 2y = -26; 2x + 2y = -10,Simultaneous Equations,Elimination,"Both equations are linear, allowing elimination or substitution."
+x - 5y = 65; 2x - 5y = 85,Simultaneous Equations,Elimination,"Equal coefficients enable elimination, while substitution remains valid."
+10x - 10y = -40; 10x + 4y = 16,Simultaneous Equations,Elimination,Linear equations allow either method to reduce the system.
+3x + 2y = 23; 2x - y = 6,Simultaneous Equations,Elimination,The system consists of two linear equations suitable for elimination or substitution.
+3x - 3y = 9; 2x + y = 12,Simultaneous Equations,Elimination,Both equations are linear and can be rearranged to remove one variable.
+4x + 2y = 34; 3x + y = 21,Simultaneous Equations,Elimination,Linear equations allow one variable to be isolated or eliminated.
+9x - 4y = 59; 2x - y = 12,Simultaneous Equations,Elimination,The equations can be scaled to eliminate one variable or solved by substitution.
+2x + 8y = 43; x + 3y = 18,Simultaneous Equations,Elimination,Linear structure allows elimination or substitution to solve the system.
+6x + 3y = 45; 2x - 2y = 12,Simultaneous Equations,Elimination,The equations are linear and can be simplified to isolate variables.
+5x + 4y = 130; x + 6y = 130,Simultaneous Equations,Elimination,Both equations can be rearranged to eliminate or substitute variables.
+10x - 15y = 25; x - 2y = 1,Simultaneous Equations,Elimination,Linear equations allow direct elimination or substitution.
+3x + 8y = 97; 2x + 4y = 58,Simultaneous Equations,Elimination,The equations are linear and can be reduced using either method.
+x + y = 3; 4x + 3y = 10,Simultaneous Equations,Elimination,Two linear equations with two unknowns can be solved by elimination or substitution.
+2x + 4y = 2; 5x - 3y = 18,Simultaneous Equations,Elimination,"The system is linear, allowing either elimination or substitution."
+Share Â£700 in the ratio 5 : 3 : 2,Ratio,Unitary method; Fraction method,"The unitary method finds the value of one part before scaling, while the fraction method uses fractions of the total based on the ratio."
+Divide Â£945 in the ratio 2 : 5,Ratio,Unitary method; Fraction method,Both methods work because the total is split into parts proportional to the ratio.
+Share Â£480 in the ratio 3 : 5,Ratio,Unitary method; Fraction method,You can either find one unit first or convert the ratio into fractions of the whole.
+Share Â£360 in the ratio 4 : 5,Ratio,Unitary method; Fraction method,"The ratio represents equal parts, allowing either unit-based or fraction-based solving."
+Divide Â£840 in the ratio 7 : 5,Ratio,Unitary method; Fraction method,Both methods rely on the total number of ratio parts adding up to the whole.
+Share Â£600 in the ratio 1 : 2 : 3,Ratio,Unitary method; Fraction method,"Each part is proportional, so either method gives the same final values."
+Divide Â£750 in the ratio 3 : 2,Ratio,Unitary method; Fraction method,The ratio can be solved by finding one part or by using fractions of the total.
+Share Â£900 in the ratio 5 : 4,Ratio,Unitary method; Fraction method,Both approaches split the total accurately according to the ratio.
+Divide Â£660 in the ratio 2 : 3,Ratio,Unitary method; Fraction method,"The total is shared in proportional parts, making both methods suitable."
+Share Â£540 in the ratio 4 : 5,Ratio,Unitary method; Fraction method,Ratios represent proportional parts that can be solved using either method.
+Divide Â£810 in the ratio 1 : 2,Ratio,Unitary method; Fraction method,"The ratio gives the relationship between parts, allowing flexible solving methods."
+Share Â£720 in the ratio 3 : 5,Ratio,Unitary method; Fraction method,Both methods correctly allocate the total based on proportional parts.
+Divide Â£960 in the ratio 7 : 9,Ratio,Unitary method; Fraction method,The total number of parts determines each share in both approaches.
+Share Â£880 in the ratio 5 : 6,Ratio,Unitary method; Fraction method,Using either units or fractions leads to the same proportional result.
+Alex and Thomas share 30 sweets in the ratio 3 : 2. How many do they each get?,Ratio,Unitary method; Fraction method,Both methods work by splitting the total number of sweets according to the ratio.
+Sarah and Ben share 40 chocolates in the ratio 1 : 3. How many does each get?,Ratio,Unitary method; Fraction method,The ratio shows how the total is divided proportionally between them.
+Amina and John share Â£50 in the ratio 2 : 3. How much does each receive?,Ratio,Unitary method; Fraction method,"Each share is proportional, allowing unitary or fraction-based solving."
+Two friends share 60 marbles in the ratio 4 : 1. How many does each get?,Ratio,Unitary method; Fraction method,The ratio defines the relative sizes of each share.
+Lisa and Tom share 90 stickers in the ratio 5 : 4. How many does each get?,Ratio,Unitary method; Fraction method,Both methods correctly distribute the stickers based on proportional parts.
+James and Noah share Â£84 in the ratio 3 : 4. How much does each get?,Ratio,Unitary method; Fraction method,"The total is divided into equal ratio parts, suitable for both methods."
+Emma and Olivia share 70 pencils in the ratio 2 : 5. How many does each get?,Ratio,Unitary method; Fraction method,Ratios allow flexible approaches such as unitary or fraction methods.
+Two siblings share Â£120 in the ratio 7 : 5. How much does each receive?,Ratio,Unitary method; Fraction method,The proportional relationship makes both solving methods valid.
+Adam and Leo share 45 sweets in the ratio 4 : 5. How many does each get?,Ratio,Unitary method; Fraction method,The ratio determines each share as a fraction or multiple of one unit.
+"Find the next 2 terms: 2, 6, 18",Sequences (Geometric Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),A geometric progression has a constant ratio between consecutive terms. The nth term formula (aÂ·r^(n-1)) or repeated multiplication can be used.
+"Find the next 2 terms: 3, 12, 48",Sequences (Geometric Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),A geometric progression has a constant ratio between consecutive terms. The nth term formula (aÂ·r^(n-1)) or repeated multiplication can be used.
+"Find the next 2 terms: 5, 25, 125",Sequences (Geometric Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),A geometric progression has a constant ratio between consecutive terms. The nth term formula (aÂ·r^(n-1)) or repeated multiplication can be used.
+"Find the next 2 terms: 8, 12, 18",Sequences (Geometric Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),A geometric progression has a constant ratio between consecutive terms. The nth term formula (aÂ·r^(n-1)) or repeated multiplication can be used.
+"Find the next 2 terms: 3, 7.5, 18.75",Sequences (Geometric Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),A geometric progression has a constant ratio between consecutive terms. The nth term formula (aÂ·r^(n-1)) or repeated multiplication can be used.
+"Find the next 2 terms: 100, 50, 25",Sequences (Geometric Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),A geometric progression has a constant ratio between consecutive terms. The nth term formula (aÂ·r^(n-1)) or repeated multiplication can be used.
+"Find the next 2 terms: 4, 16, 64",Sequences (Geometric Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),A geometric progression has a constant ratio between consecutive terms. The nth term formula (aÂ·r^(n-1)) or repeated multiplication can be used.
+"Find the next 2 terms: 7, 21, 63",Sequences (Geometric Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),A geometric progression has a constant ratio between consecutive terms. The nth term formula (aÂ·r^(n-1)) or repeated multiplication can be used.
+"Find the next 2 terms: 9, 27, 81",Sequences (Geometric Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),A geometric progression has a constant ratio between consecutive terms. The nth term formula (aÂ·r^(n-1)) or repeated multiplication can be used.
+"Find the next 2 terms: 1, 5, 25",Sequences (Geometric Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),A geometric progression has a constant ratio between consecutive terms. The nth term formula (aÂ·r^(n-1)) or repeated multiplication can be used.
+"Find the next 2 terms: 6, 18, 54",Sequences (Geometric Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),A geometric progression has a constant ratio between consecutive terms. The nth term formula (aÂ·r^(n-1)) or repeated multiplication can be used.
+"Find the next 2 terms: 10, 20, 40",Sequences (Geometric Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),A geometric progression has a constant ratio between consecutive terms. The nth term formula (aÂ·r^(n-1)) or repeated multiplication can be used.
+"Find the next 2 terms: 12, 6, 3",Sequences (Geometric Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),A geometric progression has a constant ratio between consecutive terms. The nth term formula (aÂ·r^(n-1)) or repeated multiplication can be used.
+"Find the next 2 terms: 2, 10, 50",Sequences (Geometric Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),A geometric progression has a constant ratio between consecutive terms. The nth term formula (aÂ·r^(n-1)) or repeated multiplication can be used.
+"Find the next 2 terms: 2, 5, 8",Sequences (Arithmetic Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),An arithmetic progression has a constant difference between consecutive terms. The nth term formula (a + (n-1)d) or repeated addition can be used.
+"Find the next 2 terms: 7, 11, 15",Sequences (Arithmetic Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),An arithmetic progression has a constant difference between consecutive terms. The nth term formula (a + (n-1)d) or repeated addition can be used.
+"Find the next 2 terms: 10, 20, 30",Sequences (Arithmetic Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),An arithmetic progression has a constant difference between consecutive terms. The nth term formula (a + (n-1)d) or repeated addition can be used.
+"Find the next 2 terms: 3, 9, 15",Sequences (Arithmetic Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),An arithmetic progression has a constant difference between consecutive terms. The nth term formula (a + (n-1)d) or repeated addition can be used.
+"Find the next 2 terms: 50, 45, 40",Sequences (Arithmetic Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),An arithmetic progression has a constant difference between consecutive terms. The nth term formula (a + (n-1)d) or repeated addition can be used.
+"Find the next 2 terms: 4, 12, 20",Sequences (Arithmetic Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),An arithmetic progression has a constant difference between consecutive terms. The nth term formula (a + (n-1)d) or repeated addition can be used.
+"Find the next 2 terms: 1, 4, 7",Sequences (Arithmetic Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),An arithmetic progression has a constant difference between consecutive terms. The nth term formula (a + (n-1)d) or repeated addition can be used.
+"Find the next 2 terms: 6, 14, 22",Sequences (Arithmetic Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),An arithmetic progression has a constant difference between consecutive terms. The nth term formula (a + (n-1)d) or repeated addition can be used.
+"Find the next 2 terms: 100, 90, 80",Sequences (Arithmetic Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),An arithmetic progression has a constant difference between consecutive terms. The nth term formula (a + (n-1)d) or repeated addition can be used.
+"Find the next 2 terms: 5, 15, 25",Sequences (Arithmetic Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),An arithmetic progression has a constant difference between consecutive terms. The nth term formula (a + (n-1)d) or repeated addition can be used.
+"Find the next 2 terms: 13, 18, 23",Sequences (Arithmetic Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),An arithmetic progression has a constant difference between consecutive terms. The nth term formula (a + (n-1)d) or repeated addition can be used.
+"Find the next 2 terms: 30, 25, 20",Sequences (Arithmetic Progression),Formula Method (Standard nth term formula); Iteration Method (Building Term by Term),An arithmetic progression has a constant difference between consecutive terms. The nth term formula (a + (n-1)d) or repeated addition can be used.
+x^2 + 2x + 14 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"4x + 2y = 13
+3x + 4y = 14",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£150 in the ratio 1:2,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 13th term of the sequence starting at 7 with common difference 9,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 8th term of the geometric sequence starting at 4 with ratio 2,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 7x + -6 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"1x + 1y = 2
+5x + 2y = 6",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£35 in the ratio 2:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 14th term of the sequence starting at 6 with common difference 1,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 7th term of the geometric sequence starting at 2 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 4x + -12 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"1x + 3y = 13
+2x + 3y = 18",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£48 in the ratio 3:3,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 9th term of the sequence starting at 7 with common difference 8,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 7th term of the geometric sequence starting at 5 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 10x + -17 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"1x + 4y = 1
+2x + 5y = 8",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£129 in the ratio 1:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 14th term of the sequence starting at 3 with common difference 10,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 9th term of the geometric sequence starting at 1 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -10x + 6 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"1x + 3y = 9
+1x + 5y = 14",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£73 in the ratio 5:5,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 12th term of the sequence starting at 2 with common difference 3,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 6th term of the geometric sequence starting at 3 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 7x + 4 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"2x + 3y = 3
+4x + 4y = 12",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£175 in the ratio 3:2,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 9th term of the sequence starting at 3 with common difference 2,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 7th term of the geometric sequence starting at 5 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -9x + 11 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"4x + 3y = 12
+4x + 5y = 18",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£34 in the ratio 5:5,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 6th term of the sequence starting at 7 with common difference 5,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 9th term of the geometric sequence starting at 2 with ratio 2,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 10x + 8 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"1x + 2y = 9
+4x + 1y = 5",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£25 in the ratio 1:2,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 12th term of the sequence starting at 7 with common difference 6,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 8th term of the geometric sequence starting at 4 with ratio 4,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -7x + -3 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"2x + 4y = 18
+5x + 5y = 10",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£113 in the ratio 3:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 12th term of the sequence starting at 2 with common difference 9,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 7th term of the geometric sequence starting at 2 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -10x + -13 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"2x + 2y = 9
+2x + 1y = 1",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£133 in the ratio 3:2,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 11th term of the sequence starting at 3 with common difference 9,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 4th term of the geometric sequence starting at 1 with ratio 4,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 7x + 19 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"4x + 3y = 18
+1x + 2y = 15",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£68 in the ratio 1:3,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 11th term of the sequence starting at 9 with common difference 10,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 10th term of the geometric sequence starting at 5 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 10x + 19 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"3x + 2y = 11
+3x + 3y = 11",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£106 in the ratio 5:5,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 7th term of the sequence starting at 5 with common difference 10,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 8th term of the geometric sequence starting at 2 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 0x + -12 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"4x + 3y = 2
+4x + 2y = 2",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£92 in the ratio 1:3,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 9th term of the sequence starting at 2 with common difference 2,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 8th term of the geometric sequence starting at 3 with ratio 2,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -8x + -2 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"1x + 3y = 18
+1x + 3y = 12",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£157 in the ratio 3:4,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 9th term of the sequence starting at 1 with common difference 1,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 9th term of the geometric sequence starting at 2 with ratio 4,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -7x + 11 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"1x + 1y = 8
+1x + 1y = 9",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£20 in the ratio 5:2,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 11th term of the sequence starting at 5 with common difference 9,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 9th term of the geometric sequence starting at 2 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 6x + -4 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"5x + 4y = 15
+2x + 1y = 9",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£75 in the ratio 1:2,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 8th term of the sequence starting at 8 with common difference 1,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 8th term of the geometric sequence starting at 4 with ratio 4,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 4x + -5 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"4x + 1y = 6
+4x + 4y = 1",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£177 in the ratio 4:4,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 8th term of the sequence starting at 10 with common difference 3,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 6th term of the geometric sequence starting at 1 with ratio 2,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -9x + -5 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"3x + 5y = 7
+3x + 3y = 4",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£47 in the ratio 1:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 10th term of the sequence starting at 3 with common difference 3,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 8th term of the geometric sequence starting at 2 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -9x + 4 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"1x + 2y = 10
+5x + 5y = 8",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£103 in the ratio 2:4,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 9th term of the sequence starting at 3 with common difference 8,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 4th term of the geometric sequence starting at 2 with ratio 2,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 10x + 6 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"2x + 2y = 9
+3x + 2y = 17",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£25 in the ratio 3:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 13th term of the sequence starting at 1 with common difference 6,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 6th term of the geometric sequence starting at 4 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 3x + -19 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"3x + 5y = 10
+1x + 2y = 17",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£29 in the ratio 4:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 11th term of the sequence starting at 10 with common difference 2,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 6th term of the geometric sequence starting at 4 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 9x + 0 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"1x + 2y = 14
+3x + 1y = 17",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£190 in the ratio 3:3,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 13th term of the sequence starting at 10 with common difference 4,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 9th term of the geometric sequence starting at 2 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -7x + 2 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"1x + 3y = 5
+5x + 3y = 4",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£26 in the ratio 2:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 10th term of the sequence starting at 4 with common difference 7,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 10th term of the geometric sequence starting at 1 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -1x + 12 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"5x + 2y = 3
+4x + 3y = 12",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£134 in the ratio 3:2,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 11th term of the sequence starting at 2 with common difference 10,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 4th term of the geometric sequence starting at 2 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -9x + 3 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"5x + 2y = 3
+2x + 3y = 17",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£128 in the ratio 2:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 10th term of the sequence starting at 10 with common difference 4,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 10th term of the geometric sequence starting at 5 with ratio 4,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 8x + -7 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"5x + 4y = 15
+2x + 1y = 13",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£144 in the ratio 4:4,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 11th term of the sequence starting at 4 with common difference 7,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 10th term of the geometric sequence starting at 2 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 0x + -9 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"1x + 2y = 6
+5x + 1y = 11",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£126 in the ratio 4:4,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 5th term of the sequence starting at 5 with common difference 10,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 5th term of the geometric sequence starting at 3 with ratio 2,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 8x + -10 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"4x + 1y = 7
+4x + 2y = 8",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£178 in the ratio 3:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 13th term of the sequence starting at 3 with common difference 9,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 8th term of the geometric sequence starting at 2 with ratio 4,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 1x + -19 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"1x + 3y = 20
+2x + 2y = 15",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£189 in the ratio 3:4,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 8th term of the sequence starting at 8 with common difference 4,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 7th term of the geometric sequence starting at 2 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -4x + -1 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"1x + 5y = 1
+5x + 2y = 4",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£191 in the ratio 1:4,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 11th term of the sequence starting at 6 with common difference 1,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 5th term of the geometric sequence starting at 4 with ratio 4,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -1x + -7 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"1x + 1y = 17
+2x + 2y = 7",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£26 in the ratio 1:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 8th term of the sequence starting at 4 with common difference 7,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 4th term of the geometric sequence starting at 3 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -4x + -17 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"5x + 2y = 11
+2x + 2y = 3",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£25 in the ratio 5:4,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 7th term of the sequence starting at 9 with common difference 6,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 5th term of the geometric sequence starting at 1 with ratio 2,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 7x + 1 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"5x + 2y = 17
+4x + 2y = 18",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£186 in the ratio 5:5,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 8th term of the sequence starting at 10 with common difference 2,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 4th term of the geometric sequence starting at 3 with ratio 4,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -10x + 14 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"2x + 5y = 9
+5x + 4y = 13",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£97 in the ratio 5:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 11th term of the sequence starting at 2 with common difference 6,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 4th term of the geometric sequence starting at 5 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 7x + 12 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"3x + 2y = 7
+4x + 5y = 1",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£174 in the ratio 5:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 12th term of the sequence starting at 4 with common difference 5,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 5th term of the geometric sequence starting at 5 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 2x + -10 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"1x + 2y = 12
+2x + 3y = 18",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£142 in the ratio 1:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 10th term of the sequence starting at 5 with common difference 7,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 4th term of the geometric sequence starting at 1 with ratio 4,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -8x + -20 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"2x + 2y = 1
+1x + 4y = 13",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£142 in the ratio 3:3,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 11th term of the sequence starting at 3 with common difference 2,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 5th term of the geometric sequence starting at 3 with ratio 4,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -7x + 8 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"1x + 5y = 17
+2x + 1y = 3",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£128 in the ratio 2:5,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 8th term of the sequence starting at 4 with common difference 4,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 9th term of the geometric sequence starting at 3 with ratio 4,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 8x + 14 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"5x + 2y = 6
+5x + 1y = 2",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£84 in the ratio 4:5,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 12th term of the sequence starting at 5 with common difference 8,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 5th term of the geometric sequence starting at 3 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -1x + 16 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"4x + 3y = 20
+1x + 3y = 5",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£99 in the ratio 1:3,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 10th term of the sequence starting at 5 with common difference 9,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 4th term of the geometric sequence starting at 2 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 1x + -10 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"1x + 3y = 11
+2x + 4y = 7",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£159 in the ratio 4:2,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 5th term of the sequence starting at 7 with common difference 5,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 9th term of the geometric sequence starting at 4 with ratio 2,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 2x + 2 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"5x + 2y = 4
+4x + 3y = 4",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£85 in the ratio 2:3,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 11th term of the sequence starting at 5 with common difference 8,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 6th term of the geometric sequence starting at 4 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 5x + 6 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"5x + 4y = 14
+4x + 2y = 19",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£168 in the ratio 4:5,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 13th term of the sequence starting at 9 with common difference 2,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 5th term of the geometric sequence starting at 5 with ratio 4,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -6x + 16 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"1x + 1y = 7
+4x + 2y = 18",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£39 in the ratio 4:2,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 10th term of the sequence starting at 7 with common difference 10,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 4th term of the geometric sequence starting at 2 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -3x + -2 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"5x + 1y = 13
+3x + 2y = 10",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£174 in the ratio 2:5,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 15th term of the sequence starting at 4 with common difference 5,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 5th term of the geometric sequence starting at 2 with ratio 2,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 10x + 2 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"1x + 5y = 19
+2x + 4y = 17",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£60 in the ratio 2:4,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 10th term of the sequence starting at 6 with common difference 9,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 8th term of the geometric sequence starting at 5 with ratio 2,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -3x + 15 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"3x + 2y = 19
+2x + 5y = 1",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£194 in the ratio 5:2,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 5th term of the sequence starting at 2 with common difference 3,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 6th term of the geometric sequence starting at 4 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 6x + -4 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"4x + 3y = 9
+2x + 5y = 14",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£61 in the ratio 2:5,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 13th term of the sequence starting at 3 with common difference 1,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 9th term of the geometric sequence starting at 3 with ratio 2,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -5x + -5 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"3x + 2y = 17
+4x + 1y = 15",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£102 in the ratio 1:5,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 11th term of the sequence starting at 3 with common difference 6,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 10th term of the geometric sequence starting at 2 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -7x + -18 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"3x + 1y = 6
+4x + 5y = 13",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£51 in the ratio 4:3,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 5th term of the sequence starting at 4 with common difference 6,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 9th term of the geometric sequence starting at 5 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -8x + -18 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"2x + 4y = 10
+4x + 3y = 16",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£145 in the ratio 5:5,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 14th term of the sequence starting at 10 with common difference 8,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 7th term of the geometric sequence starting at 1 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 4x + 18 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"1x + 5y = 3
+1x + 5y = 5",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£74 in the ratio 1:5,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 7th term of the sequence starting at 10 with common difference 8,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 7th term of the geometric sequence starting at 5 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 10x + -8 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"5x + 2y = 3
+5x + 3y = 20",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£25 in the ratio 4:5,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 15th term of the sequence starting at 9 with common difference 10,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 7th term of the geometric sequence starting at 5 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -3x + -19 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"5x + 1y = 6
+5x + 5y = 9",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£56 in the ratio 1:3,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 7th term of the sequence starting at 6 with common difference 4,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 8th term of the geometric sequence starting at 2 with ratio 2,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 10x + 6 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"3x + 5y = 5
+5x + 2y = 15",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£56 in the ratio 2:2,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 7th term of the sequence starting at 10 with common difference 8,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 9th term of the geometric sequence starting at 5 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -8x + -14 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"5x + 4y = 12
+2x + 1y = 18",Simultaneous Equations,Elimination,Primary recommended solving strategy.
+Share Â£46 in the ratio 4:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 9th term of the sequence starting at 10 with common difference 9,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 8th term of the geometric sequence starting at 3 with ratio 4,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -8x + -18 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"1x + 4y = 16
+4x + 4y = 18",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£159 in the ratio 4:2,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 15th term of the sequence starting at 10 with common difference 2,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 8th term of the geometric sequence starting at 2 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + -7x + -14 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"4x + 3y = 5
+1x + 4y = 19",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£61 in the ratio 3:1,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 14th term of the sequence starting at 3 with common difference 7,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 4th term of the geometric sequence starting at 4 with ratio 2,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 10x + -11 = 0,Quadratic Equations,Factorisation,Primary recommended method based on structure of coefficients.
+"2x + 1y = 15
+4x + 2y = 10",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£58 in the ratio 1:5,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 9th term of the sequence starting at 9 with common difference 7,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 9th term of the geometric sequence starting at 2 with ratio 3,Geometric Progression,Nth Term Formula,Use geometric nth term formula.
+x^2 + 6x + 5 = 0,Quadratic Equations,Quadratic Formula,Primary recommended method based on structure of coefficients.
+"5x + 5y = 9
+2x + 5y = 6",Simultaneous Equations,Substitution,Primary recommended solving strategy.
+Share Â£22 in the ratio 2:3,Ratio,Unitary Method,Use value of one part then multiply.
+Find the 14th term of the sequence starting at 4 with common difference 9,Arithmetic Progression,Nth Term Formula,Use arithmetic nth term formula.
+Find the 6th term of the geometric sequence starting at 5 with ratio 5,Geometric Progression,Nth Term Formula,Use geometric nth term formula.

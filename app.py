@@ -19,11 +19,98 @@ from flask_wtf.csrf import CSRFProtect
 
 import os
 
+# ------------------------------
+# I am loading trained ML components
+# ------------------------------
+
+import joblib
+
+# I am loading the trained classification model
+model = joblib.load("trained_method_model.pkl")
+
+# I am loading the TF-IDF vectorizer
+vectorizer = joblib.load("tfidf_vectorizer.pkl")
+
 # I’m creating the Flask application instance
 app = Flask(__name__)
 
 # I’m enabling global CSRF protection for all forms in the application
 csrf = CSRFProtect(app)
+
+# ------------------------------
+# AI method prediction function
+# ------------------------------
+
+def predict_method(question_text):
+    """
+    This function takes a maths question as input,
+    transforms it using the saved TF-IDF vectorizer,
+    and returns the predicted solving method.
+    """
+    
+    # I convert the question into numerical features
+    transformed_input = vectorizer.transform([question_text])
+    
+    # I ask the trained model to predict the method
+    prediction = model.predict(transformed_input)
+    
+    return prediction[0]
+
+# -----------------------------------------
+# Rule-based quadratic method decision logic
+# -----------------------------------------
+
+def rule_based_quadratic_method(a, b, c):
+    """
+    This function uses actual mathematical logic
+    (discriminant analysis) to determine the best solving method.
+    It also builds a student-friendly explanation dynamically.
+    """
+
+    # # I'm converting inputs to integers so maths works correctly
+    a = int(a)
+    b = int(b)
+    c = int(c)
+
+    # # I'm calculating the discriminant
+    D = (b ** 2) - (4 * a * c)
+
+    import math
+
+    # # I'm checking if the discriminant is a perfect square
+    is_perfect_square = D >= 0 and math.isqrt(D) ** 2 == D
+
+    # ----------------------------------
+    # If factorisation is suitable
+    # ----------------------------------
+    if is_perfect_square:
+
+        explanation = (
+            f"In this question, we can find two numbers that multiply to give {c} (the constant term) "
+            f"and add together to give {b} (linear term).\n\n"
+            "Because such numbers exist, the quadratic can be factorised directly "
+            "into two brackets and solved efficiently.\n\n"
+            "Although other methods such as completing the square or the quadratic formula "
+            "would also work, factorisation is the quickest method in this case."
+        )
+
+        return "Factorisation", explanation
+
+    # ----------------------------------
+    # Otherwise use general methods
+    # ----------------------------------
+    else:
+
+        explanation = (
+            f"For factorisation to work efficiently, we must find two numbers that multiply "
+            f"to give {c} and add together to give {b}.\n\n"
+            "In this case, no such pair of numbers exists.\n\n"
+            "Therefore, factorisation is not suitable here. "
+            "We use completing the square or the quadratic formula instead, "
+            "because these methods work for all quadratic equations."
+        )
+
+        return "Completing the Square or Quadratic Formula", explanation
 
 # I’m setting a secret key for secure session management
 # In production this would come from environment variables
@@ -159,7 +246,7 @@ def login():
 # DASHBOARD ROUTE (ROLE-BASED QUESTION DISPLAY)
 # -------------------------------------------------
 
-@app.route("/dashboard")
+@app.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
     # I'm getting the logged-in user's role from the session
@@ -171,17 +258,62 @@ def dashboard():
     # I'm grouping questions by topic so they can appear inside topic boxes
     topics = {}
 
+  # -------------------------------
+# -------------------------------
+    # AI prediction placeholders
+    # -------------------------------
+    predicted_method = None
+    selected_topic = None
+    quadratic_explanation = None  # I'm storing explanation text for quadratics
+
+    # -------------------------------
+    # Handle form submission (AI)
+    # -------------------------------
+    if request.method == "POST":
+
+        selected_topic = request.form.get("topic")
+
+        if selected_topic == "quadratic":
+            a = request.form.get("a")
+            b = request.form.get("b")
+            c = request.form.get("c")
+
+            # I'm building the equation string exactly like training data style
+            question_text = f"Solve {a}x^2 + {b}x + {c} = 0"
+
+            # I'm still generating ML suggestion (assistive layer)
+            ml_method = predict_method(question_text)
+
+            # I'm applying rule-based authority logic
+            rule_method, explanation_text = rule_based_quadratic_method(a, b, c)
+
+            # Hybrid decision layer (rule overrides ML if mismatch)
+            if ml_method == rule_method:
+                predicted_method = ml_method
+            else:
+                predicted_method = rule_method
+
+            # I'm storing explanation so we can show students WHY
+            quadratic_explanation = explanation_text
+
+    # ---------------------------------
+    # I'm grouping questions by topic
+    # (this must stay OUTSIDE POST)
+    # ---------------------------------
     for q in questions:
         if q.topic not in topics:
             topics[q.topic] = []
         topics[q.topic].append(q)
 
-    # I'm sending grouped topics + role to the template
+    # I'm sending grouped topics + role + AI result to the template
     return render_template(
         "dashboard.html",
         role=user_role,
         topics=topics,
-        questions=questions  # full dataset (teacher only)
+        questions=questions,
+        predicted_method=predicted_method,
+        selected_topic=selected_topic,
+        quadratic_explanation=quadratic_explanation
     )
 # -------------------------------------------------
 # LOGOUT

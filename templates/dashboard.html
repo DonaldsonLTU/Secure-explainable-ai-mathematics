@@ -45,6 +45,35 @@
             <!-- Topic name -->
             <h3>{{ topic }}</h3>
 
+            {% if topic == "Quadratic Equations" %}
+<form method="POST">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <h4>Quadratic Equation Input</h4>
+
+    <input type="number" name="a" placeholder="Enter a (coefficient of x²)" required value="{{ request.form.a }}">
+<input type="number" name="b" placeholder="Enter b (coefficient of x)" required value="{{ request.form.b }}">
+<input type="number" name="c" placeholder="Enter c (constant term)" required value="{{ request.form.c }}">
+
+    <button type="submit" name="topic" value="quadratic">
+        Analyse Quadratic
+    </button>
+    <a href="{{ url_for('dashboard') }}">
+    <button type="button">Clear</button>
+</a>
+</form>
+
+{% if predicted_method and selected_topic == "quadratic" %}
+    <h3>Recommended Method: {{ predicted_method }}</h3>
+
+    <div style="margin-top:10px; padding:10px; border:1px solid #ccc;">
+        <strong>Why this method?</strong>
+        <p style="white-space: pre-line;">
+            {{ quadratic_explanation }}
+        </p>
+    </div>
+{% endif %}
+{% endif %}
+
             <!-- Dropdown list of questions under this topic -->
             <!-- This keeps the interface clean and organised -->
             <!-- I'm giving each dropdown an onchange handler -->
