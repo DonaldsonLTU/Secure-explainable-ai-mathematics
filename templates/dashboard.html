@@ -74,6 +74,50 @@
 {% endif %}
 {% endif %}
 
+{% if topic == "Simultaneous Equations" %}
+<form method="POST">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+  <h4>Simultaneous Equations Input</h4>
+
+  <!-- # I'm collecting Equation 1 in ax + by = c form -->
+  <p><strong>Equation 1:</strong> ax + by = c</p>
+  <input type="number" name="a1" placeholder="Enter a (x coefficient)" required value="{{ request.form.a1 }}">
+  <input type="number" name="b1" placeholder="Enter b (y coefficient)" required value="{{ request.form.b1 }}">
+  <input type="number" name="c1" placeholder="Enter c (constant)" required value="{{ request.form.c1 }}">
+
+  <br><br>
+
+  <!-- # I'm collecting Equation 2 in ax + by = c form -->
+  <p><strong>Equation 2:</strong> ax + by = c</p>
+  <input type="number" name="a2" placeholder="Enter a (x coefficient)" required value="{{ request.form.a2 }}">
+  <input type="number" name="b2" placeholder="Enter b (y coefficient)" required value="{{ request.form.b2 }}">
+  <input type="number" name="c2" placeholder="Enter c (constant)" required value="{{ request.form.c2 }}">
+
+  <br><br>
+
+  <button type="submit" name="topic" value="simultaneous">
+    Analyse Simultaneous Equations
+  </button>
+
+  <!-- # I'm using a GET refresh to fully reset inputs + prediction + explanation -->
+  <a href="{{ url_for('dashboard') }}">
+    <button type="button">Clear</button>
+  </a>
+</form>
+
+{% if predicted_method and selected_topic == "simultaneous" %}
+  <h3>Recommended Method: {{ predicted_method }}</h3>
+
+  <div style="margin-top:10px; padding:10px; border:1px solid #ccc;">
+    <strong>Why this method?</strong>
+    <p style="white-space: pre-line;">
+      {{ simultaneous_explanation }}
+    </p>
+  </div>
+{% endif %}
+{% endif %}
+
             <!-- Dropdown list of questions under this topic -->
             <!-- This keeps the interface clean and organised -->
             <!-- I'm giving each dropdown an onchange handler -->

@@ -111,6 +111,88 @@ def rule_based_quadratic_method(a, b, c):
         )
 
         return "Completing the Square or Quadratic Formula", explanation
+    
+    # -----------------------------------------
+# Rule-based simultaneous method decision logic
+# -----------------------------------------
+def rule_based_simultaneous_method(a1, b1, c1, a2, b2, c2):
+    """
+    This function decides whether Substitution or Elimination is best
+    using GCSE-friendly logic, and it builds a student-friendly explanation.
+    """
+
+    # # I'm converting inputs to integers so my comparisons are reliable
+    a1, b1, c1 = int(a1), int(b1), int(c1)
+    a2, b2, c2 = int(a2), int(b2), int(c2)
+
+    # # I'm building neat equation strings for ML + display
+    eq1 = f"{a1}x + {b1}y = {c1}"
+    eq2 = f"{a2}x + {b2}y = {c2}"
+
+    # ----------------------------------------------------
+    # 1) Elimination check (coefficients match or opposites)
+    # ----------------------------------------------------
+    # # I'm checking if x coefficients match (e.g., 2x and 2x) or are opposites (e.g., 2x and -2x)
+    x_elim_ready = (a1 != 0 and a2 != 0 and (a1 == a2 or a1 == -a2))
+
+    # # I'm checking if y coefficients match (e.g., 3y and 3y) or are opposites (e.g., 3y and -3y)
+    y_elim_ready = (b1 != 0 and b2 != 0 and (b1 == b2 or b1 == -b2))
+
+    # # I'm preparing a small detail string so the explanation can point to the exact matching pair
+    match_detail = ""
+    if x_elim_ready:
+        match_detail = f"the x coefficients already match ({a1}x and {a2}x)"
+    elif y_elim_ready:
+        match_detail = f"the y coefficients already match ({b1}y and {b2}y)"
+
+    if x_elim_ready or y_elim_ready:
+        explanation = (
+            f"In this pair of equations, {match_detail}, which allows us to add or subtract the equations "
+            f"to remove one variable easily.\n\n"
+            "This process eliminates one variable and reduces the system to a single linear equation.\n\n"
+            "Although substitution would also work, elimination is more direct here because we can cancel a variable "
+            "without first rearranging an equation."
+        )
+        return "Elimination", explanation, eq1, eq2
+
+    # ----------------------------------------------------
+    # 2) Substitution check (a coefficient is 1 or -1)
+    # ----------------------------------------------------
+    # # I'm checking if any coefficient is 1 or -1, because that makes rearranging very straightforward
+    substitution_ready = (abs(a1) == 1 or abs(b1) == 1 or abs(a2) == 1 or abs(b2) == 1)
+
+    # # I'm spotting which variable is easiest to make the subject, so the explanation feels specific
+    easy_subject = ""
+    if abs(a1) == 1:
+        easy_subject = "x (in Equation 1)"
+    elif abs(b1) == 1:
+        easy_subject = "y (in Equation 1)"
+    elif abs(a2) == 1:
+        easy_subject = "x (in Equation 2)"
+    elif abs(b2) == 1:
+        easy_subject = "y (in Equation 2)"
+
+    if substitution_ready:
+        explanation = (
+            "In this pair of equations, one variable can be rearranged easily because its coefficient is 1 or −1.\n\n"
+            f"We rearrange that equation to make {easy_subject} the subject.\n\n"
+            "We then substitute it into the second equation.\n\n"
+            "Although elimination would also work, substitution is more direct here because the rearrangement is "
+            "straightforward from the start."
+        )
+        return "Substitution", explanation, eq1, eq2
+
+    # ----------------------------------------------------
+    # 3) Default choice (Elimination)
+    # ----------------------------------------------------
+    # # If nothing is obviously 1/-1, I default to elimination because it's a standard GCSE approach
+    explanation = (
+        "In this pair of equations, no variable is immediately easy to rearrange because there is no coefficient of 1 or −1.\n\n"
+        "So elimination is usually the better choice, because we can multiply one or both equations to make a coefficient match, "
+        "then add or subtract to remove one variable.\n\n"
+        "Although substitution would still work, elimination is more structured here."
+    )
+    return "Elimination", explanation, eq1, eq2
 
 # I’m setting a secret key for secure session management
 # In production this would come from environment variables
@@ -258,13 +340,15 @@ def dashboard():
     # I'm grouping questions by topic so they can appear inside topic boxes
     topics = {}
 
-  # -------------------------------
-# -------------------------------
+    # -------------------------------
     # AI prediction placeholders
     # -------------------------------
     predicted_method = None
     selected_topic = None
-    quadratic_explanation = None  # I'm storing explanation text for quadratics
+
+    # # I'm keeping separate explanations for each topic input feature
+    quadratic_explanation = None
+    simultaneous_explanation = None
 
     # -------------------------------
     # Handle form submission (AI)
@@ -273,7 +357,11 @@ def dashboard():
 
         selected_topic = request.form.get("topic")
 
+        # =========================
+        # QUADRATIC BLOCK
+        # =========================
         if selected_topic == "quadratic":
+
             a = request.form.get("a")
             b = request.form.get("b")
             c = request.form.get("c")
@@ -296,6 +384,38 @@ def dashboard():
             # I'm storing explanation so we can show students WHY
             quadratic_explanation = explanation_text
 
+        # =========================
+        # SIMULTANEOUS BLOCK
+        # =========================
+        elif selected_topic == "simultaneous":
+
+            # # I'm collecting the 2-equation coefficients from the student inputs
+            a1 = request.form.get("a1")
+            b1 = request.form.get("b1")
+            c1 = request.form.get("c1")
+
+            a2 = request.form.get("a2")
+            b2 = request.form.get("b2")
+            c2 = request.form.get("c2")
+
+            # # I'm building a question string for the ML model (assistive layer)
+            question_text = f"Solve the simultaneous equations: {a1}x + {b1}y = {c1}, and {a2}x + {b2}y = {c2}"
+
+            # # I'm generating ML suggestion (assistive layer)
+            ml_method = predict_method(question_text)
+
+            # # I'm applying rule-based authority logic (this is the truth layer)
+            rule_method, explanation_text, eq1, eq2 = rule_based_simultaneous_method(a1, b1, c1, a2, b2, c2)
+
+            # # Hybrid decision layer (rule overrides ML if mismatch)
+            if ml_method == rule_method:
+                predicted_method = ml_method
+            else:
+                predicted_method = rule_method
+
+            # # I'm passing the student-friendly explanation to the template
+            simultaneous_explanation = explanation_text
+
     # ---------------------------------
     # I'm grouping questions by topic
     # (this must stay OUTSIDE POST)
@@ -313,8 +433,10 @@ def dashboard():
         questions=questions,
         predicted_method=predicted_method,
         selected_topic=selected_topic,
-        quadratic_explanation=quadratic_explanation
+        quadratic_explanation=quadratic_explanation,
+        simultaneous_explanation=simultaneous_explanation
     )
+
 # -------------------------------------------------
 # LOGOUT
 # -------------------------------------------------
