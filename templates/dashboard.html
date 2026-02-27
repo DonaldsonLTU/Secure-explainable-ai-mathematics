@@ -118,6 +118,75 @@
 {% endif %}
 {% endif %}
 
+{% if topic == "Ratio" %}
+<form method="POST">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+  <h4>Ratio Sharing Input</h4>
+
+  <input type="number" name="total_amount" placeholder="Enter total amount" required value="{{ request.form.total_amount }}">
+  <input type="number" name="part1" placeholder="Enter first ratio part" required value="{{ request.form.part1 }}">
+  <input type="number" name="part2" placeholder="Enter second ratio part" required value="{{ request.form.part2 }}">
+
+  <br><br>
+
+  <button type="submit" name="topic" value="ratio">
+    Analyse Ratio
+  </button>
+
+  <a href="{{ url_for('dashboard') }}">
+    <button type="button">Clear</button>
+  </a>
+</form>
+
+{% if predicted_method and selected_topic == "ratio" %}
+  <h3>Recommended Method: {{ predicted_method }}</h3>
+
+  <div style="margin-top:10px; padding:10px; border:1px solid #ccc;">
+    <strong>Why this method?</strong>
+    <p style="white-space: pre-line;">
+      {{ ratio_explanation }}
+    </p>
+  </div>
+{% endif %}
+{% endif %}
+
+{% if topic == "Sequences (Geometric Progression)" %}
+<form method="POST">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+  <h4>Geometric Progression Input</h4>
+
+  <!-- # I'm allowing missing values where necessary -->
+  <input type="number" name="a" placeholder="Enter first term (a)" value="{{ request.form.a }}">
+  <input type="number" name="r" placeholder="Enter common ratio (r)" value="{{ request.form.r }}">
+  <input type="number" name="n" placeholder="Enter term position (n)" value="{{ request.form.n }}">
+  <input type="number" name="a_n" placeholder="Enter nth term (a_n) if known" value="{{ request.form.a_n }}">
+
+  <br><br>
+
+  <button type="submit" name="topic" value="gp">
+    Analyse GP
+  </button>
+
+  <!-- # I'm using GET refresh to fully reset inputs + prediction + explanation -->
+  <a href="{{ url_for('dashboard') }}">
+    <button type="button">Clear</button>
+  </a>
+</form>
+
+{% if predicted_method and selected_topic == "gp" %}
+  <h3>Recommended Method: {{ predicted_method }}</h3>
+
+  <div style="margin-top:10px; padding:10px; border:1px solid #ccc;">
+    <strong>Why this method?</strong>
+    <p style="white-space: pre-line;">
+      {{ gp_explanation }}
+    </p>
+  </div>
+{% endif %}
+{% endif %}
+
             <!-- Dropdown list of questions under this topic -->
             <!-- This keeps the interface clean and organised -->
             <!-- I'm giving each dropdown an onchange handler -->

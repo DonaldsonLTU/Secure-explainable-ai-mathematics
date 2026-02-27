@@ -194,6 +194,128 @@ def rule_based_simultaneous_method(a1, b1, c1, a2, b2, c2):
     )
     return "Elimination", explanation, eq1, eq2
 
+# -----------------------------------------
+# Rule-based ratio method decision logic
+# -----------------------------------------
+def rule_based_ratio_method(total_amount, part1, part2):
+    """
+    This function provides neutral recommendation for ratio problems.
+    Both unitary and fraction methods are valid for GCSE ratio sharing.
+    """
+
+    # # I'm converting inputs to integers for safe calculations
+    total_amount = int(total_amount)
+    part1 = int(part1)
+    part2 = int(part2)
+
+    # # I'm calculating total ratio parts
+    total_parts = part1 + part2
+
+    # # I'm building a student-friendly explanation
+    explanation = (
+        "In ratio sharing problems, both the unitary method and the fraction method can be used to find each share.\n\n"
+        "Even when questions are presented in different structures or scenarios — such as money, sweets, or quantities — "
+        "the mathematical structure remains the same.\n\n"
+        "Both methods follow the same principle and will produce the same answer.\n\n"
+        "The choice depends on which approach feels clearer or more comfortable.\n\n"
+        "--------------------------------------------------\n\n"
+        "Unitary Method\n\n"
+        "The unitary method works by first finding the value of one part.\n\n"
+        "Step 1: Add the ratio parts together to find the total number of parts.\n"
+        "Step 2: Divide the total amount by the total parts to find the value of one part.\n"
+        "Step 3: Multiply each ratio part by that value to find each share.\n\n"
+        "--------------------------------------------------\n\n"
+        "Fraction Method\n\n"
+        "The fraction method treats each ratio part as a fraction of the total.\n\n"
+        "Step 1: Add the ratio parts to find the total number of parts.\n"
+        "Step 2: Write each share as (individual ratio part ÷ total parts) × total amount.\n"
+        "Step 3: Multiply to find each share directly."
+    )
+
+    return "Unitary Method or Fraction Method", explanation
+
+# -----------------------------------------
+# Rule-based geometric progression method decision logic
+# -----------------------------------------
+def rule_based_gp_method(a_n, a, r, n):
+    """
+    This function decides whether Iteration or Formula method is appropriate
+    based on availability of common ratio and other inputs.
+    """
+
+    # # I'm converting inputs carefully, allowing empty values
+    a_n = int(a_n) if a_n else None
+    a = int(a) if a else None
+    r = int(r) if r else None
+    n = int(n) if n else None
+
+    # ----------------------------------------
+    # CASE 1: r is missing → Formula required
+    # ----------------------------------------
+    if r is None:
+
+        explanation = (
+            "The common ratio is not directly available from the given information.\n\n"
+            "Since iteration requires knowing the common ratio in order to multiply repeatedly, "
+            "it cannot be applied here.\n\n"
+            "In addition, when the term being found is far from the first term, repeatedly multiplying "
+            "would be time-consuming and inefficient.\n\n"
+            "Therefore, the formula method must be used to work with the variables and determine "
+            "the unknown values in a more systematic and time-efficient way.\n\n"
+            "---------------------------------------------\n\n"
+            "Formula Method\n\n"
+            "The formula method uses:\n"
+            "aₙ = a × rⁿ⁻¹\n\n"
+            "Where:\n"
+            "aₙ = the nth term (the term being found)\n"
+            "a = the first term\n"
+            "r = the common ratio (the number we multiply by each time)\n"
+            "n = the term position\n\n"
+            "Step 1: Identify the known variables.\n"
+            "Step 2: Substitute into the formula.\n"
+            "Step 3: Rearrange if necessary to find the unknown.\n"
+            "Step 4: Evaluate carefully."
+        )
+
+        return "Formula Method", explanation
+
+    # ------------------------------------------------
+    # CASE 2: r is known and we are finding a_n
+    # ------------------------------------------------
+    elif r is not None and a is not None and n is not None and a_n is None:
+
+        explanation = (
+            "The common ratio is known, so we can repeatedly multiply by the ratio "
+            "to reach the required term.\n\n"
+            "This makes the iteration method straightforward and easy to apply.\n\n"
+            "Although the formula method could also be used, iteration is more direct in this case.\n\n"
+            "---------------------------------------------\n\n"
+            "Iteration Method\n\n"
+            "The iteration method works by multiplying each term by the common ratio "
+            "to generate the next term.\n\n"
+            "Step 1: Start with the first term.\n"
+            "Step 2: Multiply by the common ratio to get the next term.\n"
+            "Step 3: Repeat until the required term is reached.\n\n"
+            "This method only works when the common ratio is known."
+        )
+
+        return "Iteration Method", explanation
+
+    # ----------------------------------------
+    # Default → Formula method
+    # ----------------------------------------
+    else:
+
+        explanation = (
+            "The formula method is the most reliable approach in this situation.\n\n"
+            "It allows us to work directly with the known variables and determine the unknown values "
+            "in a structured way.\n\n"
+            "The formula used is:\n"
+            "aₙ = a × rⁿ⁻¹"
+        )
+
+        return "Formula Method", explanation
+
 # I’m setting a secret key for secure session management
 # In production this would come from environment variables
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key")
@@ -349,6 +471,8 @@ def dashboard():
     # # I'm keeping separate explanations for each topic input feature
     quadratic_explanation = None
     simultaneous_explanation = None
+    ratio_explanation = None
+    gp_explanation = None
 
     # -------------------------------
     # Handle form submission (AI)
@@ -416,6 +540,63 @@ def dashboard():
             # # I'm passing the student-friendly explanation to the template
             simultaneous_explanation = explanation_text
 
+        # =============================
+        # RATIO BLOCK
+        # =============================
+        elif selected_topic == "ratio":
+
+            # # I'm collecting the ratio inputs from the student
+            total_amount = request.form.get("total_amount")
+            part1 = request.form.get("part1")
+            part2 = request.form.get("part2")
+
+            # # I'm building a natural question string for the ML model (assistive layer)
+            question_text = f"Share {total_amount} in the ratio {part1}:{part2}"
+
+            # # I'm generating ML suggestion (assistive layer)
+            ml_method = predict_method(question_text)
+
+            # # I'm applying rule-based neutral logic (authoritative layer)
+            rule_method, explanation_text = rule_based_ratio_method(total_amount, part1, part2)
+
+            # # Hybrid decision layer (rule overrides ML if mismatch)
+            if ml_method == rule_method:
+                predicted_method = ml_method
+            else:
+                predicted_method = rule_method
+
+            # # I'm storing explanation for display
+            ratio_explanation = explanation_text
+
+# =============================
+        # GEOMETRIC PROGRESSION BLOCK
+        # =============================
+        elif selected_topic == "gp":
+
+            # # I'm collecting GP inputs (allowing empty values)
+            a_n = request.form.get("a_n")
+            a = request.form.get("a")
+            r = request.form.get("r")
+            n = request.form.get("n")
+
+            # # I'm building a question string for ML (assistive layer)
+            question_text = f"Geometric progression with a={a}, r={r}, n={n}, a_n={a_n}"
+
+            # # I'm generating ML suggestion (assistive layer)
+            ml_method = predict_method(question_text)
+
+            # # I'm applying rule-based authority logic
+            rule_method, explanation_text = rule_based_gp_method(a_n, a, r, n)
+
+            # # Hybrid decision layer (rule overrides ML if mismatch)
+            if ml_method == rule_method:
+                predicted_method = ml_method
+            else:
+                predicted_method = rule_method
+
+            # # I'm storing explanation for display
+            gp_explanation = explanation_text
+
     # ---------------------------------
     # I'm grouping questions by topic
     # (this must stay OUTSIDE POST)
@@ -434,7 +615,9 @@ def dashboard():
         predicted_method=predicted_method,
         selected_topic=selected_topic,
         quadratic_explanation=quadratic_explanation,
-        simultaneous_explanation=simultaneous_explanation
+        simultaneous_explanation=simultaneous_explanation,
+        ratio_explanation=ratio_explanation,
+        gp_explanation=gp_explanation
     )
 
 # -------------------------------------------------
