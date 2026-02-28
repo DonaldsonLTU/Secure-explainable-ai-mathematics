@@ -315,6 +315,90 @@ def rule_based_gp_method(a_n, a, r, n):
         )
 
         return "Formula Method", explanation
+    
+# -----------------------------------------
+# Rule-based arithmetic progression method decision logic
+# -----------------------------------------
+def rule_based_ap_method(a_n, a, d, n):
+    """
+    This function decides whether Iteration or Formula method is appropriate
+    based on availability of common difference and other inputs.
+    """
+
+    # # I'm converting inputs carefully, allowing empty values
+    a_n = int(a_n) if a_n else None
+    a = int(a) if a else None
+    d = int(d) if d else None
+    n = int(n) if n else None
+
+    # ----------------------------------------
+    # CASE 1: d is missing → Formula required
+    # ----------------------------------------
+    if d is None:
+
+        explanation = (
+            "Arithmetic Progressions (AP) and Geometric Progressions (GP) are both types of sequences.\n\n"
+            "They are similar because both follow a consistent pattern from one term to the next.\n\n"
+            "However, the key difference is:\n"
+            "• In an Arithmetic Progression, we add a fixed number each time. This fixed number is called the common difference (d).\n"
+            "• In a Geometric Progression, we multiply by a fixed number each time. This fixed number is called the common ratio (r).\n\n"
+            "Since the common difference is not directly available from the given information, "
+            "iteration cannot be applied.\n\n"
+            "In addition, when the required term is far from the first term, repeatedly adding would be inefficient.\n\n"
+            "Therefore, the formula method must be used.\n\n"
+            "---------------------------------------------\n\n"
+            "Formula Method\n\n"
+            "The formula used is:\n"
+            "aₙ = a + (n − 1)d\n\n"
+            "Where:\n"
+            "aₙ = the nth term\n"
+            "a = the first term\n"
+            "d = the common difference (the number added each time)\n"
+            "n = the term position\n\n"
+            "Step 1: Identify the known variables.\n"
+            "Step 2: Substitute into the formula.\n"
+            "Step 3: Rearrange if necessary to find the unknown.\n"
+            "Step 4: Evaluate carefully."
+        )
+
+        return "Formula Method", explanation
+
+    # ------------------------------------------------
+    # CASE 2: d is known and we are finding a_n
+    # ------------------------------------------------
+    elif d is not None and a is not None and n is not None and a_n is None:
+
+        explanation = (
+            "Arithmetic Progressions (AP) and Geometric Progressions (GP) are both types of sequences.\n\n"
+            "The difference is that AP increases or decreases by adding a fixed number (the common difference), "
+            "while GP changes by multiplying by a fixed number.\n\n"
+            "Since the common difference is known, we can repeatedly add it to reach the required term.\n\n"
+            "This makes the iteration method straightforward and easy to apply.\n\n"
+            "Although the formula method could also be used, iteration is more direct in this case.\n\n"
+            "---------------------------------------------\n\n"
+            "Iteration Method\n\n"
+            "The iteration method works by adding the common difference to each term "
+            "to generate the next term.\n\n"
+            "Step 1: Start with the first term.\n"
+            "Step 2: Add the common difference to get the next term.\n"
+            "Step 3: Repeat until the required term is reached.\n\n"
+            "This method only works when the common difference is known."
+        )
+
+        return "Iteration Method", explanation
+
+    # ----------------------------------------
+    # Default → Formula method
+    # ----------------------------------------
+    else:
+
+        explanation = (
+            "The formula method is the most reliable approach in this situation.\n\n"
+            "The formula used is:\n"
+            "aₙ = a + (n − 1)d"
+        )
+
+        return "Formula Method", explanation
 
 # I’m setting a secret key for secure session management
 # In production this would come from environment variables
@@ -473,6 +557,7 @@ def dashboard():
     simultaneous_explanation = None
     ratio_explanation = None
     gp_explanation = None
+    ap_explanation = None
 
     # -------------------------------
     # Handle form submission (AI)
@@ -597,6 +682,35 @@ def dashboard():
             # # I'm storing explanation for display
             gp_explanation = explanation_text
 
+# =========================
+        # ARITHMETIC PROGRESSION BLOCK
+        # =========================
+        elif selected_topic == "ap":
+
+            # # I'm collecting AP inputs from the student
+            a_n = request.form.get("a_n")
+            a = request.form.get("a")
+            d = request.form.get("d")
+            n = request.form.get("n")
+
+            # # I'm building a natural question string for ML (assistive layer)
+            question_text = f"Find term in arithmetic progression with a={a}, d={d}, n={n}"
+
+            # # I'm generating ML suggestion (assistive layer)
+            ml_method = predict_method(question_text)
+
+            # # I'm applying rule-based authority logic
+            rule_method, explanation_text = rule_based_ap_method(a_n, a, d, n)
+
+            # # Hybrid decision layer (rule overrides ML if mismatch)
+            if ml_method == rule_method:
+                predicted_method = ml_method
+            else:
+                predicted_method = rule_method
+
+            # # I'm storing explanation for display
+            ap_explanation = explanation_text
+
     # ---------------------------------
     # I'm grouping questions by topic
     # (this must stay OUTSIDE POST)
@@ -617,7 +731,8 @@ def dashboard():
         quadratic_explanation=quadratic_explanation,
         simultaneous_explanation=simultaneous_explanation,
         ratio_explanation=ratio_explanation,
-        gp_explanation=gp_explanation
+        gp_explanation=gp_explanation,
+        ap_explanation=ap_explanation
     )
 
 # -------------------------------------------------

@@ -187,6 +187,40 @@
 {% endif %}
 {% endif %}
 
+{% if topic == "Sequences (Arithmetic Progression)" %}
+<form method="POST">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+  <h4>Arithmetic Progression Input</h4>
+
+  <input type="number" name="a_n" placeholder="Enter aₙ (leave empty if unknown)" value="{{ request.form.a_n }}">
+  <input type="number" name="a" placeholder="Enter first term (a)" value="{{ request.form.a }}">
+  <input type="number" name="d" placeholder="Enter common difference (d)" value="{{ request.form.d }}">
+  <input type="number" name="n" placeholder="Enter term position (n)" value="{{ request.form.n }}">
+
+  <br><br>
+
+  <button type="submit" name="topic" value="ap">
+    Analyse AP
+  </button>
+
+  <a href="{{ url_for('dashboard') }}">
+    <button type="button">Clear</button>
+  </a>
+</form>
+
+{% if predicted_method and selected_topic == "ap" %}
+  <h3>Recommended Method: {{ predicted_method }}</h3>
+
+  <div style="margin-top:10px; padding:10px; border:1px solid #ccc;">
+    <strong>Why this method?</strong>
+    <p style="white-space: pre-line;">
+      {{ ap_explanation }}
+    </p>
+  </div>
+{% endif %}
+{% endif %}
+
             <!-- Dropdown list of questions under this topic -->
             <!-- This keeps the interface clean and organised -->
             <!-- I'm giving each dropdown an onchange handler -->
