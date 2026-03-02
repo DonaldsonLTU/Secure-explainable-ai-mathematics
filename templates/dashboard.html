@@ -62,6 +62,25 @@
 </a>
 </form>
 
+<!-- =========================================== -->
+<!-- METHOD / WORKED EXAMPLE MENU (Quadratics) -->
+<!-- =========================================== -->
+
+<div style="margin-top:15px; padding:10px; border:1px solid #ddd;">
+  <strong>View Method / Worked Example:</strong>
+
+  <select onchange="showQuadraticMethod(this)">
+    <option value="">Select a method</option>
+    <option value="factorisation">Factorisation</option>
+    <option value="completing">Completing the Square</option>
+    <option value="formula">Quadratic Formula</option>
+  </select>
+
+  <div id="quadratic-method-display" style="margin-top:15px;"></div>
+</div>
+
+
+
 {% if predicted_method and selected_topic == "quadratic" %}
     <h3>Recommended Method: {{ predicted_method }}</h3>
 
@@ -73,6 +92,8 @@
     </div>
 {% endif %}
 {% endif %}
+
+
 
 {% if topic == "Simultaneous Equations" %}
 <form method="POST">
@@ -106,6 +127,24 @@
   </a>
 </form>
 
+<!-- =========================================== -->
+<!-- METHOD / WORKED EXAMPLE MENU (Simultaneous) -->
+<!-- =========================================== -->
+
+<div style="margin-top:25px; padding:10px; border:1px solid #ddd;">
+
+  <strong>View Method / Worked Example (Simultaneous):</strong>
+
+  <select onchange="showSimultaneousMethod(this)">
+    <option value="">Select a method</option>
+    <option value="substitution">Substitution Method</option>
+    <option value="elimination">Elimination Method</option>
+  </select>
+
+  <div id="simultaneous-method-display" style="margin-top:15px;"></div>
+
+</div>
+
 {% if predicted_method and selected_topic == "simultaneous" %}
   <h3>Recommended Method: {{ predicted_method }}</h3>
 
@@ -138,6 +177,24 @@
     <button type="button">Clear</button>
   </a>
 </form>
+
+<!-- =========================================== -->
+<!-- METHOD / WORKED EXAMPLE MENU (Ratios) -->
+<!-- =========================================== -->
+
+<div style="margin-top:15px; padding:10px; border:1px solid #ddd;">
+
+  <strong>View Method / Worked Example (Ratios):</strong>
+
+  <select onchange="showRatioMethod(this)">
+    <option value="">Select a method</option>
+    <option value="sharing">Unitary Method</option>
+    <option value="simplifying">Fraction Method</option>
+  </select>
+
+  <div id="ratio-method-display" style="margin-top:15px;"></div>
+
+</div>
 
 {% if predicted_method and selected_topic == "ratio" %}
   <h3>Recommended Method: {{ predicted_method }}</h3>
@@ -175,6 +232,24 @@
   </a>
 </form>
 
+<!-- =========================================== -->
+<!-- METHOD / WORKED EXAMPLE MENU (Geometric Progression) -->
+<!-- =========================================== -->
+
+<div style="margin-top:15px; padding:10px; border:1px solid #ddd;">
+
+  <strong>View Method / Worked Example (Geometric Progression):</strong>
+
+  <select onchange="showGPMethod(this)">
+    <option value="">Select a method</option>
+    <option value="nth">Iteration Method</option>
+    <option value="sum">nth Term Formula</option>
+  </select>
+
+  <div id="gp-method-display" style="margin-top:15px;"></div>
+
+</div>
+
 {% if predicted_method and selected_topic == "gp" %}
   <h3>Recommended Method: {{ predicted_method }}</h3>
 
@@ -208,6 +283,24 @@
     <button type="button">Clear</button>
   </a>
 </form>
+
+<!-- =========================================== -->
+<!-- METHOD / WORKED EXAMPLE MENU (Arithmetic Progression) -->
+<!-- =========================================== -->
+
+<div style="margin-top:15px; padding:10px; border:1px solid #ddd;">
+
+  <strong>View Method / Worked Example (Arithmetic Progression):</strong>
+
+  <select onchange="showAPMethod(this)">
+    <option value="">Select a method</option>
+    <option value="iteration">Iteration Method</option>
+    <option value="nth">nth Term Formula</option>
+  </select>
+
+  <div id="ap-method-display" style="margin-top:15px;"></div>
+
+</div>
 
 {% if predicted_method and selected_topic == "ap" %}
   <h3>Recommended Method: {{ predicted_method }}</h3>
@@ -911,6 +1004,1035 @@ else if (topicTitle.includes("Arithmetic")) {
   } else {
     explanationBox.style.display = "none";
     button.textContent = "View Explanation";
+  }
+}
+
+/* ============================================= */
+/* QUADRATIC METHOD DISPLAY FUNCTION GOES HERE  */
+/* ============================================= */
+function showQuadraticMethod(selectEl) {
+
+  const container = document.getElementById("quadratic-method-display");
+
+  if (!selectEl.value) {
+    container.innerHTML = "";
+    return;
+  }
+
+  let content = "";
+
+  // =========================================
+  // FACTORISATION
+  // =========================================
+  if (selectEl.value === "factorisation") {
+
+    content = `
+      <h3>Factorisation Method</h3>
+
+      <h4>Method Explanation</h4>
+
+      <p><strong>Step 1:</strong> Identify the Two Numbers</p>
+      <p>Find two numbers that:</p>
+      <ul>
+        <li>Multiply to give the constant term (c)</li>
+        <li>Add together to give the coefficient of the linear term (b)</li>
+      </ul>
+
+      <p><strong>Step 2:</strong> Write the Factorised Form</p>
+      <p>Rewrite the quadratic as two brackets using the two numbers found.</p>
+
+      <p><strong>Step 3:</strong> Set Each Bracket Equal to Zero</p>
+
+      <p><strong>Step 4:</strong> Solve Each Simple Equation</p>
+
+      <hr>
+
+      <h4>Solved Example</h4>
+
+      <p>Solve the quadratic equation:</p>
+      <p>\$begin:math:text$ x\^2 \+ 5x \+ 6 \= 0 \\$end:math:text$</p>
+
+      <p>Find two numbers that multiply to give 6 and add to give 5.</p>
+      <p>Those numbers are 2 and 3.</p>
+
+      <p>\$begin:math:text$ \(x \+ 2\)\(x \+ 3\) \= 0 \\$end:math:text$</p>
+
+      <p>\$begin:math:text$ x \+ 2 \= 0 \\$end:math:text$</p>
+      <p>or</p>
+      <p>\$begin:math:text$ x \+ 3 \= 0 \\$end:math:text$</p>
+
+      <p>\$begin:math:text$ x \= \-2 \\$end:math:text$</p>
+      <p>\$begin:math:text$ x \= \-3 \\$end:math:text$</p>
+
+      <p><strong>Final Answer:</strong></p>
+      <p>\$begin:math:text$ x \= \-2 \\\\quad \\\\text\{or\} \\\\quad x \= \-3 \\$end:math:text$</p>
+    `;
+  }
+
+  // =========================================
+  // COMPLETING THE SQUARE
+  // =========================================
+  else if (selectEl.value === "completing") {
+
+    content = `
+      <h3>Completing the Square</h3>
+
+      <h4>Method Explanation</h4>
+
+      <p><strong>Step 1:</strong> Make sure the coefficient of \$begin:math:text$ x\^2 \\$end:math:text$ is 1.</p>
+      <p><strong>Step 2:</strong> Move the constant term to the other side.</p>
+      <p><strong>Step 3:</strong> Take half of the coefficient of x, square it, and add it to both sides.</p>
+      <p><strong>Step 4:</strong> Write the left side as a squared bracket.</p>
+      <p><strong>Step 5:</strong> Solve by square rooting (remembering \$begin:math:text$ \\\\pm \\$end:math:text$).</p>
+
+      <hr>
+
+      <h4>Solved Example</h4>
+
+      <p>\$begin:math:text$ x\^2 \+ 5x \+ 6 \= 0 \\$end:math:text$</p>
+
+      <p>\$begin:math:text$ x\^2 \+ 5x \= \-6 \\$end:math:text$</p>
+
+      <p>Half of 5 is \$begin:math:text$ \\\\frac\{5\}\{2\} \\$end:math:text$</p>
+
+      <p>\$begin:math:text$ \\\\left\( \\\\frac\{5\}\{2\} \\\\right\)\^2 \= \\\\frac\{25\}\{4\} \\$end:math:text$</p>
+
+      <p>\$begin:math:text$ x\^2 \+ 5x \+ \\\\frac\{25\}\{4\} \= \-6 \+ \\\\frac\{25\}\{4\} \\$end:math:text$</p>
+
+      <p>\$begin:math:text$ \\\\left\( x \+ \\\\frac\{5\}\{2\} \\\\right\)\^2 \= \\\\frac\{1\}\{4\} \\$end:math:text$</p>
+
+      <p>\$begin:math:text$ x \+ \\\\frac\{5\}\{2\} \= \\\\pm \\\\frac\{1\}\{2\} \\$end:math:text$</p>
+
+      <p>\$begin:math:text$ x \= \-2 \\$end:math:text$</p>
+      <p>\$begin:math:text$ x \= \-3 \\$end:math:text$</p>
+
+      <p><strong>Final Answer:</strong></p>
+      <p>\$begin:math:text$ x \= \-2 \\\\quad \\\\text\{or\} \\\\quad x \= \-3 \\$end:math:text$</p>
+    `;
+  }
+
+  // =========================================
+  // QUADRATIC FORMULA
+  // =========================================
+  else if (selectEl.value === "formula") {
+
+    content = `
+      <h3>Quadratic Formula</h3>
+
+      <h4>Method Explanation</h4>
+
+      <p>Write the quadratic in the form:</p>
+      <p>\$begin:math:text$ ax\^2 \+ bx \+ c \= 0 \\$end:math:text$</p>
+
+      <p>The quadratic formula is:</p>
+      <p>\$begin:math:text$ x \= \\\\frac\{\-b \\\\pm \\\\sqrt\{b\^2 \- 4ac\}\}\{2a\} \\$end:math:text$</p>
+
+      <hr>
+
+      <h4>Solved Example</h4>
+
+      <p>\$begin:math:text$ x\^2 \+ 5x \+ 6 \= 0 \\$end:math:text$</p>
+
+      <p>\$begin:math:text$ a \= 1 \\\\quad b \= 5 \\\\quad c \= 6 \\$end:math:text$</p>
+
+      <p>\$begin:math:text$ x \= \\\\frac\{\-5 \\\\pm \\\\sqrt\{25 \- 24\}\}\{2\} \\$end:math:text$</p>
+
+      <p>\$begin:math:text$ x \= \\\\frac\{\-5 \\\\pm 1\}\{2\} \\$end:math:text$</p>
+
+      <p>\$begin:math:text$ x \= \-2 \\$end:math:text$</p>
+      <p>\$begin:math:text$ x \= \-3 \\$end:math:text$</p>
+
+      <p><strong>Final Answer:</strong></p>
+      <p>\$begin:math:text$ x \= \-2 \\\\quad \\\\text\{or\} \\\\quad x \= \-3 \\$end:math:text$</p>
+    `;
+  }
+
+  container.innerHTML = content;
+
+  if (window.MathJax) {
+    MathJax.typesetPromise([container]);
+  }
+}
+
+/* ============================================= */
+/* QUADRATIC METHOD DISPLAY FUNCTION            */
+/* Student-friendly explanations  */
+/* ============================================= */
+function showQuadraticMethod(selectEl) {
+
+  const container = document.getElementById("quadratic-method-display");
+
+  if (!selectEl.value) {
+    container.innerHTML = "";   // completely clear when "Select a method" is chosen
+    return;
+  }
+
+  let content = "";
+
+  if (selectEl.value === "factorisation") {
+
+    content = `
+      <h3>Factorisation Method</h3>
+
+      <h4>Method Explanation</h4>
+
+      <p><strong>Step 1: Find the two numbers</strong><br>
+      Look for two numbers that:<br>
+      • multiply to give the constant term (<strong>c</strong>)<br>
+      • add up to the middle number (<strong>b</strong>)</p>
+
+      <p><strong>Step 2: Write it as two brackets</strong><br>
+      Use those two numbers to rewrite the quadratic in the form (x + ?)(x + ?) = 0</p>
+
+      <p><strong>Step 3: Set each bracket equal to zero</strong></p>
+
+      <p><strong>Step 4: Solve the two simple equations</strong></p>
+
+      <hr>
+
+      <h4>Worked Example</h4>
+      <p>Solve: \\( x^2 + 5x + 6 = 0 \\)</p>
+
+      🪜 <strong>Step 1: Find the two numbers</strong><br>
+      We need two numbers that:<br>
+      • multiply to give <strong>6</strong><br>
+      • add to give <strong>5</strong><br><br>
+      → The numbers are <strong>2</strong> and <strong>3</strong><br>
+      (because 2 × 3 = 6 and 2 + 3 = 5)
+
+      🪜 <strong>Step 2: Write it as two brackets</strong><br>
+      \\[ (x + 2)(x + 3) = 0 \\]
+
+      🪜 <strong>Step 3: Set each bracket equal to zero</strong><br>
+      \\[ x + 2 = 0 \\quad \\text{or} \\quad x + 3 = 0 \\]
+
+      🪜 <strong>Step 4: Solve</strong><br>
+      \\[ x = -2 \\quad \\text{or} \\quad x = -3 \\]
+
+      <hr>
+
+      <p style="font-weight:bold; color:#006600;">Final answer: \\( x = -2 \\) or \\( x = -3 \\)</p>
+    `;
+
+  } else if (selectEl.value === "completing") {
+
+    content = `
+      <h3>Completing the Square Method</h3>
+
+      <h4>Method Explanation</h4>
+
+      <p><strong>Step 1:</strong> Make sure the coefficient of \\( x^2 \\) is 1<br>
+      If there is a number in front of \\( x^2 \\) (other than 1), divide every term by that number first.</p>
+
+      <p><strong>Step 2:</strong> Move the constant term to the other side<br>
+      Rearrange so all terms with x are on the left and the constant is on the right.</p>
+
+      <p><strong>Step 3:</strong> Complete the square<br>
+      Take half the coefficient of x, square it, and add that amount to both sides.</p>
+
+      <p><strong>Step 4:</strong> Write the left side as a squared bracket<br>
+      Rewrite the left-hand side as one perfect square bracket.</p>
+
+      <p><strong>Step 5:</strong> Solve by square rooting<br>
+      Take the square root of both sides (remember ±), then solve for x.</p>
+
+      <hr>
+
+      <h4>Worked Example</h4>
+      <p>Solve: \\( x^2 + 5x + 6 = 0 \\)</p>
+
+      🪜 <strong>Step 1:</strong> Coefficient of \\( x^2 \\) is 1<br>
+      Already 1 — go to the next step.
+
+      🪜 <strong>Step 2:</strong> Move the constant term<br>
+      \\[ x^2 + 5x = -6 \\]
+
+      🪜 <strong>Step 3:</strong> Complete the square<br>
+      Half of 5 is \\( \\frac{5}{2} \\).<br>
+      Square it: \\( \\left( \\frac{5}{2} \\right)^2 = \\frac{25}{4} \\)<br><br>
+      Add to both sides:<br>
+      \\[ x^2 + 5x + \\frac{25}{4} = -6 + \\frac{25}{4} \\]
+
+      🪜 <strong>Step 4:</strong> Write as a squared bracket<br>
+      Left side: \\[ \\left( x + \\frac{5}{2} \\right)^2 \\]<br>
+      Right side: \\[ -6 + \\frac{25}{4} = -\\frac{24}{4} + \\frac{25}{4} = \\frac{1}{4} \\]<br><br>
+      So: \\[ \\left( x + \\frac{5}{2} \\right)^2 = \\frac{1}{4} \\]
+
+      🪜 <strong>Step 5:</strong> Solve by square rooting<br>
+      \\[ x + \\frac{5}{2} = \\pm \\frac{1}{2} \\]<br><br>
+
+      <strong>Case 1:</strong><br>
+      \\[ x + \\frac{5}{2} = \\frac{1}{2} \\quad \\Rightarrow \\quad x = \\frac{1}{2} - \\frac{5}{2} = -2 \\]<br><br>
+
+      <strong>Case 2:</strong><br>
+      \\[ x + \\frac{5}{2} = -\\frac{1}{2} \\quad \\Rightarrow \\quad x = -\\frac{1}{2} - \\frac{5}{2} = -3 \\]
+
+      <hr>
+
+      <p style="font-weight:bold; color:#006600;">Final answer: \\( x = -2 \\) or \\( x = -3 \\)</p>
+    `;
+
+  } else if (selectEl.value === "formula") {
+
+    content = `
+      <h3>Quadratic Formula Method</h3>
+
+      <h4>Method Explanation</h4>
+
+      <p><strong>Step 1:</strong> Identify the values of a, b and c<br>
+      Write the quadratic in the form \\( ax^2 + bx + c = 0 \\)<br>
+      Then find:<br>
+      • a = coefficient of \\( x^2 \\)<br>
+      • b = coefficient of x<br>
+      • c = constant term</p>
+
+      <p><strong>Step 2:</strong> Write the quadratic formula<br>
+      \\[ x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a} \\]</p>
+
+      <p><strong>Step 3:</strong> Substitute the values of a, b and c</p>
+
+      <p><strong>Step 4:</strong> Simplify inside the square root<br>
+      Calculate \\( b^2 - 4ac \\) first (this is the discriminant).</p>
+
+      <p><strong>Step 5:</strong> Simplify fully and find the two answers<br>
+      Work out the square root, then calculate both solutions using + and −.</p>
+
+      <hr>
+
+      <h4>Worked Example</h4>
+      <p>Solve: \\( x^2 + 5x + 6 = 0 \\)</p>
+
+      🪜 <strong>Step 1:</strong> Identify a, b and c<br>
+      \\[ a = 1, \\quad b = 5, \\quad c = 6 \\]
+
+      🪜 <strong>Step 2:</strong> Write the quadratic formula<br>
+      \\[ x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a} \\]
+
+      🪜 <strong>Step 3:</strong> Substitute the values<br>
+      \\[ x = \\frac{-5 \\pm \\sqrt{5^2 - 4(1)(6)}}{2(1)} \\]
+
+      🪜 <strong>Step 4:</strong> Simplify inside the square root<br>
+      \\[ 5^2 = 25 \\]<br>
+      \\[ 4 \\times 1 \\times 6 = 24 \\]<br>
+      \\[ x = \\frac{-5 \\pm \\sqrt{25 - 24}}{2} = \\frac{-5 \\pm \\sqrt{1}}{2} \\]
+
+      🪜 <strong>Step 5:</strong> Solve using ±<br>
+      \\[ \\sqrt{1} = 1 \\]<br>
+      \\[ x = \\frac{-5 \\pm 1}{2} \\]<br><br>
+
+      <strong>Case 1:</strong><br>
+      \\[ x = \\frac{-5 + 1}{2} = \\frac{-4}{2} = -2 \\]<br><br>
+
+      <strong>Case 2:</strong><br>
+      \\[ x = \\frac{-5 - 1}{2} = \\frac{-6}{2} = -3 \\]
+
+      <hr>
+
+      <p style="font-weight:bold; color:#006600;">Final answer: \\( x = -2 \\) or \\( x = -3 \\)</p>
+    `;
+
+  }
+
+  container.innerHTML = content;
+
+  // Re-render MathJax → this makes all the nice x², fractions, roots appear properly
+  if (window.MathJax) {
+    MathJax.typesetPromise([container]).catch(err => console.log("MathJax issue:", err));
+  }
+}
+
+/* ============================================= */
+/* SIMULTANEOUS EQUATIONS METHOD DISPLAY         */
+/* Student-friendly explanations    */
+/* ============================================= */
+function showSimultaneousMethod(selectEl) {
+
+  const container = document.getElementById("simultaneous-method-display");
+
+  if (!selectEl.value) {
+    container.innerHTML = "";
+    return;
+  }
+
+  let content = "";
+
+  if (selectEl.value === "substitution") {
+    content = `
+      <h3>Substitution Method</h3>
+
+      <h4>Method Explanation</h4>
+
+      <p><strong>Step 1:</strong> Make one variable the subject<br>
+      Rearrange one equation so one variable stands alone (usually x or y).</p>
+
+      <p><strong>Step 2:</strong> Substitute into the second equation<br>
+      Replace that variable with the expression you found.</p>
+
+      <p><strong>Step 3:</strong> Solve the new equation<br>
+      You now have just one variable — solve it normally.</p>
+
+      <p><strong>Step 4:</strong> Substitute back<br>
+      Use the value you found to calculate the other variable.</p>
+
+      <p><strong>Step 5:</strong> Write both answers clearly</p>
+
+      <hr style="margin: 24px 0;">
+
+      <h4>Worked Example</h4>
+      <p>Solve the simultaneous equations:</p>
+
+      <p style="margin: 12px 0;">\\[ x + y = 10 \\]</p>
+      <p style="margin: 12px 0 24px 0;">\\[ 2x + y = 13 \\]</p>
+
+      🪜 <strong>Step 1:</strong> Make y the subject<br>
+      <div style="margin: 12px 0;">
+        From: \\[ x + y = 10 \\]<br>
+        \\[ y = 10 - x \\]
+      </div>
+
+      🪜 <strong>Step 2:</strong> Substitute into the second equation<br>
+      <div style="margin: 12px 0;">
+        \\[ 2x + y = 13 \\]<br>
+        Replace y:<br>
+        \\[ 2x + (10 - x) = 13 \\]
+      </div>
+
+      🪜 <strong>Step 3:</strong> Solve for x<br>
+      <div style="margin: 12px 0;">
+        \\[ 2x + 10 - x = 13 \\]<br>
+        \\[ x + 10 = 13 \\]<br>
+        \\[ x = 3 \\]
+      </div>
+
+      🪜 <strong>Step 4:</strong> Find y<br>
+      <div style="margin: 12px 0;">
+        \\[ y = 10 - x \\]<br>
+        \\[ y = 10 - 3 \\]<br>
+        \\[ y = 7 \\]
+      </div>
+
+      <hr style="margin: 24px 0;">
+
+      <p style="font-weight: bold; color: #006600; font-size: 1.1em;">
+        Final answer: \\( x = 3, \\quad y = 7 \\)
+      </p>
+    `;
+  } 
+  else if (selectEl.value === "elimination") {
+    content = `
+      <h3>Elimination Method</h3>
+
+      <h4>Method Explanation</h4>
+
+      <p><strong>Step 1:</strong> Line up the equations<br>
+      Write both equations one under the other with like terms aligned.</p>
+
+      <p><strong>Step 2:</strong> Make coefficients match<br>
+      Multiply one or both equations (if needed) so one variable has the same or opposite coefficient.</p>
+
+      <p><strong>Step 3:</strong> Add or subtract<br>
+      Eliminate one variable by adding or subtracting the equations.</p>
+
+      <p><strong>Step 4:</strong> Solve the remaining equation</p>
+
+      <p><strong>Step 5:</strong> Substitute back to find the second variable</p>
+
+      <p><strong>Step 6:</strong> Write both answers clearly</p>
+
+      <hr style="margin: 24px 0;">
+
+      <h4>Worked Example</h4>
+      <p>Solve the simultaneous equations:</p>
+
+      <p style="margin: 12px 0;">\\[ x + y = 10 \\]</p>
+      <p style="margin: 12px 0 24px 0;">\\[ 2x + y = 13 \\]</p>
+
+      🪜 <strong>Step 1:</strong> Line up the equations<br>
+      <div style="margin: 12px 0;">
+        \\[ x + y = 10 \\]<br>
+        \\[ 2x + y = 13 \\]
+      </div>
+
+      🪜 <strong>Step 2:</strong> Subtract to eliminate y<br>
+      <div style="margin: 12px 0;">
+        Subtract first from second:<br>
+        \\[ (2x + y) - (x + y) = 13 - 10 \\]
+      </div>
+
+      🪜 <strong>Step 3:</strong> Simplify<br>
+      <div style="margin: 12px 0;">
+        \\[ 2x + y - x - y = 3 \\]<br>
+        \\[ x = 3 \\]
+      </div>
+
+      🪜 <strong>Step 4:</strong> Substitute back to find y<br>
+      <div style="margin: 12px 0;">
+        Use first equation:<br>
+        \\[ x + y = 10 \\]<br>
+        \\[ 3 + y = 10 \\]<br>
+        \\[ y = 7 \\]
+      </div>
+
+      <hr style="margin: 24px 0;">
+
+      <p style="font-weight: bold; color: #006600; font-size: 1.1em;">
+        Final answer: \\( x = 3, \\quad y = 7 \\)
+      </p>
+    `;
+  }
+
+  container.innerHTML = content;
+
+  if (window.MathJax) {
+    MathJax.typesetPromise([container]).catch(err => console.log("MathJax error:", err));
+  }
+}
+
+/* ============================================= */
+/* RATIO METHOD DISPLAY                          */
+/* Student-friendly explanations        */
+/* ============================================= */
+function showRatioMethod(selectEl) {
+
+  const container = document.getElementById("ratio-method-display");
+
+  if (!selectEl.value) {
+    container.innerHTML = "";
+    return;
+  }
+
+  let content = "";
+
+  if (selectEl.value === "sharing") {  // Unitary Method
+
+    content = `
+      <h3>Unitary Method</h3>
+
+      <h4>Method explanation</h4>
+
+      <p><strong>Step 1: Add the parts of the ratio</strong><br>
+      Add the numbers in the ratio to find the total number of parts.</p>
+
+      <p><strong>Step 2: Find the value of one part</strong><br>
+      Divide the total amount by the total number of parts.</p>
+
+      <p><strong>Step 3: Multiply to find each share</strong><br>
+      Multiply the value of one part by each number in the ratio.</p>
+
+      <p><strong>Step 4: State the final answers clearly</strong></p>
+
+      <hr style="margin: 24px 0;">
+
+      <h4>Solved Example</h4>
+
+      <p>Samuel and Colin share 200 sweets in the ratio 3 : 2.<br>
+      How many sweets do they each get?</p>
+
+      <p><strong>Interpretation:</strong> share 200 in the ratio 3:2</p>
+
+      🪜 <strong>Step 1: Add the parts of the ratio(3 and 2)</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        3 + 2 = 5<br>
+        There are 5 equal parts in total.
+      </div>
+
+      🪜 <strong>Step 2: Find the value of one part</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        Divide the total number of sweets by the total parts:<br>
+        total number of sweets=200<br>
+        total parts=5<br><br>
+        \\[ 200 \\div 5 = 40 \\]<br><br>
+        One part is worth 40 sweets.
+      </div>
+
+      🪜 <strong>Step 3: Multiply to find each share</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        Samuel gets 3 parts:<br>
+        \\[ 3 \\times 40 = 120 \\]<br><br>
+        Colin gets 2 parts:<br>
+        \\[ 2 \\times 40 = 80 \\]
+      </div>
+
+      🪜 <strong>Step 4: State the final answers</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        Samuel gets 120 sweets.<br>
+        Colin gets 80 sweets.
+      </div>
+
+      <hr style="margin: 32px 0 24px 0;">
+
+      <p style="font-weight:bold; color:#006600; font-size:1.15em;">
+        ✅ Final Answer<br>
+        Samuel = 120<br>
+        Colin = 80
+      </p>
+    `;
+
+  } else if (selectEl.value === "simplifying") {  // Fraction Method – 
+
+    content = `
+      <h3>Fraction Method</h3>
+
+      <h4>Method explanation</h4>
+
+      <p><strong>Step 1: Add the parts of the ratio</strong><br>
+      Add the numbers in the ratio to find the total number of parts.</p>
+
+      <p><strong>Step 2: Write each share as a fraction of the total</strong><br>
+      Each person’s share is their part of the ratio divided by the total parts.</p>
+
+      <p><strong>Step 3: Multiply each fraction by the total amount</strong><br>
+      Multiply each fraction by the total to find each share.</p>
+
+      <p><strong>Step 4: State the final answers clearly</strong></p>
+
+      <hr style="margin: 24px 0;">
+
+      <h4>Solved Example</h4>
+
+      <p>Samuel and Colin share 200 sweets in the ratio 3 : 2.<br>
+      How many sweets do they each get?</p>
+
+      <p><strong>Interpretation:</strong> share 200 in the ratio 3 : 2</p>
+
+      🪜 <strong>Step 1: Add the parts of the ratio (3 and 2)</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        3 + 2 = 5<br>
+        There are 5 equal parts in total.
+      </div>
+
+      🪜 <strong>Step 2: Write each share as a fraction of the total parts</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        Samuel’s share:3, total parts:5<br>
+        \\[ \\frac{3}{5} \\]<br><br>
+        Colin’s share:2, total parts:5<br>
+        \\[ \\frac{2}{5} \\]
+      </div>
+
+      🪜 <strong>Step 3: Multiply each fraction by the total amount</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        Samuel:<br>
+        \\[ \\frac{3}{5} \\times 200 \\]<br>
+        Multiply the numerators and denominators:<br>
+        \\[ \\frac{3 \\times 200}{5 \\times 1} = \\frac{600}{5} = 120 \\]<br>
+        (Here we multiplied 200 by 3 and divided by 5.)<br><br>
+
+        Colin:<br>
+        \\[ \\frac{2}{5} \\times 200 \\]<br>
+        Multiply the numerators and denominators:<br>
+        \\[ \\frac{2 \\times 200}{5 \\times 1} = \\frac{400}{5} = 80 \\]<br>
+        (Here we multiplied 200 by 2 and divided by 5.)
+      </div>
+
+      🪜 <strong>Step 4: State the final answers</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        Samuel gets 120 sweets.<br>
+        Colin gets 80 sweets.
+      </div>
+
+      <hr style="margin: 32px 0 24px 0;">
+
+      <p style="font-weight:bold; color:#006600; font-size:1.15em;">
+        ✅ Final Answer<br>
+        Samuel = 120<br>
+        Colin = 80
+      </p>
+    `;
+
+  }
+
+  container.innerHTML = content;
+
+  if (window.MathJax) {
+    MathJax.typesetPromise([container]).catch(err => console.log("MathJax error:", err));
+  }
+}
+
+/* ============================================= */
+/* GEOMETRIC PROGRESSION METHOD DISPLAY          */
+/* Student-friendly explanations
+/* ============================================= */
+function showGPMethod(selectEl) {
+
+  const container = document.getElementById("gp-method-display");
+
+  if (!selectEl.value) {
+    container.innerHTML = "";
+    return;
+  }
+
+  let content = "";
+
+  if (selectEl.value === "nth") {  // Iteration Method -
+
+    content = `
+      <h3>Iteration Method</h3>
+
+      <h4>Method explanation</h4>
+
+      <p><strong>Step 1: Identify how the sequence changes</strong><br>
+      Check whether the sequence is:<br>
+      • Adding or subtracting a fixed number → Arithmetic Progression (AP)<br>
+      • Multiplying or dividing by a fixed number → Geometric Progression (GP)<br><br>
+      To decide, compare consecutive terms.</p>
+
+      <p><strong>Step 2: Confirm the pattern</strong><br>
+      Once you identify the type (AP or GP), confirm the common difference or common ratio.</p>
+
+      <p><strong>Step 3: Continue the pattern step by step</strong><br>
+      Use the same pattern to build the next terms one at a time.</p>
+
+      <p><strong>Step 4: State the final answers clearly</strong></p>
+
+      <hr style="margin: 24px 0;">
+
+      <h4>Solved Example</h4>
+
+      <p>Find the next two terms of the sequence:</p>
+      <p>4, 20, 100</p>
+
+      🪜 <strong>Step 1: Identify the type of sequence</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        Arithmetic Progression (AP): In an AP, each term is found by adding (or subtracting) the same fixed number each time. That number is called the common difference.<br><br>
+        Geometric Progression (GP): In a GP, each term is found by multiplying (or dividing) by the same fixed number each time. That number is called the common ratio.<br><br>
+        First check if it is an Arithmetic Progression (AP).<br><br>
+        \\[ 20 - 4 = 16 \\]<br>
+        \\[ 100 - 20 = 80 \\]<br><br>
+        Since 16 is not equal to 80 ❌<br>
+        It is not adding the same number each time.<br>
+        So it is not an Arithmetic Progression.<br><br>
+        Now check if it is a Geometric Progression (GP).<br><br>
+        \\[ 20 \\div 4 = 5 \\]<br>
+        \\[ 100 \\div 20 = 5 \\]<br><br>
+        The ratio is the same each time ✅<br><br>
+        So this sequence is a Geometric Progression with common ratio 5.
+      </div>
+
+      🪜 <strong>Step 2: Confirm the pattern</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        Each term is multiplied by 5.<br>
+        Rule: multiply by 5 each time.
+      </div>
+
+      🪜 <strong>Step 3: Continue the pattern</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        Next term after 100:<br>
+        \\[ 100 \\times 5 = 500 \\]<br><br>
+        Next term after 500:<br>
+        \\[ 500 \\times 5 = 2500 \\]
+      </div>
+
+      🪜 <strong>Step 4: State the final answers</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        The next two terms are:<br>
+        500 and 2500
+      </div>
+
+      <hr style="margin: 32px 0 24px 0;">
+
+      <p style="font-weight:bold; color:#006600; font-size:1.15em;">
+        ✅ Final Answer<br>
+        Next two terms = 500, 2500
+      </p>
+    `;
+
+  } else if (selectEl.value === "sum") {  // nth Term Formula – your exact text
+
+    content = `
+      <h3>nth Term Formula</h3>
+
+      <h4>Method explanation</h4>
+
+      <p><strong>Step 1: Identify the type of sequence</strong><br>
+      Check whether the sequence is:<br>
+      • Adding or subtracting a fixed number → Arithmetic Progression (AP)<br>
+      • Multiplying or dividing by a fixed number → Geometric Progression (GP)<br><br>
+      To decide, compare consecutive terms.</p>
+
+      <p><strong>Step 2: Identify the first term and common ratio</strong><br>
+      For a Geometric Progression:<br>
+      • First term = a<br>
+      • Common ratio = r<br><br>
+      Use division to find the common ratio.</p>
+
+      <p><strong>Step 3: Write the nth term formula</strong><br>
+      For a GP, the formula is:<br>
+      \\[ T_n = a r^{n-1} \\]<br><br>
+      Where:<br>
+      • a = first term<br>
+      • r = common ratio<br>
+      • n = term number</p>
+
+      <p><strong>Step 4: Use the formula to generate further terms</strong><br>
+      Substitute values into the formula to find the required terms.</p>
+
+      <p><strong>Step 5: State the final answers clearly</strong></p>
+
+      <hr style="margin: 24px 0;">
+
+      <h4>Solved Example</h4>
+
+      <p>Find the next two terms of the sequence:</p>
+      <p>4, 20, 100</p>
+
+      🪜 <strong>Step 1: Identify the type of sequence</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        Arithmetic Progression (AP): In an AP, each term is found by adding (or subtracting) the same fixed number each time. That number is called the common difference.<br><br>
+        Geometric Progression (GP): In a GP, each term is found by multiplying (or dividing) by the same fixed number each time. That number is called the common ratio.<br><br>
+        First check if it is an Arithmetic Progression (AP).<br><br>
+        \\[ 20 - 4 = 16 \\]<br>
+        \\[ 100 - 20 = 80 \\]<br><br>
+        Since 16 is not equal to 80 ❌<br>
+        It is not adding the same number each time.<br><br>
+        Now check if it is a Geometric Progression (GP).<br><br>
+        \\[ 20 \\div 4 = 5 \\]<br>
+        \\[ 100 \\div 20 = 5 \\]<br><br>
+        The ratio is the same each time ✅<br><br>
+        So this is a Geometric Progression with common ratio 5.
+      </div>
+
+      🪜 <strong>Step 2: Identify a and r</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        First term a = 4<br>
+        Common ratio r = 5
+      </div>
+
+      🪜 <strong>Step 3: Write the nth term formula</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        \\[ T_n = 4 \\times 5^{n-1} \\]
+      </div>
+
+      🪜 <strong>Step 4: Use the formula to find the next two terms</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        The given terms are:<br>
+        1st term = 4<br>
+        2nd term = 20<br>
+        3rd term = 100<br><br>
+        We need the 4th and 5th terms.<br><br>
+        4th term:<br>
+        \\[ T_4 = 4 \\times 5^{3} \\]<br>
+        \\[ T_4 = 4 \\times 125 = 500 \\]<br><br>
+        5th term:<br>
+        \\[ T_5 = 4 \\times 5^{4} \\]<br>
+        \\[ T_5 = 4 \\times 625 = 2500 \\]
+      </div>
+
+      🪜 <strong>Step 5: State the final answers</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        The next two terms are:<br>
+        500 and 2500
+      </div>
+
+      <hr style="margin: 32px 0 24px 0;">
+
+      <p style="font-weight:bold; color:#006600; font-size:1.15em;">
+        ✅ Final Answer<br>
+        Next two terms = 500, 2500
+      </p>
+    `;
+
+  }
+
+  container.innerHTML = content;
+
+  if (window.MathJax) {
+    MathJax.typesetPromise([container]).catch(err => console.log("MathJax error:", err));
+  }
+}
+
+/* ============================================= */
+/* ARITHMETIC PROGRESSION METHOD DISPLAY         */
+/* Student-friendly explanations  */
+/* ============================================= */
+function showAPMethod(selectEl) {
+
+  const container = document.getElementById("ap-method-display");
+
+  if (!selectEl.value) {
+    container.innerHTML = "";
+    return;
+  }
+
+  let content = "";
+
+  if (selectEl.value === "iteration") {  // Iteration Method –
+
+    content = `
+      <h3>Iteration Method</h3>
+
+      <h4>Method explanation</h4>
+
+      <p><strong>Step 1: Identify how the sequence changes</strong><br>
+      Check whether the sequence is:<br>
+      • Adding or subtracting a fixed number → Arithmetic Progression (AP)<br>
+      • Multiplying or dividing by a fixed number → Geometric Progression (GP)<br><br>
+      To decide, compare consecutive terms.</p>
+
+      <p><strong>Step 2: Confirm the pattern</strong><br>
+      Once you identify the type (AP or GP), confirm the common difference(AP) or common ratio(GP).</p>
+
+      <p><strong>Step 3: Continue the pattern step by step</strong><br>
+      Use the same pattern to build the next terms one at a time.</p>
+
+      <p><strong>Step 4: State the final answers clearly</strong></p>
+
+      <hr style="margin: 24px 0;">
+
+      <h4>Solved Example</h4>
+
+      <p>Find the next two terms of the sequence:</p>
+      <p>25, 39, 53, 67</p>
+
+      🪜 <strong>Step 1: Identify the type of sequence</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        Arithmetic Progression (AP): In an AP, each term is found by adding (or subtracting) the same fixed number each time. That number is called the common difference.<br><br>
+        Geometric Progression (GP): In a GP, each term is found by multiplying (or dividing) by the same fixed number each time. That number is called the common ratio.<br><br>
+        check if it is a Geometric Progression (GP).<br><br>
+        \\[ 39 \\div 25 = 1.56 \\]<br>
+        \\[ 53 \\div 39 = 1.36 \\]<br>
+        \\[ 67 \\div 53 = 1.26 \\]<br><br>
+        All three values(common ratio) are not the same ❌<br><br>
+        So this sequence is not Geometric.<br><br>
+        check if it is an Arithmetic Progression (AP).<br><br>
+        \\[ 39 - 25 = 14 \\]<br>
+        \\[ 53 - 39 = 14 \\]<br>
+        \\[ 67 - 53 = 14 \\]<br><br>
+        The difference is the same each time ✅<br><br>
+        So this sequence is an Arithmetic Progression with common difference 14.
+      </div>
+
+      🪜 <strong>Step 2: Confirm the pattern</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        Each term is found by adding 14.<br>
+        Rule: add 14 each time.
+      </div>
+
+      🪜 <strong>Step 3: Continue the pattern</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        Next term after 67:<br>
+        \\[ 67 + 14 = 81 \\]<br><br>
+        Next term after 81:<br>
+        \\[ 81 + 14 = 95 \\]
+      </div>
+
+      🪜 <strong>Step 4: State the final answers</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        The next two terms are:<br>
+        81 and 95
+      </div>
+
+      <hr style="margin: 32px 0 24px 0;">
+
+      <p style="font-weight:bold; color:#006600; font-size:1.15em;">
+        ✅ Final Answer<br>
+        Next two terms = 81, 95
+      </p>
+    `;
+
+  } else if (selectEl.value === "nth") {  // nth Term Formula – your exact text
+
+    content = `
+      <h3>nth Term Formula</h3>
+
+      <h4>Method explanation</h4>
+
+      <p><strong>Step 1: Identify how the sequence changes</strong><br>
+      Check whether the sequence is:<br>
+      • Adding or subtracting a fixed number → Arithmetic Progression (AP)<br>
+      • Multiplying or dividing by a fixed number → Geometric Progression (GP)<br><br>
+      To decide, compare consecutive terms.</p>
+
+      <p><strong>Step 2: Identify the first term and common difference</strong><br>
+      For an Arithmetic Progression:<br>
+      • First term = a<br>
+      • Common difference = d<br><br>
+      Find the difference between consecutive terms.</p>
+
+      <p><strong>Step 3: Write the nth term formula</strong><br>
+      For an AP, the formula is:<br>
+      \\[ T_n = a + (n - 1)d \\]<br><br>
+      Where:<br>
+      • a = first term<br>
+      • d = common difference<br>
+      • n = term number</p>
+
+      <p><strong>Step 4: Use the formula to find the required terms</strong><br>
+      Substitute values into the formula.</p>
+
+      <p><strong>Step 5: State the final answers clearly</strong></p>
+
+      <hr style="margin: 24px 0;">
+
+      <h4>Solved Example</h4>
+
+      <p>Find the next two terms of the sequence:</p>
+      <p>25, 39, 53, 67</p>
+
+      🪜 <strong>Step 1: Identify the type of sequence</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        check if it is a Geometric Progression (GP).<br><br>
+        \\[ 39 \\div 25 = 1.56 \\]<br>
+        \\[ 53 \\div 39 = 1.36 \\]<br>
+        \\[ 67 \\div 53 = 1.26 \\]<br><br>
+        All three values(common ratio) are not the same ❌<br><br>
+        So this sequence is not Geometric.<br><br>
+        Now check if it is an Arithmetic Progression (AP).<br><br>
+        \\[ 39 - 25 = 14 \\]<br>
+        \\[ 53 - 39 = 14 \\]<br>
+        \\[ 67 - 53 = 14 \\]<br><br>
+        The difference is the same each time ✅<br><br>
+        So this is an Arithmetic Progression with common difference 14.
+      </div>
+
+      🪜 <strong>Step 2: Identify a and d</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        First term a = 25<br>
+        Common difference d = 14
+      </div>
+
+      🪜 <strong>Step 3: Write the nth term formula</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        \\[ T_n = 25 + (n - 1)14 \\]
+      </div>
+
+      🪜 <strong>Step 4: Use the formula to find the next two terms</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        The given terms are:<br>
+        1st term = 25<br>
+        2nd term = 39<br>
+        3rd term = 53<br>
+        4th term = 67<br><br>
+        We need the 5th and 6th terms.<br><br>
+        5th term:<br>
+        \\[ T_5 = 25 + (5 - 1)14 \\] following BIDMAS rule, solve the numbers in the bracket first(5-1)<br>
+        \\[ T_5 = 25 + (4)14 \\] following BIDMAS rule, multiply 14 by 4 first before adding 25<br>
+        \\[ T_5 = 25 + 56 = 81 \\]<br><br>
+        6th term:<br>
+        \\[ T_6 = 25 + (6 - 1)14 \\] following BIDMAS rule, solve the numbers in the bracket first(6-1)<br>
+        \\[ T_6 = 25 + (5)14 \\] following BIDMAS rule, multiply 14 by 5 first before adding 25<br>
+        \\[ T_6 = 25 + 70 = 95 \\]
+      </div>
+
+      🪜 <strong>Step 5: State the final answers</strong><br>
+      <div style="margin: 16px 0 8px 0;">
+        The next two terms are:<br>
+        81 and 95
+      </div>
+
+      <hr style="margin: 32px 0 24px 0;">
+
+      <p style="font-weight:bold; color:#006600; font-size:1.15em;">
+        ✅ Final Answer<br>
+        Next two terms = 81, 95
+      </p>
+    `;
+
+  }
+
+  container.innerHTML = content;
+
+  if (window.MathJax) {
+    MathJax.typesetPromise([container]).catch(err => console.log("MathJax error:", err));
   }
 }
 
