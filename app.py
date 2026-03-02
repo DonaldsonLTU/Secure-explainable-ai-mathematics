@@ -19,6 +19,14 @@ from flask_wtf.csrf import CSRFProtect
 
 import os
 
+# I'm importing Flask-Limiter to help prevent brute-force attacks and request flooding
+# This supports STRIDE mitigation for:
+# - Spoofing (reducing automated login attempts)
+# - Denial of Service (limiting excessive requests)
+
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
 # ------------------------------
 # MONGODB CONNECTION (LOCAL)
 # ------------------------------
@@ -50,6 +58,24 @@ vectorizer = joblib.load("tfidf_vectorizer.pkl")
 
 # I’m creating the Flask application instance
 app = Flask(__name__)
+
+# I'm strengthening session security to prevent cookie theft and spoofing
+# STRIDE mitigation:
+# - Spoofing (reduces session hijacking risk)
+# - Elevation of Privilege (protects role-based sessions)
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SECURE"] = False
+
+# I'm configuring Flask-Limiter to reduce abuse and request flooding
+# This helps mitigate:
+# - STRIDE: Denial of Service (rate limiting excessive traffic)
+# - STRIDE: Spoofing (limiting repeated login attempts)
+# Default limit = 100 requests per minute per IP address
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=["100 per minute"]
+)
 
 # I’m enabling global CSRF protection for all forms in the application
 csrf = CSRFProtect(app)
@@ -526,6 +552,11 @@ def teacher_dashboard():
 # -------------------------------------------------
 # LOGIN PAGE
 # -------------------------------------------------
+# I'm limiting login attempts to prevent brute-force attacks
+# STRIDE mitigation:
+# - Spoofing (reducing credential guessing)
+# - Denial of Service (preventing login flooding)
+@limiter.limit("5 per minute")
 @app.route("/", methods=["GET", "POST"])
 def login():
     # I’m creating an instance of the secure Flask-WTF login form
@@ -793,9 +824,35 @@ def forbidden(error):
 def not_found(error):
     return render_template("404.html"), 404
 
+
+# ==========================================
+# SECURITY HEADERS (STRIDE – Info Disclosure Protection)
+# ==========================================
+# I'm strengthening protection against Information Disclosure and XSS
+# This applies HTTP security headers to every response
+
+@app.after_request
+def apply_security_headers(response):
+    """
+    Adding HTTP security headers to reduce:
+    - Clickjacking
+    - MIME sniffing
+    - XSS exposure
+    """
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Content-Security-Policy"] = (
+    "default-src 'self'; "
+    "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; "
+    "style-src 'self' 'unsafe-inline'; "
+    "font-src 'self' https://cdn.jsdelivr.net;"
+)
+    return response
+
 # -------------------------------------------------
 # RUN APPLICATION
 # -------------------------------------------------
 # I’m running the Flask development server
+# I'm disabling debug mode to prevent sensitive information leakage (STRIDE – Information Disclosure)
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
