@@ -20,6 +20,23 @@ from flask_wtf.csrf import CSRFProtect
 import os
 
 # ------------------------------
+# MONGODB CONNECTION (LOCAL)
+# ------------------------------
+
+from pymongo import MongoClient
+from datetime import datetime
+
+# I’m connecting to my local MongoDB server
+client = MongoClient("mongodb://localhost:27017/")
+
+# I’m creating a separate database for AI Maths analytics
+mongo_db = client["ai_maths_analytics"]
+
+# I’m creating collections
+interaction_collection = mongo_db["student_interactions"]
+usage_collection = mongo_db["usage_history"]
+
+# ------------------------------
 # I am loading trained ML components
 # ------------------------------
 
@@ -565,6 +582,15 @@ def dashboard():
     if request.method == "POST":
 
         selected_topic = request.form.get("topic")
+        # ------------------------------
+        # Logging student interaction
+        # ------------------------------
+        interaction_collection.insert_one({
+            "username": session.get("user"),
+            "role": session.get("role"),
+            "topic_selected": selected_topic,
+            "timestamp": datetime.utcnow()
+        })
 
         # =========================
         # QUADRATIC BLOCK
@@ -710,6 +736,16 @@ def dashboard():
 
             # # I'm storing explanation for display
             ap_explanation = explanation_text
+
+            # ------------------------------
+        # Logging method recommendation
+        # ------------------------------
+        usage_collection.insert_one({
+            "username": session.get("user"),
+            "topic": selected_topic,
+            "recommended_method": predicted_method,
+            "timestamp": datetime.utcnow()
+        })
 
     # ---------------------------------
     # I'm grouping questions by topic
