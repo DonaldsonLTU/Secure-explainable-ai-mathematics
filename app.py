@@ -470,6 +470,24 @@ class Question(db.Model):
     method = db.Column(db.String(200), nullable=False)
     method_reason = db.Column(db.Text, nullable=False)
 
+    # -------------------------------------------------
+# USER MODEL (DATABASE TABLE STRUCTURE)
+# -------------------------------------------------
+# I'm defining the User table structure for authentication
+class User(db.Model):
+
+    # Primary key for each user
+    id = db.Column(db.Integer, primary_key=True)
+
+    # Unique username for login
+    username = db.Column(db.String(100), unique=True, nullable=False)
+
+    # Securely stored hashed password
+    password_hash = db.Column(db.String(200), nullable=False)
+
+    # Role determines permissions (teacher or student)
+    role = db.Column(db.String(50), nullable=False)
+
     # Simple test route to confirm database connection works
 @app.route("/test-db")
 def test_db():
@@ -566,11 +584,12 @@ def login():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-
+        # i'm looking for the user in the database
+        user= User.query.filter_by(username=username).first()
         # I’m validating credentials securely
-        if username in users and check_password_hash(users[username]["password"], password):
-            session["user"] = username
-            session["role"] = users[username]["role"]
+        if user and check_password_hash(user.password_hash, password):
+            session["user"] = user.username
+            session["role"] = user.role
             return redirect(url_for("dashboard"))
         else:
             return "Invalid username or password", 401
@@ -801,6 +820,154 @@ def dashboard():
         gp_explanation=gp_explanation,
         ap_explanation=ap_explanation
     )
+
+# ==================================================
+# INSERT NEW QUESTION (TEACHER ONLY)
+# ==================================================
+
+@app.route("/add_question", methods=["POST"])
+@login_required
+def add_question():
+
+    # # I'm ensuring only teachers can add questions
+    if session.get("role") != "teacher":
+        abort(403)
+
+    # # I'm collecting form data from the settings panel
+    question_text = request.form.get("question_text")
+    topic = request.form.get("topic")
+    method = request.form.get("method")
+
+    # # I'm adding the question into the SQLite database
+    new_question = Question(
+        question_text=question_text,
+        topic=topic,
+        method=method,
+        method_reason="Added by teacher"
+    )
+
+    db.session.add(new_question)
+    db.session.commit()
+
+    # # I'm redirecting back to dashboard so the table refreshes
+    return redirect(url_for("dashboard"))
+
+# ==================================================
+# CREATE USER (TEACHER ONLY)
+# ==================================================
+
+@app.route("/create_user", methods=["POST"])
+@login_required
+def create_user():
+
+    # # I'm ensuring only teachers can create users
+    if session.get("role") != "teacher":
+        abort(403)
+
+    # # I'm collecting the form data
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    # I'm checking if the username already exists
+    existing_user = User.query.filter_by(username=username).first()
+
+    if existing_user:
+        return "Username already exists. Please choose another one."
+
+    # # I'm hashing the password for security
+    hashed_password = generate_password_hash(password)
+
+    # # I'm creating a new student user
+    new_user = User(
+        username=username,
+        password_hash=hashed_password,
+        role="student"
+    )
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    # # I'm redirecting back to dashboard
+    return redirect(url_for("dashboard"))
+
+# ==================================================
+# DELETE USER (TEACHER ONLY)
+# ==================================================
+
+@app.route("/delete_user", methods=["POST"])
+@login_required
+def delete_user():
+
+    # # I'm ensuring only teachers can delete users
+    if session.get("role") != "teacher":
+        abort(403)
+
+    # # I'm collecting the username from the form
+    username = request.form.get("username")
+
+    # # I'm finding the user in the database
+    user = User.query.filter_by(username=username).first()
+
+    # # If user exists, delete them
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+
+    # # I'm redirecting back to dashboard
+    return redirect(url_for("dashboard"))
+
+# ==================================================
+# DELETE QUESTION (TEACHER ONLY)
+# ==================================================
+
+@app.route("/delete_question", methods=["POST"])
+@login_required
+def delete_question():
+
+    # # I'm ensuring only teachers can delete questions
+    if session.get("role") != "teacher":
+        abort(403)
+
+    # # I'm collecting the question ID from the form
+    question_id = request.form.get("question_id")
+
+    # # I'm finding the question in the database
+    question = Question.query.get(question_id)
+
+    # # If the question exists, delete it
+    if question:
+        db.session.delete(question)
+        db.session.commit()
+
+    # # I'm redirecting back to dashboard
+    return redirect(url_for("dashboard"))
+
+# ==================================================
+# CHANGE PASSWORD (ALL USERS)
+# ==================================================
+
+@app.route("/change_password", methods=["POST"])
+@login_required
+def change_password():
+
+    # # I'm getting the current logged-in user
+    user = User.query.filter_by(username=session.get("user")).first()
+
+    # # I'm collecting the form data
+    current_password = request.form.get("current_password")
+    new_password = request.form.get("new_password")
+
+    # # I'm checking the current password matches
+    if not check_password_hash(user.password_hash, current_password):
+        abort(403)
+
+    # # I'm hashing the new password for security
+    user.password_hash = generate_password_hash(new_password)
+
+    db.session.commit()
+
+    # # I'm redirecting back to dashboard
+    return redirect(url_for("dashboard"))
 
 # -------------------------------------------------
 # LOGOUT

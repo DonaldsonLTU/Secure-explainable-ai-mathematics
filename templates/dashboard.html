@@ -21,6 +21,21 @@
 </head>
 <body>
 
+  <!-- ========================================= -->
+<!-- SETTINGS BUTTON (TOP RIGHT CORNER)       -->
+<!-- ========================================= -->
+
+<!-- # I'm creating a container that sticks to the top-right of the page -->
+<div style="position:absolute; top:10px; right:10px;">
+
+    <!-- # This is the settings button -->
+    <!-- # When clicked it will open the settings panel -->
+    <button onclick="toggleSettings()" style="font-size:20px;">
+        ⚙️
+    </button>
+
+</div>
+
     <!-- I’m displaying a simple page heading -->
     <h1>Dashboard</h1>
 
@@ -397,6 +412,184 @@
 
     {% endif %}
 
+    <!-- ========================================= -->
+<!-- SETTINGS PANEL                            -->
+<!-- ========================================= -->
+
+<!-- # I'm creating the hidden settings menu -->
+<div id="settingsPanel" 
+     style="display:none; position:absolute; top:40px; right:10px; 
+     background:white; border:1px solid black; padding:10px; width:220px;">
+
+    <h3>Settings</h3>
+
+    <!-- # Teacher-only settings -->
+    {% if role == "teacher" %}
+
+        <p><a href="#">Teacher Question Management Panel</a></p>
+
+        <p>
+<a href="#" onclick="toggleInsertQuestion()">Insert New Question</a>
+</p>
+
+        <p><a href="#" onclick="toggleCreateUser()">Create User</a></p>
+
+        <p><a href="#" onclick="toggleDeleteUser()">Delete User</a></p>
+
+        <p><a href="#" onclick="toggleDeleteQuestion()">Delete Question</a></p>
+
+        <p><a href="#" onclick="toggleChangePassword()">Change Password</a></p>
+
+    {% else %}
+
+        <!-- # Students only see change password -->
+        <p><a href="#" onclick="toggleChangePassword()">Change Password</a></p>
+
+    {% endif %}
+
+</div>
+
+<!-- ========================================= -->
+<!-- INSERT QUESTION FORM (TEACHER)            -->
+<!-- ========================================= -->
+
+<div id="insertQuestionForm" 
+     style="display:none; position:absolute; top:120px; right:10px;
+     background:white; border:1px solid black; padding:15px; width:260px;">
+
+<h3>Add New Question</h3>
+
+<form method="POST" action="/add_question">
+
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+<label>Question</label><br>
+<input type="text" name="question_text" required><br><br>
+
+<label>Topic</label><br>
+<input type="text" name="topic" required><br><br>
+
+<label>Method</label><br>
+<input type="text" name="method" required><br><br>
+
+<button type="submit">Save Question</button>
+
+<!-- # This button closes the form without saving -->
+<button type="button" onclick="toggleInsertQuestion()">Cancel</button>
+
+</form>
+
+</div>
+
+<!-- ========================================= -->
+<!-- CREATE USER FORM (TEACHER)                -->
+<!-- ========================================= -->
+
+<div id="createUserForm"
+     style="display:none; position:absolute; top:260px; right:10px;
+     background:white; border:1px solid black; padding:15px; width:260px;">
+
+<h3>Create New User</h3>
+
+<form method="POST" action="/create_user">
+
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+<label>Username</label><br>
+<input type="text" name="username" required><br><br>
+
+<label>Password</label><br>
+<input type="password" name="password" required><br><br>
+
+<button type="submit">Create User</button>
+
+<!-- # This closes the form without submitting -->
+<button type="button" onclick="toggleCreateUser()">Cancel</button>
+
+</form>
+
+</div>
+
+<!-- ========================================= -->
+<!-- DELETE USER FORM (TEACHER)                -->
+<!-- ========================================= -->
+
+<div id="deleteUserForm"
+     style="display:none; position:absolute; top:380px; right:10px;
+     background:white; border:1px solid black; padding:15px; width:260px;">
+
+<h3>Delete User</h3>
+
+<form method="POST" action="/delete_user">
+
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+<label>Username</label><br>
+<input type="text" name="username" required><br><br>
+
+<button type="submit">Delete User</button>
+
+<!-- # Cancel button closes form -->
+<button type="button" onclick="toggleDeleteUser()">Cancel</button>
+
+</form>
+
+</div>
+
+<!-- ========================================= -->
+<!-- DELETE QUESTION FORM (TEACHER)            -->
+<!-- ========================================= -->
+
+<div id="deleteQuestionForm"
+     style="display:none; position:absolute; top:500px; right:10px;
+     background:white; border:1px solid black; padding:15px; width:260px;">
+
+<h3>Delete Question</h3>
+
+<form method="POST" action="/delete_question">
+
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+<label>Question ID</label><br>
+<input type="number" name="question_id" required><br><br>
+
+<button type="submit">Delete Question</button>
+
+<!-- # Cancel button closes form -->
+<button type="button" onclick="toggleDeleteQuestion()">Cancel</button>
+
+</form>
+
+</div>
+
+<!-- ========================================= -->
+<!-- CHANGE PASSWORD FORM (ALL USERS)          -->
+<!-- ========================================= -->
+
+<div id="changePasswordForm"
+     style="display:none; position:absolute; top:620px; right:10px;
+     background:white; border:1px solid black; padding:15px; width:260px;">
+
+<h3>Change Password</h3>
+
+<form method="POST" action="/change_password">
+
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+<label>Current Password</label><br>
+<input type="password" name="current_password" required><br><br>
+
+<label>New Password</label><br>
+<input type="password" name="new_password" required><br><br>
+
+<button type="submit">Update Password</button>
+
+<!-- # Cancel button closes form -->
+<button type="button" onclick="toggleChangePassword()">Cancel</button>
+
+</form>
+
+</div>
 
     <!-- I’m providing a secure logout option -->
     <br>
@@ -992,6 +1185,104 @@ else if (topicTitle.includes("Arithmetic")) {
       MathJax.typesetPromise([questionDisplay]);
     }
   }
+
+/* ============================================= */
+/* SETTINGS PANEL TOGGLE FUNCTION                */
+/* ============================================= */
+
+function toggleSettings() {
+
+  // # I'm locating the settings panel
+  const panel = document.getElementById("settingsPanel");
+
+  // # I'm toggling visibility
+  if (panel.style.display === "none") {
+      panel.style.display = "block";
+  } else {
+      panel.style.display = "none";
+  }
+
+}
+
+/* ============================================= */
+/* INSERT QUESTION FORM TOGGLE                   */
+/* ============================================= */
+
+function toggleInsertQuestion(){
+
+const form = document.getElementById("insertQuestionForm");
+
+if(form.style.display === "none"){
+    form.style.display = "block";
+}else{
+    form.style.display = "none";
+}
+
+}
+
+/* ============================================= */
+/* CREATE USER FORM TOGGLE                       */
+/* ============================================= */
+
+function toggleCreateUser(){
+
+const form = document.getElementById("createUserForm");
+
+if(form.style.display === "none"){
+    form.style.display = "block";
+}else{
+    form.style.display = "none";
+}
+
+}
+
+/* ============================================= */
+/* DELETE USER FORM TOGGLE                       */
+/* ============================================= */
+
+function toggleDeleteUser(){
+
+const form = document.getElementById("deleteUserForm");
+
+if(form.style.display === "none"){
+    form.style.display = "block";
+}else{
+    form.style.display = "none";
+}
+
+}
+
+/* ============================================= */
+/* DELETE QUESTION FORM TOGGLE                   */
+/* ============================================= */
+
+function toggleDeleteQuestion(){
+
+const form = document.getElementById("deleteQuestionForm");
+
+if(form.style.display === "none"){
+    form.style.display = "block";
+}else{
+    form.style.display = "none";
+}
+
+}
+
+/* ============================================= */
+/* CHANGE PASSWORD FORM TOGGLE                   */
+/* ============================================= */
+
+function toggleChangePassword(){
+
+const form = document.getElementById("changePasswordForm");
+
+if(form.style.display === "none"){
+    form.style.display = "block";
+}else{
+    form.style.display = "none";
+}
+
+}
 
   function toggleExplanation(button) {
 
