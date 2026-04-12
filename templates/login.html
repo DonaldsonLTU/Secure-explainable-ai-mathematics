@@ -2,14 +2,71 @@
 <html>
 <head>
     <title>Login</title>
+    <style>
+
+body {
+    background-image: url("{{ url_for('static', filename='background.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+/* Login box */
+.login-container {
+    background: rgba(0,0,0,0.45);
+    padding: 40px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+}
+
+/* Input fields */
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: none;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 10px;
+    background: #1e90ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+</style>
 </head>
 <body>
 
+<!-- ===================================================== -->
+<!-- LOGIN CONTAINER ADJUSTMENT -->
+<!-- I wrapped the entire login section inside a container -->
+<!-- so the form appears centred and styled on the page -->
+<!-- ===================================================== -->
+
+<div class="login-container">
+
     <!-- I’m displaying the login page title -->
-    <h2>Secure Explainable AI Mathematics Login</h2>
+    <h2>Secure Explainable AI Mathematics</h2>
 
     <!-- I’m creating a secure login form using Flask-WTF -->
     <form method="post">
+
         <!-- I’m injecting the CSRF token to protect against CSRF attacks -->
         {{ form.hidden_tag() }}
 
@@ -23,7 +80,10 @@
 
         <!-- I’m rendering the submit button from the Flask form -->
         {{ form.submit }}
+
     </form>
+
+</div>
 
 </body>
 </html>

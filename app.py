@@ -129,7 +129,8 @@ def rule_based_quadratic_method(a, b, c):
     if is_perfect_square:
 
         explanation = (
-            f"In this question, we can find two numbers that multiply to give {c} (the constant term) "
+            f"Factorisation works when you can find two numbers that multiply to produce the last number (constant term) and also add to produce the middle number (linear term).\n\n"
+             f" In this question, we can find two numbers that multiply to give {c} (the constant term) "
             f"and add together to give {b} (linear term).\n\n"
             "Because such numbers exist, the quadratic can be factorised directly "
             "into two brackets and solved efficiently.\n\n"
@@ -184,9 +185,9 @@ def rule_based_simultaneous_method(a1, b1, c1, a2, b2, c2):
     # # I'm preparing a small detail string so the explanation can point to the exact matching pair
     match_detail = ""
     if x_elim_ready:
-        match_detail = f"the x coefficients already match ({a1}x and {a2}x)"
+        match_detail = f"the x coefficients of both equations already matches ({a1}x and {a2}x)"
     elif y_elim_ready:
-        match_detail = f"the y coefficients already match ({b1}y and {b2}y)"
+        match_detail = f"the y coefficients of both equations already matches ({b1}y and {b2}y)"
 
     if x_elim_ready or y_elim_ready:
         explanation = (

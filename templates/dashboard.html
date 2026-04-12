@@ -18,8 +18,77 @@
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+
+/* Topic card colours */
+
+.quadratic-equations-card {
+    background-color:#7997c8;
+    color:white;
+}
+
+.simultaneous-equations-card {
+    background-color:#0fa466;
+    color:white;
+}
+
+.ratio-card {
+    background-color:#3B82F6;
+    color:white;
+}
+
+.sequences-geometric-progression-card {
+    background-color:#0fa466;
+    color:white;
+}
+
+.sequences-arithmetic-progression-card {
+    background-color:#3B82F6;
+    color:white;
+}
+
+/* Table styling */
+
+table { width:100%; border-collapse:collapse; }
+
+th { background-color:#1F2937; color:white; padding:10px; }
+
+td { padding:10px; border-bottom:1px solid #ddd; }
+
+tr:hover { background-color:#F3F4F6; }
+
+/* Card visual improvement */
+
+.card {
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+
+    /* # I'm making the cards wider and centred */
+    width: 100%;
+    max-width: 1100px;
+    margin: 20px auto;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+/* Topic selector improvement */
+.topic-selector-card {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* I’m hiding all topic cards at first */
+.topic-card {
+    display: none;
+}
+
+</style>
+
 </head>
-<body>
+<body style="background-color:#e1e8f4;"></body>
 
   <!-- ========================================= -->
 <!-- SETTINGS BUTTON (TOP RIGHT CORNER)       -->
@@ -41,8 +110,21 @@
 
     <!-- I’m showing who is logged in and their role -->
     <!-- This confirms session data is working correctly -->
-    <p>Welcome {{ session.user }} ({{ role }})</p>
-
+<h3 style="font-size:22px; font-weight:600; margin-bottom:10px; color:#222;">
+  Welcome {{ session.user }} ({{ role }}) 👋
+</h3>
+<p style="margin-top:10px; font-size:20px; color:#111; line-height:1.6; font-weight:600;">
+    Keep practising, every question is a chance to improve, strengthen your understanding of mathematical concepts, and grow in confidence ⭐️
+</p>
+<div style="margin-top:20px; padding:15px; background:#eaf2ff; border-radius:10px;">
+    <h3 style="margin-bottom:10px;">How to get started</h3>
+    <ul style="list-style:none; padding-left:0; line-height:1.8;">
+    <li>➤ ✅ Select a topic from the dropdown</li>
+    <li>➤ ❓ Choose a question to practise</li>
+    <li>➤ 💡 Understand why a method is recommended</li>
+    <li>➤ ⭐ Improve your confidence step by step</li>
+</ul>
+</div>
     <hr>
 
     <!-- ===================================================== -->
@@ -53,9 +135,30 @@
 
     <h2>Practice Topics</h2>
 
+    <!-- ===================================================== -->
+<!-- TOPIC SELECTOR CARD -->
+<!-- I’m showing one simple topic card first so students do not scroll through every topic -->
+<!-- ===================================================== -->
+
+<div class="topic-selector-card" style="border:1px solid black; padding:15px; margin:15px 0; border-radius:12px; background:#f8fafc;">
+    <h3 style="margin-top:0;">Topics</h3>
+
+    <!-- # I’m giving the student one dropdown to choose which topic to open -->
+    <select id="topicSelector" onchange="showSelectedTopic()" style="padding:10px; width:260px;">
+        <option value="">Select a topic</option>
+        <option value="quadratic-equations">Quadratic Equations</option>
+        <option value="simultaneous-equations">Simultaneous Equations</option>
+        <option value="ratio">Ratio</option>
+        <option value="sequences-geometric-progression">Sequences (Geometric Progression)</option>
+        <option value="sequences-arithmetic-progression">Sequences (Arithmetic Progression)</option>
+    </select>
+</div>
+
     {% for topic, topic_questions in topics.items() %}
         <!-- I’m creating a visual box for each topic -->
-        <div style="border:1px solid black; padding:10px; margin:10px 0;">
+        <div class="card topic-card {{ topic|lower|replace(' ', '-')|replace('(', '')|replace(')', '') }}-card"
+     data-topic="{{ topic|lower|replace(' ', '-')|replace('(', '')|replace(')', '') }}"
+     style="border:1px solid black; padding:10px; margin:10px 0;">
             
             <!-- Topic name -->
             <h3>{{ topic }}</h3>
@@ -363,7 +466,7 @@
   style="margin-top:10px;" 
   onclick="toggleExplanation(this)"
 >
-  View Explanation
+  View More Explanation
 </button>
 
 <!-- Explanation container (hidden initially) -->
@@ -375,7 +478,8 @@
 
 </div>
         </div>
-    {% endfor %}
+    </div>
+{% endfor %}
 
 
     <!-- ===================================================== -->
@@ -591,6 +695,14 @@
 
 </div>
 
+<!-- Progress check section -->
+<div style="margin-top:20px; padding:15px; background:#f5f5f5; border-radius:10px;">
+    <h3>Your Learning Progress</h3>
+    <p>➤ Topics explored: 0</p>
+    <p>➤ Questions attempted: 0</p>
+    <p>➤ Keep going🚀, consistency builds mastery! 🎓</p>
+</div>
+
     <!-- I’m providing a secure logout option -->
     <br>
     <a href="/logout">Logout</a>
@@ -710,6 +822,33 @@ function extractQuadraticCoeffs(equationRaw) {
     return "Elimination";
   }
 
+ // =====================================================
+// TOPIC DISPLAY CONTROL
+// I’m hiding all topic cards until a student picks one
+// =====================================================
+
+function showSelectedTopic() {
+  const selectedTopic = document.getElementById("topicSelector").value;
+
+  // # I’m saving the selected topic so it stays after reload
+  sessionStorage.setItem("selectedTopic", selectedTopic);
+
+  const allTopicCards = document.querySelectorAll(".topic-card");
+
+  allTopicCards.forEach(card => {
+    card.style.display = "none";
+  });
+
+  if (!selectedTopic) return;
+
+  allTopicCards.forEach(card => {
+    if (card.dataset.topic === selectedTopic) {
+      card.style.display = "block";
+    }
+  });
+}
+
+
   // I'm updating the question display so it also shows the recommended method + reason
   // This keeps explainability clean, inside the same topic card the student is using
   function showQuestion(selectEl) {
@@ -808,7 +947,7 @@ if (factorisationLikely) {
     "Factorisation works when you can find two numbers that multiply to produce the last number (constant term) and also add to produce the middle number (linear term), and in this case you can get those numbers and factorise the equation.";
 } else {
   specificReason =
-    "In this case, we cannot easily find two whole numbers that multiply to give the last number and add to give the middle number, so factorisation is not ideal here. We apply completing the square or the quadratic formula instead.";
+    "In this case, we cannot easily find two whole numbers that multiply to give the last number and add to give the middle number, so factorisation is not ideal here. We apply completing the square or the quadratic formula instead because they can handle any type of quadratic equation.";
 }
 
 reasonDisplay.textContent = specificReason;
@@ -894,7 +1033,7 @@ else if (topicTitle.includes("Simultaneous")) {
   // # I'm giving a GCSE-friendly specific reason (simple + clear)
   if (recommended === "Substitution") {
     reasonDisplay.textContent =
-      "Substitution is a good choice here because one of the equations is easier to rearrange (make one variable the subject), then you can substitute it into the other equation.";
+      "Substitution is a good choice here because one of the equations is easier to rearrange (make one variable the subject), then you can substitute it into the other equation. In this pair of equations, one variable can be rearranged easily because its coefficient is 1 or −1.";
   } else {
     reasonDisplay.textContent =
       "Elimination is a good choice here because we can add or subtract the two equations to remove one variable, which makes the solving steps more direct.";
@@ -1027,7 +1166,7 @@ else if (topicTitle.includes("Geometric")) {
   if (isNextTerms) {
     methodDisplay.textContent = "Iteration Method (Building Term by Term)";
     reasonDisplay.textContent =
-      "This question asks for the next terms, so building the sequence step-by-step by multiplying each time is the clearest approach.";
+      "This question asks for the next terms, so building the sequence step-by-step by multiplying each term by the common ratio is the clearest and most direct approach. This allows you to follow the pattern easily and avoid longer calculations..";
   } else if (isNth) {
     methodDisplay.textContent = "Formula Method (Standard nth term formula)";
     reasonDisplay.textContent =
@@ -1111,7 +1250,7 @@ else if (topicTitle.includes("Arithmetic")) {
   if (isNextTerms) {
     methodDisplay.textContent = "Iteration Method (Building Term by Term)";
     reasonDisplay.textContent =
-      "This question asks for the next terms, so adding or subtracting the same number each time is the clearest approach.";
+      "This question asks for the next terms, so building the sequence step-by-step by adding each term by the common difference is the clearest and most direct approach. This allows you to follow the pattern easily and avoid longer calculations.";
   } else if (isNth) {
     methodDisplay.textContent = "Formula Method (Standard nth term formula)";
     reasonDisplay.textContent =
@@ -1185,6 +1324,19 @@ else if (topicTitle.includes("Arithmetic")) {
       MathJax.typesetPromise([questionDisplay]);
     }
   }
+
+  // =====================================================
+// I’m restoring the selected topic after page reload
+// =====================================================
+
+window.onload = function() {
+  const selectedTopic = sessionStorage.getItem("selectedTopic");
+
+  if (selectedTopic) {
+    document.getElementById("topicSelector").value = selectedTopic;
+    showSelectedTopic();
+  }
+};
 
 /* ============================================= */
 /* SETTINGS PANEL TOGGLE FUNCTION                */
@@ -1294,7 +1446,7 @@ if(form.style.display === "none"){
     button.textContent = "Hide Explanation";
   } else {
     explanationBox.style.display = "none";
-    button.textContent = "View Explanation";
+    button.textContent = "View More Explanation";
   }
 }
 
@@ -1497,7 +1649,7 @@ function showQuadraticMethod(selectEl) {
       🪜 <strong>Step 3: Set each bracket equal to zero</strong><br>
       \\[ x + 2 = 0 \\quad \\text{or} \\quad x + 3 = 0 \\]
 
-      🪜 <strong>Step 4: Solve</strong><br>
+      🪜 <strong>Step 4: Solve for x</strong><br>
       \\[ x = -2 \\quad \\text{or} \\quad x = -3 \\]
 
       <hr>
@@ -1535,27 +1687,27 @@ function showQuadraticMethod(selectEl) {
       🪜 <strong>Step 1:</strong> Coefficient of \\( x^2 \\) is 1<br>
       Already 1 — go to the next step.
 
-      🪜 <strong>Step 2:</strong> Move the constant term<br>
+      🪜 <strong>Step 2:</strong> Move the constant term (6) to the other side of the equation<br>
       \\[ x^2 + 5x = -6 \\]
 
       🪜 <strong>Step 3:</strong> Complete the square<br>
       Half of 5 is \\( \\frac{5}{2} \\).<br>
       Square it: \\( \\left( \\frac{5}{2} \\right)^2 = \\frac{25}{4} \\)<br><br>
-      Add to both sides:<br>
+      Add to both sides of the equation:<br>
       \\[ x^2 + 5x + \\frac{25}{4} = -6 + \\frac{25}{4} \\]
 
       🪜 <strong>Step 4:</strong> Write as a squared bracket<br>
-      Left side: \\[ \\left( x + \\frac{5}{2} \\right)^2 \\]<br>
-      Right side: \\[ -6 + \\frac{25}{4} = -\\frac{24}{4} + \\frac{25}{4} = \\frac{1}{4} \\]<br><br>
+      Left side of the equation: \\[ \\left( x + \\frac{5}{2} \\right)^2 \\]<br>
+      Right side of the equation: \\[ -6 + \\frac{25}{4} = -\\frac{24}{4} + \\frac{25}{4} = \\frac{1}{4} \\]<br><br>
       So: \\[ \\left( x + \\frac{5}{2} \\right)^2 = \\frac{1}{4} \\]
 
-      🪜 <strong>Step 5:</strong> Solve by square rooting<br>
+      🪜 <strong>Step 5:</strong> Solve by square rooting both sides of the equation<br>
       \\[ x + \\frac{5}{2} = \\pm \\frac{1}{2} \\]<br><br>
 
-      <strong>Case 1:</strong><br>
+      <strong>Case 1:Solve using the positive solution</strong><br>
       \\[ x + \\frac{5}{2} = \\frac{1}{2} \\quad \\Rightarrow \\quad x = \\frac{1}{2} - \\frac{5}{2} = -2 \\]<br><br>
 
-      <strong>Case 2:</strong><br>
+      <strong>Case 2:Solve using the negative solution</strong><br>
       \\[ x + \\frac{5}{2} = -\\frac{1}{2} \\quad \\Rightarrow \\quad x = -\\frac{1}{2} - \\frac{5}{2} = -3 \\]
 
       <hr>
@@ -1582,7 +1734,7 @@ function showQuadraticMethod(selectEl) {
 
       <p><strong>Step 3:</strong> Substitute the values of a, b and c</p>
 
-      <p><strong>Step 4:</strong> Simplify inside the square root<br>
+      <p><strong>Step 4:</strong> Following BIDMAS order, simplify inside the square root<br>
       Calculate \\( b^2 - 4ac \\) first (this is the discriminant).</p>
 
       <p><strong>Step 5:</strong> Simplify fully and find the two answers<br>
@@ -1602,19 +1754,19 @@ function showQuadraticMethod(selectEl) {
       🪜 <strong>Step 3:</strong> Substitute the values<br>
       \\[ x = \\frac{-5 \\pm \\sqrt{5^2 - 4(1)(6)}}{2(1)} \\]
 
-      🪜 <strong>Step 4:</strong> Simplify inside the square root<br>
+      🪜 <strong>Step 4:</strong> Following BIDMAS order, simplify inside the square root<br>
       \\[ 5^2 = 25 \\]<br>
       \\[ 4 \\times 1 \\times 6 = 24 \\]<br>
       \\[ x = \\frac{-5 \\pm \\sqrt{25 - 24}}{2} = \\frac{-5 \\pm \\sqrt{1}}{2} \\]
 
-      🪜 <strong>Step 5:</strong> Solve using ±<br>
+      🪜 <strong>Step 5:</strong> Solve using ± (positive solution and negative solution)<br>
       \\[ \\sqrt{1} = 1 \\]<br>
       \\[ x = \\frac{-5 \\pm 1}{2} \\]<br><br>
 
-      <strong>Case 1:</strong><br>
+      <strong>Case 1: Solve using the positive solution</strong><br>
       \\[ x = \\frac{-5 + 1}{2} = \\frac{-4}{2} = -2 \\]<br><br>
 
-      <strong>Case 2:</strong><br>
+      <strong>Case 2: Solve using the negative solution</strong><br>
       \\[ x = \\frac{-5 - 1}{2} = \\frac{-6}{2} = -3 \\]
 
       <hr>
@@ -1684,18 +1836,18 @@ function showSimultaneousMethod(selectEl) {
       🪜 <strong>Step 2:</strong> Substitute into the second equation<br>
       <div style="margin: 12px 0;">
         \\[ 2x + y = 13 \\]<br>
-        Replace y:<br>
+        Replace y with 10 - x:<br>
         \\[ 2x + (10 - x) = 13 \\]
       </div>
 
-      🪜 <strong>Step 3:</strong> Solve for x<br>
+      🪜 <strong>Step 3:</strong> Solve for x by making x the subject of formula<br>
       <div style="margin: 12px 0;">
         \\[ 2x + 10 - x = 13 \\]<br>
         \\[ x + 10 = 13 \\]<br>
         \\[ x = 3 \\]
       </div>
 
-      🪜 <strong>Step 4:</strong> Find y<br>
+      🪜 <strong>Step 4:</strong> Now find y knowing that x is 3<br>
       <div style="margin: 12px 0;">
         \\[ y = 10 - x \\]<br>
         \\[ y = 10 - 3 \\]<br>
@@ -1746,7 +1898,7 @@ function showSimultaneousMethod(selectEl) {
 
       🪜 <strong>Step 2:</strong> Subtract to eliminate y<br>
       <div style="margin: 12px 0;">
-        Subtract first from second:<br>
+        Subtract the first equation from the second equation:<br>
         \\[ (2x + y) - (x + y) = 13 - 10 \\]
       </div>
 
@@ -1756,7 +1908,7 @@ function showSimultaneousMethod(selectEl) {
         \\[ x = 3 \\]
       </div>
 
-      🪜 <strong>Step 4:</strong> Substitute back to find y<br>
+      🪜 <strong>Step 4:</strong> Knowing that x is 3, substitute back to find y<br>
       <div style="margin: 12px 0;">
         Use first equation:<br>
         \\[ x + y = 10 \\]<br>
