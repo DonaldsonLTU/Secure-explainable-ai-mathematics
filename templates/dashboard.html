@@ -1,6 +1,6 @@
 <!-- ===================================================== -->
 <!-- DASHBOARD TEMPLATE (ROLE-BASED VIEW CONTROL) -->
-<!-- This template dynamically adapts based on user role -->
+<!-- This template automically adapts based on user role -->
 <!-- Designed for secure separation of student & teacher -->
 <!-- ===================================================== -->
 
@@ -29,22 +29,22 @@
 }
 
 .simultaneous-equations-card {
-    background-color:#0fa466;
+    background-color:#7997c8;
     color:white;
 }
 
 .ratio-card {
-    background-color:#3B82F6;
+    background-color:#7997c8;
     color:white;
 }
 
 .sequences-geometric-progression-card {
-    background-color:#0fa466;
+    background-color:#7997c8;
     color:white;
 }
 
 .sequences-arithmetic-progression-card {
-    background-color:#3B82F6;
+    background-color:#7997c8;
     color:white;
 }
 
@@ -130,7 +130,7 @@ tr:hover { background-color:#F3F4F6; }
     <!-- ===================================================== -->
     <!-- PRACTICE TOPICS SECTION (VISIBLE TO BOTH ROLES) -->
     <!-- Students and teachers can both browse questions here -->
-    <!-- Questions are grouped dynamically by topic -->
+    <!-- Questions are grouped by topic -->
     <!-- ===================================================== -->
 
     <h2>Practice Topics</h2>
@@ -332,7 +332,7 @@ tr:hover { background-color:#F3F4F6; }
 
   <h4>Geometric Progression Input</h4>
 
-  <!-- # I'm allowing missing values where necessary -->
+  <!-- # I'm allowing missing values where necessary so it does not return an error when question values are missing and meant to be found-->
   <input type="number" name="a" placeholder="Enter first term (a)" value="{{ request.form.a }}">
   <input type="number" name="r" placeholder="Enter common ratio (r)" value="{{ request.form.r }}">
   <input type="number" name="n" placeholder="Enter term position (n)" value="{{ request.form.n }}">
@@ -434,7 +434,7 @@ tr:hover { background-color:#F3F4F6; }
 
             <!-- Dropdown list of questions under this topic -->
             <!-- This keeps the interface clean and organised -->
-            <!-- I'm giving each dropdown an onchange handler -->
+            <!-- I'm assigning a handler to each dropdown option to respond when the selection changes -->
 <select onchange="showQuestion(this)">
     <option value="">Select a question</option>
 
@@ -520,7 +520,7 @@ tr:hover { background-color:#F3F4F6; }
 <!-- SETTINGS PANEL                            -->
 <!-- ========================================= -->
 
-<!-- # I'm creating the hidden settings menu -->
+<!-- # I'm creating the settings menu -->
 <div id="settingsPanel" 
      style="display:none; position:absolute; top:40px; right:10px; 
      background:white; border:1px solid black; padding:10px; width:220px;">
@@ -554,7 +554,7 @@ tr:hover { background-color:#F3F4F6; }
 </div>
 
 <!-- ========================================= -->
-<!-- INSERT QUESTION FORM (TEACHER)            -->
+<!-- INSERT QUESTION FORM (FOR TEACHER ONLY)            -->
 <!-- ========================================= -->
 
 <div id="insertQuestionForm" 
@@ -586,7 +586,7 @@ tr:hover { background-color:#F3F4F6; }
 </div>
 
 <!-- ========================================= -->
-<!-- CREATE USER FORM (TEACHER)                -->
+<!-- CREATE USER FORM (FOR TEACHER ONLY)                -->
 <!-- ========================================= -->
 
 <div id="createUserForm"
@@ -615,7 +615,7 @@ tr:hover { background-color:#F3F4F6; }
 </div>
 
 <!-- ========================================= -->
-<!-- DELETE USER FORM (TEACHER)                -->
+<!-- DELETE USER FORM (FOR TEACHER ONLY)                -->
 <!-- ========================================= -->
 
 <div id="deleteUserForm"
@@ -641,7 +641,7 @@ tr:hover { background-color:#F3F4F6; }
 </div>
 
 <!-- ========================================= -->
-<!-- DELETE QUESTION FORM (TEACHER)            -->
+<!-- DELETE QUESTION FORM (FOR TEACHER ONLY)            -->
 <!-- ========================================= -->
 
 <div id="deleteQuestionForm"
@@ -714,7 +714,7 @@ function extractQuadraticCoeffs(equationRaw) {
     .replace(/\s/g, "")
     .replace(/²/g, "^2");
 
-  const [lhs] = eq.split("="); // I assume "=0" style for now (your questions are like that)
+  const [lhs] = eq.split("="); // I assume "=0" style for now because most GCSE question structures are like that
 
   const varMatch = lhs.match(/[a-zA-Z]/);
   const v = varMatch ? varMatch[0] : "x";
@@ -913,7 +913,7 @@ function isPerfectSquare(n) {
 // # I'm deciding if factorisation is likely (this is "computer logic", not student wording)
 const factorisationLikely = (D >= 0) && isPerfectSquare(D);
 
-// # I'm preparing GCSE-friendly wording for students (simple + clear)
+// # I'm using GCSE-friendly wording for students simple and clear to explain reasons behind recommendations
 let factorisationStudentText = "";
 if (factorisationLikely) {
   factorisationStudentText =
@@ -923,11 +923,11 @@ if (factorisationLikely) {
     "If there are no two whole numbers that multiply to give the last number(constant term) and add to give the middle number(linear term), then factorisation is not ideal for this problem, so we use completing the square or the quadratic formula instead.";
 }
 
-// # I'm keeping the other methods as reliable backups (simple wording)
+// # I'm keeping the other methods as reliable backups using simple terms
 const generalMethodsStudentText =
   "Completing the square and the quadratic formula are general methods that usually work cleanly even when numbers are a bit complex (decimals/fractions), so they’re always reliable.";
 
-// # I'm choosing the recommended method dynamically using maths logic
+// # I'm choosing the recommended method adaptively using maths logic
 let recommendedMethod = "";
 
 if (factorisationLikely) {
@@ -939,7 +939,7 @@ if (factorisationLikely) {
 // # I'm displaying the recommended method clearly at the top
 methodDisplay.textContent = recommendedMethod;
 
-// # I'm giving a specific reason for THIS equation
+// # I'm giving a specific reason for this equation
 let specificReason = "";
 
 if (factorisationLikely) {
@@ -953,7 +953,7 @@ if (factorisationLikely) {
 reasonDisplay.textContent = specificReason;
 
   // I'm now building a structured explanation specifically for quadratic equations
-  // This supports Style 1 (clear structure) and prepares for deeper breakdown later
+  // This supports clear structure and prepares explanations for deeper breakdown later on
 
   explanationBody.innerHTML = `
     <h4>Understanding the structure of a quadratic equation</h4>
@@ -1030,7 +1030,7 @@ else if (topicTitle.includes("Simultaneous")) {
   // # I'm displaying the recommended method at the top
   methodDisplay.textContent = recommended;
 
-  // # I'm giving a GCSE-friendly specific reason (simple + clear)
+  // # I'm giving a GCSE-friendly specific reason (simple and clear)
   if (recommended === "Substitution") {
     reasonDisplay.textContent =
       "Substitution is a good choice here because one of the equations is easier to rearrange (make one variable the subject), then you can substitute it into the other equation. In this pair of equations, one variable can be rearranged easily because its coefficient is 1 or −1.";
@@ -1145,7 +1145,7 @@ else if (topicTitle.includes("Ratio")) {
     </p>
   `;
 
-  // # There's usually no heavy algebra here, but MathJax is safe to run anyway
+  // # There's usually no heavy algebra signs to render properly here, but MathJax is safe to run still
   if (window.MathJax) {
     MathJax.typesetPromise([explanationBody]);
   }
@@ -1172,7 +1172,7 @@ else if (topicTitle.includes("Geometric")) {
     reasonDisplay.textContent =
       "This question is about a specific term position, so the nth term formula is the quickest method.";
   } else {
-    // # If the text is unclear, I default to showing both methods as valid
+    // # If the text is unclear, It goes to default to show both methods as valid
     methodDisplay.textContent = "Iteration or Formula Method";
     reasonDisplay.textContent =
       "You can either build the terms step-by-step or use the nth term formula, depending on what the question is asking for.";
@@ -1229,7 +1229,7 @@ else if (topicTitle.includes("Geometric")) {
     </p>
   `;
 
-  // # I'm rendering the GP formula nicely (powers should look normal)
+  // # I'm rendering the GP formula nicely (powers should appear normally for users to view)
   if (window.MathJax) {
     MathJax.typesetPromise([explanationBody]);
   }
@@ -1242,7 +1242,7 @@ else if (topicTitle.includes("Arithmetic")) {
   // ARITHMETIC PROGRESSION (AP METHODS)
   // -------------------------------------------------
 
-  // # I'm choosing between iteration vs formula using simple GCSE language
+  // # I'm choosing between iteration vs formula using simple GCSE level term
   const lower = chosenQuestion.toLowerCase();
   const isNextTerms = lower.includes("next") || lower.includes("terms");
   const isNth = lower.includes("nth") || lower.includes("n");
@@ -1339,7 +1339,7 @@ window.onload = function() {
 };
 
 /* ============================================= */
-/* SETTINGS PANEL TOGGLE FUNCTION                */
+/* I am creating a SETTINGS PANEL TOGGLE FUNCTION to hold user functions               */
 /* ============================================= */
 
 function toggleSettings() {
@@ -1357,7 +1357,7 @@ function toggleSettings() {
 }
 
 /* ============================================= */
-/* INSERT QUESTION FORM TOGGLE                   */
+/* I am creating an INSERT QUESTION FORM TOGGLE for question management                  */
 /* ============================================= */
 
 function toggleInsertQuestion(){
@@ -1373,7 +1373,7 @@ if(form.style.display === "none"){
 }
 
 /* ============================================= */
-/* CREATE USER FORM TOGGLE                       */
+/* I am creating a CREATE USER FORM TOGGLE for user management                      */
 /* ============================================= */
 
 function toggleCreateUser(){
@@ -1389,7 +1389,7 @@ if(form.style.display === "none"){
 }
 
 /* ============================================= */
-/* DELETE USER FORM TOGGLE                       */
+/* I am creating a DELETE USER FORM TOGGLE for user management                      */
 /* ============================================= */
 
 function toggleDeleteUser(){
@@ -1405,7 +1405,7 @@ if(form.style.display === "none"){
 }
 
 /* ============================================= */
-/* DELETE QUESTION FORM TOGGLE                   */
+/* I am creating a DELETE QUESTION FORM TOGGLE for question management                   */
 /* ============================================= */
 
 function toggleDeleteQuestion(){
@@ -1421,7 +1421,7 @@ if(form.style.display === "none"){
 }
 
 /* ============================================= */
-/* CHANGE PASSWORD FORM TOGGLE                   */
+/* i am creating a CHANGE PASSWORD FORM TOGGLE for users                   */
 /* ============================================= */
 
 function toggleChangePassword(){
@@ -1465,7 +1465,7 @@ function showQuadraticMethod(selectEl) {
   let content = "";
 
   // =========================================
-  // FACTORISATION
+  // FACTORISATION structure explanation
   // =========================================
   if (selectEl.value === "factorisation") {
 
@@ -1513,7 +1513,7 @@ function showQuadraticMethod(selectEl) {
   }
 
   // =========================================
-  // COMPLETING THE SQUARE
+  // COMPLETING THE SQUARE structure explanation
   // =========================================
   else if (selectEl.value === "completing") {
 
@@ -1599,7 +1599,7 @@ function showQuadraticMethod(selectEl) {
 
 /* ============================================= */
 /* QUADRATIC METHOD DISPLAY FUNCTION            */
-/* Student-friendly explanations  */
+/* i am also adding student friendly explanations  */
 /* ============================================= */
 function showQuadraticMethod(selectEl) {
 
@@ -1786,7 +1786,7 @@ function showQuadraticMethod(selectEl) {
 
 /* ============================================= */
 /* SIMULTANEOUS EQUATIONS METHOD DISPLAY         */
-/* Student-friendly explanations    */
+/* i am also adding student friendly explanations to the method    */
 /* ============================================= */
 function showSimultaneousMethod(selectEl) {
 
@@ -1933,7 +1933,7 @@ function showSimultaneousMethod(selectEl) {
 
 /* ============================================= */
 /* RATIO METHOD DISPLAY                          */
-/* Student-friendly explanations        */
+/* I am also adding student friendly explanations        */
 /* ============================================= */
 function showRatioMethod(selectEl) {
 
@@ -2093,7 +2093,7 @@ function showRatioMethod(selectEl) {
 
 /* ============================================= */
 /* GEOMETRIC PROGRESSION METHOD DISPLAY          */
-/* Student-friendly explanations
+/* i am also adding student friendly explanations
 /* ============================================= */
 function showGPMethod(selectEl) {
 
@@ -2285,7 +2285,7 @@ function showGPMethod(selectEl) {
 
 /* ============================================= */
 /* ARITHMETIC PROGRESSION METHOD DISPLAY         */
-/* Student-friendly explanations  */
+/* i am also adding Student friendly explanations  */
 /* ============================================= */
 function showAPMethod(selectEl) {
 

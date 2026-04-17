@@ -4,52 +4,63 @@
     <title>Login</title>
     <style>
 
-body {
-    background-image: url("{{ url_for('static', filename='background.jpg') }}");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
+        /* # I’m setting a full-screen background image to make the login page visually appealing */
+        body {
+            /* # I’m loading the background image from the static folder using Flask */
+            background-image: url("{{ url_for('static', filename='background.jpg') }}");
+            /* # I’m ensuring the image covers the entire screen */
+            background-size: cover;
+            /* # I’m centering the image properly */
+            background-position: center;
+            /* # I’m preventing the image from repeating */
+            background-repeat: no-repeat;
+            height: 100vh;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+            /* # I’m centering the login box both vertically and horizontally */
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-    font-family: Arial, sans-serif;
-    color: white;
-}
+            /* # I’m using a clean font for readability */
+            font-family: Arial, sans-serif;
+            color: white;
+        }
 
-/* Login box */
-.login-container {
-    background: rgba(0,0,0,0.45);
-    padding: 40px;
-    border-radius: 10px;
-    width: 400px;
-    max-width: 90%;
-    text-align: center;
-}
+        /* I am forma Login box */
+        /* # I’m designing the login container as a semi-transparent card for better visibility */
+        .login-container {
+            /* # I’m using transparency so the background image is still visible */
+            background: rgba(0,0,0,0.45);
+            padding: 40px;
+            border-radius: 10px;
+            width: 400px;
+            max-width: 90%;
+            text-align: center;
+        }
 
-/* Input fields */
-input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: none;
-}
+        /* Input fields */
+        /* # I’m styling the input fields to be full-width and user-friendly */
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+        }
 
-/* Button */
-button {
-    width: 100%;
-    padding: 10px;
-    background: #1e90ff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-}
+        /* Button */
+        /* # I’m styling the login button to be clear and easy to click */
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
 
-</style>
+    </style>
 </head>
 <body>
 
@@ -59,26 +70,33 @@ button {
 <!-- so the form appears centred and styled on the page -->
 <!-- ===================================================== -->
 
+<!-- # This container holds the entire login form and keeps it visually organised -->
 <div class="login-container">
 
     <!-- I’m displaying the login page title -->
+    <!-- # This clearly identifies the system to the user -->
     <h2>Secure Explainable AI Mathematics</h2>
 
     <!-- I’m creating a secure login form using Flask-WTF -->
+    <!-- # This form handles user authentication securely -->
     <form method="post">
 
         <!-- I’m injecting the CSRF token to protect against CSRF attacks -->
+        <!-- # This ensures that form submissions are genuine and not forged -->
         {{ form.hidden_tag() }}
 
         <!-- I’m rendering the username input field safely from the Flask form -->
+        <!-- # This allows users to enter their username securely -->
         <label>Username:</label><br>
         {{ form.username }}<br><br>
 
         <!-- I’m rendering the password input field safely from the Flask form -->
+        <!-- # This field securely captures the user’s password -->
         <label>Password:</label><br>
         {{ form.password }}<br><br>
 
         <!-- I’m rendering the submit button from the Flask form -->
+        <!-- # This submits the login request to the server for validation -->
         {{ form.submit }}
 
     </form>

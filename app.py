@@ -91,10 +91,10 @@ def predict_method(question_text):
     and returns the predicted solving method.
     """
     
-    # I convert the question into numerical features
+    # I am converting the question into numerical features
     transformed_input = vectorizer.transform([question_text])
     
-    # I ask the trained model to predict the method
+    # I am making the trained model to predict the method
     prediction = model.predict(transformed_input)
     
     return prediction[0]
@@ -445,7 +445,6 @@ def rule_based_ap_method(a_n, a, d, n):
         return "Formula Method", explanation
 
 # I’m setting a secret key for secure session management
-# In production this would come from environment variables
 app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key")
 
 # -------------------------------------------------
@@ -513,7 +512,7 @@ class LoginForm(FlaskForm):
 # -------------------------------------------------
 # TEMPORARY IN-MEMORY USERS (SECURE BUT SIMPLE)
 # -------------------------------------------------
-# I’m defining fixed users to avoid database complexity for now
+# I’m defining fixed users to avoid database complexity
 # Passwords are hashed immediately (good security practice)
 users = {
     "teacher": {
